@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>org.richfaces</groupId>
-        <artifactId>richfaces-parent</artifactId>
-        <version>12</version>
+        <groupId>org.jboss</groupId>
+        <artifactId>jboss-parent</artifactId>
+	    <version>11</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jboss.test-jsf</groupId>
@@ -17,7 +17,7 @@
         <developerConnection>scm:git:git@github.com:richfaces/jsf-test.git</developerConnection>
         <url>https://github.com/richfaces/jsf-test/tree/develop</url>
     </scm>
-
+    
     <modules>
         <module>mock</module>
         <module>jsf-mockito</module>
@@ -200,7 +200,7 @@
             <dependency>
                 <groupId>org.jboss.el</groupId>
                 <artifactId>jboss-el</artifactId>
-                <version>1.0_02.CR5</version>
+                <version>1.0_02.CR6</version>
             </dependency>
 
             <dependency>
