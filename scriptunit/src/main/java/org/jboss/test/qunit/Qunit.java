@@ -147,7 +147,7 @@ public class Qunit implements MethodRule {
 
     protected void thearDownQunit(FrameworkMethod method, Object target) {
         if(null != page){
-            webClient.closeAllWindows();
+            webClient.close();
         }
         
     }

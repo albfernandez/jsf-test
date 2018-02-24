@@ -2,6 +2,7 @@ package org.jboss.test.faces.stub.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collection;
 import java.util.Locale;
 
 import javax.servlet.ServletOutputStream;
@@ -150,4 +151,28 @@ public class StubHttpServletResponse implements HttpServletResponse
    public void setLocale(Locale arg0)
    {
    }
+
+@Override
+public int getStatus() {
+	// TODO Auto-generated method stub
+	return 0;
+}
+
+@Override
+public String getHeader(String name) {
+	// TODO Auto-generated method stub
+	return null;
+}
+
+@Override
+public Collection<String> getHeaders(String name) {
+	// TODO Auto-generated method stub
+	return null;
+}
+
+@Override
+public Collection<String> getHeaderNames() {
+	// TODO Auto-generated method stub
+	return null;
+}
 }

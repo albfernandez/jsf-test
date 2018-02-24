@@ -93,7 +93,7 @@ public class HtmlUnitEnvironment extends FacesEnvironment {
 
     @Override
     public void release() {
-        webClient.closeAllWindows();
+        webClient.close();
         webClient = null;
         super.release();
     }

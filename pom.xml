@@ -13,10 +13,9 @@
     <packaging>pom</packaging>
 
     <scm>
-        <connection>scm:git:git://github.com/richfaces/jsf-test.git</connection>
-        <developerConnection>scm:git:git@github.com:richfaces/jsf-test.git</developerConnection>
-        <url>https://github.com/richfaces/jsf-test/tree/develop</url>
-      <tag>HEAD</tag>
+        <connection>scm:git:git://github.com/albfernandez/jsf-test.git</connection>
+        <developerConnection>scm:git:git@github.com:albfernandez/jsf-test.git</developerConnection>
+        <url>https://github.com/albfernandez/jsf-test/</url>
   </scm>
     
     <properties>
@@ -146,7 +145,7 @@
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.11</version>
+                <version>4.12</version>
             </dependency>
 
             <dependency>
@@ -181,8 +180,8 @@
             </dependency>
             <dependency>
                 <groupId>javax.servlet</groupId>
-                <artifactId>servlet-api</artifactId>
-                <version>2.5</version>
+                <artifactId>javax.servlet-api </artifactId>
+                <version>3.0.1</version>
             </dependency>
             <dependency>
                 <groupId>org.glassfish</groupId>
@@ -214,12 +213,12 @@
             <dependency>
                 <groupId>net.sourceforge.htmlunit</groupId>
                 <artifactId>htmlunit</artifactId>
-                <version>2.15</version>
+                <version>2.29</version>
             </dependency>
             <dependency>
                 <groupId>net.sourceforge.htmlunit</groupId>
                 <artifactId>htmlunit-core-js</artifactId>
-                <version>2.15</version>
+                <version>2.28</version>
             </dependency>
             <dependency>
                 <groupId>commons-httpclient</groupId>
@@ -229,7 +228,7 @@
             <dependency>
                 <groupId>net.sourceforge.cssparser</groupId>
                 <artifactId>cssparser</artifactId>
-                <version>0.9.11</version>
+                <version>0.9.25</version>
             </dependency>
             <dependency>
                 <groupId>commons-io</groupId>

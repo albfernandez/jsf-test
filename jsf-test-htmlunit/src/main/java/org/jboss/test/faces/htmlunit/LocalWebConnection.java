@@ -49,7 +49,7 @@ public final class LocalWebConnection implements WebConnection {
 		}
 		HttpMethod httpMethod = HttpMethod.valueOf(request.getHttpMethod().toString());
 		connection.setRequestMethod(httpMethod);
-		connection.setRequestCharacterEncoding(request.getCharset());
+		connection.setRequestCharacterEncoding(request.getCharset().name());
 		String body = request.getRequestBody();
 		String contentType = request.getEncodingType().getName();
 		connection.setRequestBody(body);
@@ -77,6 +77,11 @@ public final class LocalWebConnection implements WebConnection {
 		WebResponseData responseData = new WebResponseData(connection.getResponseBody(),connection.getResponseStatus(),connection.getErrorMessage(),headers);
 		return new WebResponse(responseData,request,System.currentTimeMillis()-startTime);
 		
+	}
+
+	@Override
+	public void close() throws Exception {
+		// TODO Auto-generated method stub		
 	}
 
 }
