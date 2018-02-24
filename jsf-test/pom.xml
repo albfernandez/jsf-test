@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.jboss.test-jsf</groupId>
+        <groupId>com.github.albfernandez.test-jsf</groupId>
         <artifactId>parent</artifactId>
         <version>1.1.11-SNAPSHOT</version>
     </parent>
@@ -15,32 +15,32 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.jboss.test-jsf</groupId>
+                <groupId>com.github.albfernandez.test-jsf</groupId>
                 <artifactId>jsf-test-jetty</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.jboss.test-jsf</groupId>
+                <groupId>com.github.albfernandez.test-jsf</groupId>
                 <artifactId>jsf-mockito</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.jboss.test-jsf</groupId>
+                <groupId>com.github.albfernandez.test-jsf</groupId>
                 <artifactId>htmlunit-client</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.jboss.test-jsf</groupId>
+                <groupId>com.github.albfernandez.test-jsf</groupId>
                 <artifactId>jsf-mock</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.jboss.test-jsf</groupId>
+                <groupId>com.github.albfernandez.test-jsf</groupId>
                 <artifactId>jsf-test-scriptunit</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.jboss.test-jsf</groupId>
+                <groupId>com.github.albfernandez.test-jsf</groupId>
                 <artifactId>jsf-test-stage</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -49,32 +49,32 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.jboss.test-jsf</groupId>
+            <groupId>com.github.albfernandez.test-jsf</groupId>
             <artifactId>jsf-test-jetty</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.jboss.test-jsf</groupId>
+            <groupId>com.github.albfernandez.test-jsf</groupId>
             <artifactId>jsf-mockito</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.jboss.test-jsf</groupId>
+            <groupId>com.github.albfernandez.test-jsf</groupId>
             <artifactId>htmlunit-client</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.jboss.test-jsf</groupId>
+            <groupId>com.github.albfernandez.test-jsf</groupId>
             <artifactId>jsf-mock</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.jboss.test-jsf</groupId>
+            <groupId>com.github.albfernandez.test-jsf</groupId>
             <artifactId>jsf-test-scriptunit</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.jboss.test-jsf</groupId>
+            <groupId>com.github.albfernandez.test-jsf</groupId>
             <artifactId>jsf-test-stage</artifactId>
             <version>${project.version}</version>
         </dependency>
