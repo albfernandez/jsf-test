@@ -361,7 +361,6 @@ abstract class StagingHttpResponse implements HttpServletResponse {
 	 */
 	public boolean isCommitted() {
 		// TODO Auto-generated method stub
-		log.info("unimplemented response method isCommited");
 		return false;
 	}
 
