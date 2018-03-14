@@ -170,6 +170,7 @@ public class Qunit implements MethodRule {
 
     private String buildContent(FrameworkMethod method, Object target) {
         StringBuilder content = new StringBuilder();
+        content.append("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n");
         content.append("<html><head><title>").append(method.getName()).append("</title>");
         appendScripts(content,target);
         content.append("</head><body>").append(getHtmlContent(target)).append("</body></html>");

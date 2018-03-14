@@ -4,7 +4,7 @@
   <parent>
     <artifactId>parent</artifactId>
     <groupId>com.github.albfernandez.test-jsf</groupId>
-    <version>1.1.12</version>
+    <version>1.1.12-SNAPSHOT</version>
   </parent>
   <artifactId>jsf-test-scriptunit</artifactId>
   <name>JSF Test Framework: Script Unit</name>
