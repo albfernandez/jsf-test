@@ -227,9 +227,7 @@ public class Qunit implements MethodRule {
      */
     public Object runScript(String script){
         ScriptResult scriptResult = page.executeJavaScript(script);
-        page = (HtmlPage) scriptResult.getNewPage();
         return scriptResult.getJavaScriptResult();
-        
     }
 
     /**
