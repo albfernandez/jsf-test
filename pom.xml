@@ -93,6 +93,12 @@
             <plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<source>7</source>
+					<links>
+                        <link>https://docs.oracle.com/javase/7/docs/api/</link>
+                    </links>
+				</configuration>
 				<version>3.0.0</version>
 				<executions>
 					<execution>
