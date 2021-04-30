@@ -80,7 +80,7 @@ public final class LocalWebConnection implements WebConnection {
 	}
 
 	@Override
-	public void close() throws Exception {
+	public void close() {
 		// TODO Auto-generated method stub		
 	}
 
