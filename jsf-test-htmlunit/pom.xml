@@ -39,7 +39,7 @@
             <artifactId>el-api</artifactId>
         </dependency>
         <dependency>
-                <groupId>org.jboss.el</groupId>
+                <groupId>com.github.albfernandez</groupId>
                 <artifactId>jboss-el</artifactId>
         </dependency>
 		<dependency>
@@ -80,10 +80,6 @@
 					<groupId>xml-apis</groupId>
 					<artifactId>xml-apis</artifactId>
 				</exclusion>
-				<!--
-					<exclusion> <groupId>xerces</groupId>
-					<artifactId>xercesImpl</artifactId> </exclusion>
-				-->
 			</exclusions>
 		</dependency>
 		<dependency>

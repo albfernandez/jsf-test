@@ -49,18 +49,13 @@
 			<artifactId>el-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.jboss.el</groupId>
+			<groupId>com.github.albfernandez</groupId>
 			<artifactId>jboss-el</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish</groupId>
 			<artifactId>javax.servlet</artifactId>
 		</dependency>
-<!--	<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-		</dependency>
- -->
  		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>jsp-api</artifactId>
@@ -73,7 +68,6 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 		</dependency>
-
 	</dependencies>
 
 </project>
