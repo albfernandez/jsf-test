@@ -7,6 +7,13 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 
+import org.easymock.ConstructorArgs;
+import org.easymock.internal.ClassExtensionHelper;
+import org.easymock.internal.ClassInstantiatorFactory;
+import org.easymock.internal.ClassProxyFactory.MockMethodInterceptor;
+import org.easymock.internal.IProxyFactory;
+import org.easymock.internal.ObjectMethodsFilter;
+
 import net.sf.cglib.core.CollectionUtils;
 import net.sf.cglib.core.DefaultNamingPolicy;
 import net.sf.cglib.core.Predicate;
@@ -15,13 +22,6 @@ import net.sf.cglib.proxy.Callback;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.Factory;
 import net.sf.cglib.proxy.MethodInterceptor;
-
-import org.easymock.classextension.ConstructorArgs;
-import org.easymock.classextension.internal.ClassExtensionHelper;
-import org.easymock.classextension.internal.ClassInstantiatorFactory;
-import org.easymock.classextension.internal.ClassProxyFactory.MockMethodInterceptor;
-import org.easymock.internal.IProxyFactory;
-import org.easymock.internal.ObjectMethodsFilter;
 
 /**
  * Factory generating a mock for a class.

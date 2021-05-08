@@ -23,7 +23,7 @@
 
 package org.jboss.test.faces.mock;
 
-import static org.easymock.classextension.EasyMock.*;
+import static org.easymock.EasyMock.*;
 
 import javax.faces.FactoryFinder;
 import javax.faces.context.ExternalContext;

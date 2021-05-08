@@ -23,7 +23,7 @@
 
 package org.jboss.test.faces.mock.component;
 
-import static org.easymock.classextension.EasyMock.*;
+import static org.easymock.EasyMock.*;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;

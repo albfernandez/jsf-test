@@ -1,12 +1,12 @@
 package org.jboss.test.faces.mock;
 
-import static org.easymock.classextension.internal.ClassExtensionHelper.getInterceptor;
-import static org.easymock.classextension.internal.ClassExtensionHelper.setCurrentConstructorArgs;
+import static org.easymock.internal.ClassExtensionHelper.getInterceptor;
+import static org.easymock.internal.ClassExtensionHelper.setCurrentConstructorArgs;
 
 import java.lang.reflect.Method;
 
-import org.easymock.classextension.ConstructorArgs;
-import org.easymock.classextension.IMocksControl;
+import org.easymock.ConstructorArgs;
+import org.easymock.IMocksControl;
 import org.easymock.internal.IProxyFactory;
 import org.easymock.internal.MocksControl;
 

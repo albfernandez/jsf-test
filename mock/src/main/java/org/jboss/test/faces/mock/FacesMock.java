@@ -1,7 +1,7 @@
 package org.jboss.test.faces.mock;
 
 import org.easymock.IMocksControl;
-import org.easymock.classextension.internal.ClassExtensionHelper;
+import org.easymock.internal.ClassExtensionHelper;
 import org.easymock.internal.MocksControl;
 /**
  * <p class="changed_added_4_0"></p>
@@ -14,7 +14,7 @@ public class FacesMock {
         //hidden constructor
     }
 
-    public static org.easymock.classextension.IMocksControl createControl(){
+    public static org.easymock.IMocksControl createControl(){
         return new FacesMocksClassControl(MocksControl.MockType.DEFAULT);
     }
 
