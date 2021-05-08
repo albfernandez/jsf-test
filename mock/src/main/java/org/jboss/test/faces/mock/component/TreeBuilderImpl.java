@@ -23,7 +23,7 @@
 
 package org.jboss.test.faces.mock.component;
 
-import static org.easymock.classextension.EasyMock.*;
+import static org.easymock.EasyMock.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;

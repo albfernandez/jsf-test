@@ -1,6 +1,6 @@
 package org.jboss.test.faces.mock;
 
-import static org.easymock.classextension.EasyMock.*;
+import static org.easymock.EasyMock.*;
 import static org.junit.Assert.*;
 
 import javax.faces.application.FacesMessage;

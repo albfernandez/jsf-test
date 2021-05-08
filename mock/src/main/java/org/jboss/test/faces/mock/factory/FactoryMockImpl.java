@@ -23,12 +23,12 @@ package org.jboss.test.faces.mock.factory;
 
 import java.lang.reflect.Field;
 
+import org.easymock.EasyMock;
+import org.easymock.internal.ClassExtensionHelper;
+import org.easymock.internal.ClassProxyFactory.MockMethodInterceptor;
+
 import net.sf.cglib.proxy.Callback;
 import net.sf.cglib.proxy.Factory;
-
-import org.easymock.classextension.EasyMock;
-import org.easymock.classextension.internal.ClassExtensionHelper;
-import org.easymock.classextension.internal.ClassProxyFactory.MockMethodInterceptor;
 
 /**
  * The implementation of factory mocks - mocks which needs to be created by constructing class instance by class name (e.g.

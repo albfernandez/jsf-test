@@ -18,8 +18,8 @@
 	<properties>
 		<!-- maven-compiler-plugin -->
 		<!-- Overide jboss-parent default version -->
-		<maven.compiler.target>1.7</maven.compiler.target>
-		<maven.compiler.source>1.7</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -94,21 +94,10 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.2.0</version>
 				<configuration>
-					<source>7</source>
-					<links>
-						<link>https://docs.oracle.com/javase/7/docs/api/</link>
-					</links>
+					<additionalparam>-Xdoclint:none</additionalparam>
 				</configuration>
-				<version>3.0.0</version>
-				<executions>
-					<execution>
-						<id>attach-javadocs</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -190,7 +179,7 @@
 			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
-				<version>4.13.1</version>
+				<version>4.13.2</version>
 			</dependency>
 
 			<dependency>
