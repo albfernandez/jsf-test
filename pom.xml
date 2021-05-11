@@ -5,9 +5,26 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.albfernandez.test-jsf</groupId>
 	<artifactId>parent</artifactId>
-	<version>1.1.14-SNAPSHOT</version>
+	<version>1.1.14</version>
 	<name>JSF Test Framework</name>
 	<packaging>pom</packaging>
+
+	<description>
+        JSF Test Framework
+    </description>
+	<url>https://github.com/albfernandez/jsf-test</url>
+    <licenses>
+        <license>
+            <name>GNU Lesser General Public License, Version 2.1</name>
+            <distribution>repo</distribution>
+            <url>http://www.gnu.org/licenses/lgpl-2.1.txt</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>RichFaces committers</name>
+        </developer>
+    </developers>
 
 	<scm>
 		<connection>scm:git:git://github.com/albfernandez/jsf-test.git</connection>
@@ -34,7 +51,13 @@
 		<module>scriptunit</module>
 		<module>jsf-test</module>
 	</modules>
+	
 
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/albfernandez/richfaces/issues</url>
+    </issueManagement>
+	
 	<build>
 		<defaultGoal>package</defaultGoal>
 		<pluginManagement>
@@ -96,6 +119,8 @@
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>3.2.0</version>
 				<configuration>
+					<source>8</source>
+					<quiet>true</quiet>
 					<additionalparam>-Xdoclint:none</additionalparam>
 				</configuration>
 			</plugin>
