@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>com.github.albfernandez.test-jsf</groupId>
 		<artifactId>parent</artifactId>
-		<version>1.1.16</version>
+		<version>1.1.17-SNAPSHOT</version>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
@@ -51,13 +51,13 @@
 		<dependency>
 			<groupId>com.github.albfernandez.test-jsf</groupId>
 			<artifactId>jsf-test-stage</artifactId>
-			<version>1.1.16</version>
+			<version>1.1.17-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.github.albfernandez.test-jsf</groupId>
 			<artifactId>jsf-test-stage</artifactId>
-			<version>1.1.16</version>
+			<version>1.1.17-SNAPSHOT</version>
 			<classifier>tests</classifier>
 			<scope>test</scope>
 		</dependency>
