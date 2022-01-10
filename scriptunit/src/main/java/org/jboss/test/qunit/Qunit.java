@@ -172,13 +172,13 @@ public class Qunit implements MethodRule {
 
     private void setupWebClient() {
         webClient = new WebClient(browser);
+        webClient.setJavaScriptErrorListener(null);
         if (!verbose) {
         	webClient.setJavaScriptErrorListener(new SilentJavaScriptErrorListener());
         }
         mockConnection = new MockWebConnection();
         webClient.setWebConnection(mockConnection);
         webClient.setAjaxController(new NicelyResynchronizingAjaxController());
-        webClient.setJavaScriptErrorListener(null);
     }
 
     private String buildContent(FrameworkMethod method, Object target) {
