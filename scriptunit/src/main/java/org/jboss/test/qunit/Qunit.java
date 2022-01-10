@@ -39,6 +39,7 @@ import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
 import com.gargoylesoftware.htmlunit.ScriptResult;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.javascript.SilentJavaScriptErrorListener;
 
 /**
  * <p class="changed_added_4_0">This class represents qunit test environment ( html page, java script libraries ... ) </p>
@@ -100,6 +101,12 @@ public class Qunit implements MethodRule {
             return this;
         }
         
+        public Builder setVerboseJavascriptExceptions(boolean verbose) {
+        	rule.verbose = verbose;
+        	return this;
+        }
+        
+        
         public Qunit build(){
             return rule;
         }
@@ -121,6 +128,8 @@ public class Qunit implements MethodRule {
     private HtmlPage page;
 
     private MockWebConnection mockConnection;
+    
+    private boolean verbose = false;
 
     public static final String DEFAULT_URL = "http://localhost";
     
@@ -163,9 +172,13 @@ public class Qunit implements MethodRule {
 
     private void setupWebClient() {
         webClient = new WebClient(browser);
+        if (!verbose) {
+        	webClient.setJavaScriptErrorListener(new SilentJavaScriptErrorListener());
+        }
         mockConnection = new MockWebConnection();
         webClient.setWebConnection(mockConnection);
         webClient.setAjaxController(new NicelyResynchronizingAjaxController());
+        webClient.setJavaScriptErrorListener(null);
     }
 
     private String buildContent(FrameworkMethod method, Object target) {
