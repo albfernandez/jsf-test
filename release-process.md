@@ -16,7 +16,8 @@ JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/ mvn clean package install verify
 
 ```bash
 # change release in poms and README.md 
-mvn clean package javadoc:jar deploy -DskipTests
+mvn clean package install javadoc:jar verify
+mvn -Psign clean package javadoc:jar deploy
 git add -A
 git commit -S -m 'Release <1.1.14>'
 git tag -a <1.1.14> -m "Tagging release <1.1.14>"
