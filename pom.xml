@@ -309,17 +309,7 @@
 				<artifactId>xml-apis</artifactId>
 				<version>1.4.01</version>
 			</dependency>
-			<dependency>
-				<groupId>net.sourceforge.nekohtml</groupId>
-				<artifactId>nekohtml</artifactId>
-				<version>1.9.22</version>
-				<exclusions>
-					<exclusion>
-						<groupId>xml-apis</groupId>
-						<artifactId>xml-apis</artifactId>
-					</exclusion>
-				</exclusions>
-			</dependency>
+
 			<dependency>
 				<groupId>xalan</groupId>
 				<artifactId>xalan</artifactId>

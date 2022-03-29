@@ -40,22 +40,6 @@
         </dependency>
 
         <dependency>
-            <groupId>net.sourceforge.nekohtml</groupId>
-            <artifactId>nekohtml</artifactId>
-
-            <!-- TODO: move exclusions to VM? -->
-            <exclusions>
-                <exclusion>
-                    <groupId>xml-apis</groupId>
-                    <artifactId>xml-apis</artifactId>
-                </exclusion>
-                <!--
-                    <exclusion> <groupId>xerces</groupId>
-                    <artifactId>xercesImpl</artifactId> </exclusion>
-                -->
-            </exclusions>
-        </dependency>
-        <dependency>
             <groupId>xalan</groupId>
             <artifactId>xalan</artifactId>
             <exclusions>
