@@ -11,12 +11,12 @@ import org.jboss.test.faces.staging.HttpMethod;
 import org.jboss.test.faces.staging.StagingConnection;
 import org.jboss.test.faces.staging.StagingServer;
 
-import com.gargoylesoftware.htmlunit.FormEncodingType;
-import com.gargoylesoftware.htmlunit.WebConnection;
-import com.gargoylesoftware.htmlunit.WebRequest;
-import com.gargoylesoftware.htmlunit.WebResponse;
-import com.gargoylesoftware.htmlunit.WebResponseData;
-import com.gargoylesoftware.htmlunit.util.NameValuePair;
+import org.htmlunit.FormEncodingType;
+import org.htmlunit.WebConnection;
+import org.htmlunit.WebRequest;
+import org.htmlunit.WebResponse;
+import org.htmlunit.WebResponseData;
+import org.htmlunit.util.NameValuePair;
 
 /**
  * This implementation of the HtmlUnit {@link WebConnection} execute http requests on the local
@@ -38,7 +38,7 @@ public final class LocalWebConnection implements WebConnection {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.gargoylesoftware.htmlunit.WebConnection#getResponse(com.gargoylesoftware.htmlunit.WebRequestSettings)
+	 * @see org.htmlunit.WebConnection#getResponse(corg.htmlunit.WebRequestSettings)
 	 */
 	public WebResponse getResponse(WebRequest request)
 			throws IOException {

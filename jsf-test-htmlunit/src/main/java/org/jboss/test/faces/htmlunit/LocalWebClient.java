@@ -5,15 +5,15 @@ package org.jboss.test.faces.htmlunit;
 
 import org.jboss.test.faces.staging.StagingServer;
 
-import com.gargoylesoftware.htmlunit.BrowserVersion;
-import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.WebConnection;
+import org.htmlunit.BrowserVersion;
+import org.htmlunit.NicelyResynchronizingAjaxController;
+import org.htmlunit.WebClient;
+import org.htmlunit.WebConnection;
 
 /**
  * Modified version of the HtmlUnit {@link WebClient}. This subclass uses {@link LocalWebConnection} by default,
  * to perform requests to the local saging server {@link StagingServer} instead of real network request.
- * It is also setup synchonous ajax controller {@link WebClient#setAjaxController(com.gargoylesoftware.htmlunit.AjaxController)},
+ * It is also setup synchonous ajax controller {@link WebClient#setAjaxController(org.htmlunit.AjaxController)},
  * to avoid thread syncronisation problem. 
  * @author asmirnov
  *

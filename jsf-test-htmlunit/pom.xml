@@ -43,11 +43,11 @@
                 <artifactId>jboss-el</artifactId>
         </dependency>
 		<dependency>
-			<groupId>net.sourceforge.htmlunit</groupId>
+			<groupId>org.htmlunit</groupId>
 			<artifactId>htmlunit</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>net.sourceforge.htmlunit</groupId>
+			<groupId>org.htmlunit</groupId>
 			<artifactId>htmlunit-core-js</artifactId>
 		</dependency>
 		<dependency>

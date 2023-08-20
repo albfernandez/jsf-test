@@ -6,8 +6,8 @@ import java.net.MalformedURLException;
 import org.jboss.test.faces.ApplicationServer;
 import org.jboss.test.faces.FacesRule;
 
-import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
-import com.gargoylesoftware.htmlunit.Page;
+import org.htmlunit.FailingHttpStatusCodeException;
+import org.htmlunit.Page;
 
 /**
  * 

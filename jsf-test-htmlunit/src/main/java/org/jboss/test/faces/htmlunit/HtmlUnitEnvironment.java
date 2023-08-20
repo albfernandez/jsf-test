@@ -31,11 +31,11 @@ import org.jboss.test.faces.ApplicationServer;
 import org.jboss.test.faces.FacesEnvironment;
 import org.jboss.test.faces.staging.StagingServer;
 
-import com.gargoylesoftware.htmlunit.BrowserVersion;
-import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
-import com.gargoylesoftware.htmlunit.Page;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import org.htmlunit.BrowserVersion;
+import org.htmlunit.FailingHttpStatusCodeException;
+import org.htmlunit.Page;
+import org.htmlunit.WebClient;
+import org.htmlunit.html.HtmlPage;
 
 /**
  * <p class="changed_added_4_0">
