@@ -17,7 +17,7 @@
 		<plugins>
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.0.0-M5</version>
+				<version>3.5.0</version>
 				<configuration>
 					<excludes>
 						<exclude>**/org/jboss/test/faces/staging/suite/**</exclude>
@@ -32,7 +32,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-jar-plugin</artifactId>
-				<version>3.2.0</version>
+				<version>3.4.2</version>
 				<executions>
 					<execution>
 						<id>test-jar</id>

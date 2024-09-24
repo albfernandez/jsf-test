@@ -51,32 +51,28 @@
         <dependency>
             <groupId>com.github.albfernandez.test-jsf</groupId>
             <artifactId>jsf-test-jetty</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.github.albfernandez.test-jsf</groupId>
             <artifactId>jsf-mockito</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.github.albfernandez.test-jsf</groupId>
             <artifactId>htmlunit-client</artifactId>
-            <version>${project.version}</version>
         </dependency>
+        <!--MZ
         <dependency>
             <groupId>com.github.albfernandez.test-jsf</groupId>
             <artifactId>jsf-mock</artifactId>
-            <version>${project.version}</version>
         </dependency>
+        -->
         <dependency>
             <groupId>com.github.albfernandez.test-jsf</groupId>
             <artifactId>jsf-test-scriptunit</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.github.albfernandez.test-jsf</groupId>
             <artifactId>jsf-test-stage</artifactId>
-            <version>${project.version}</version>
         </dependency>
     </dependencies>
 
