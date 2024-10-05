@@ -86,4 +86,11 @@ public class StubViewHandler extends ViewHandler
    public void writeState(FacesContext ctx) throws IOException
    {
    }
+
+   @Override
+   public String getWebsocketURL(FacesContext context, String channel) {
+	
+      return channel;
+   }
+   
 }

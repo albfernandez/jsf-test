@@ -175,4 +175,10 @@ public Collection<String> getHeaderNames() {
 	// TODO Auto-generated method stub
 	return null;
 }
+
+@Override
+public void setContentLengthLong(long len) {
+	// TODO Auto-generated method stub
+	
+}
 }

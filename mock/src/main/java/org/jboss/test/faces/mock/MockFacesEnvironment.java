@@ -47,7 +47,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.easymock.EasyMock;
 import org.easymock.IMocksControl;
-import org.easymock.internal.MocksControl;
+import org.easymock.MockType;
 import org.jboss.test.faces.mock.factory.FactoryMock;
 import org.jboss.test.faces.mock.factory.FactoryMockingService;
 import org.jboss.test.faces.writer.RecordingResponseWriter;
@@ -108,15 +108,15 @@ public class MockFacesEnvironment {
     // Factory methods
 
     public static MockFacesEnvironment createEnvironment() {
-        return new MockFacesEnvironment(new FacesMocksClassControl(MocksControl.MockType.DEFAULT));
+        return new MockFacesEnvironment(new FacesMocksClassControl(MockType.DEFAULT));
     }
 
     public static MockFacesEnvironment createStrictEnvironment() {
-        return new MockFacesEnvironment(new FacesMocksClassControl(MocksControl.MockType.STRICT));
+        return new MockFacesEnvironment(new FacesMocksClassControl(MockType.STRICT));
     }
 
     public static MockFacesEnvironment createNiceEnvironment() {
-        return new MockFacesEnvironment(new FacesMocksClassControl(MocksControl.MockType.NICE));
+        return new MockFacesEnvironment(new FacesMocksClassControl(MockType.NICE));
     }
 
     /**

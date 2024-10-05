@@ -23,8 +23,9 @@
 
 package org.jboss.test.faces.mock;
 
-import static org.easymock.EasyMock.*;
-import static org.junit.Assert.*;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.expectLastCall;
+import static org.junit.Assert.assertSame;
 
 import javax.faces.component.UIOutput;
 

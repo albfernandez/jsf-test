@@ -558,4 +558,14 @@ public class StubExternalContext extends ExternalContext
       }
       return url;
    }
+
+  @Override
+  public String encodeWebsocketURL(String url) {
+	  if (response != null) {
+         String encodedWebsocketUrl = response.encodeURL(url); 
+         url = (encodedWebsocketUrl != null ? encodedWebsocketUrl : url);
+      }
+      return url;
+  }
+  
 }

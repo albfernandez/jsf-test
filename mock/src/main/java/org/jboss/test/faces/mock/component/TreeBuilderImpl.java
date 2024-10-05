@@ -23,7 +23,8 @@
 
 package org.jboss.test.faces.mock.component;
 
-import static org.easymock.EasyMock.*;
+import static org.easymock.EasyMock.capture;
+import static org.easymock.EasyMock.expect;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -68,7 +69,7 @@ public class TreeBuilderImpl<C extends UIComponent> implements TreeBuilder<C> {
                 return children.size();
             }
         });
-        final Capture<String> facetNameCapture = new Capture<String>();
+        final Capture<String> facetNameCapture = Capture.newInstance();
         expect(component.getFacet(capture(facetNameCapture))).andStubAnswer(new IAnswer<UIComponent>() {
 
             public UIComponent answer() throws Throwable {

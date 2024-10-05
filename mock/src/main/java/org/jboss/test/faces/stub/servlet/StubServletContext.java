@@ -473,4 +473,10 @@ public void declareRoles(String... roleNames) {
 	// TODO Auto-generated method stub
 	
 }
+
+@Override
+public String getVirtualServerName() {
+	// TODO Auto-generated method stub
+	return null;
+}
 }
