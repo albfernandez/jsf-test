@@ -43,7 +43,7 @@
 	</properties>
 
 	<modules>
-		<!--MZ<module>mock</module>-->
+		<module>mock</module>
 		<!--MZ<module>jsf-mockito</module>-->
 		<module>stage</module>
 		<module>jetty</module>
@@ -156,7 +156,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-gpg-plugin</artifactId>
-						<version>3.2.6</version>
+						<version>3.2.7</version>
 						<configuration>
 							<keyname>${gpg.keyname}</keyname>
 							<passphraseServerId>${gpg.keyname}</passphraseServerId>
