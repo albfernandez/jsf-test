@@ -2,11 +2,10 @@ package org.jboss.test.faces.mock.factory;
 
 import java.io.Serializable;
 
-import net.sf.cglib.proxy.Callback;
 
 public class SerializableNoOp implements NoOp, Serializable {
 
   private static final long serialVersionUID = 7434976328690189159L;
-  public static final Callback SERIALIZABLE_INSTANCE = new SerializableNoOp();
+  public static final SerializableNoOp SERIALIZABLE_INSTANCE = new SerializableNoOp();
 
 }

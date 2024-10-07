@@ -1,8 +1,13 @@
 package org.jboss.test.faces.mock;
 
+import java.lang.reflect.Proxy;
+
+import org.easymock.EasyMockSupport;
 import org.easymock.IMocksControl;
-import org.easymock.internal.ClassExtensionHelper;
+import org.easymock.MockType;
+//MZ import org.easymock.internal.ClassExtensionHelper;
 import org.easymock.internal.MocksControl;
+import org.easymock.internal.ObjectMethodsFilter;
 /**
  * <p class="changed_added_4_0"></p>
  * @author asmirnov@exadel.com
@@ -15,22 +20,23 @@ public class FacesMock {
     }
 
     public static org.easymock.IMocksControl createControl(){
-        return new FacesMocksClassControl(MocksControl.MockType.DEFAULT);
+        return new FacesMocksClassControl(MockType.DEFAULT);
     }
 
     public static MockFacesEnvironment createMockEnvironment(){
-        return new MockFacesEnvironment(new FacesMocksClassControl(MocksControl.MockType.DEFAULT));
+        return new MockFacesEnvironment(new FacesMocksClassControl(MockType.DEFAULT));
     }
 
     public static MockFacesEnvironment createNiceEnvironment(){
-        return new MockFacesEnvironment(new FacesMocksClassControl(MocksControl.MockType.NICE));
+        return new MockFacesEnvironment(new FacesMocksClassControl(MockType.NICE));
     }
 
     public static MockFacesEnvironment createStrictEnvironment(){
-        return new MockFacesEnvironment(new FacesMocksClassControl(MocksControl.MockType.STRICT));
+        return new MockFacesEnvironment(new FacesMocksClassControl(MockType.STRICT));
     }
 
-    public static <T> T createMock(String name, Class<T> clazz, IMocksControl control) {
+    @SuppressWarnings("unchecked")
+	public static <T> T createMock(String name, Class<T> clazz, IMocksControl control) {
         if (clazz == MockFacesEnvironment.class) {
             return (T) new MockFacesEnvironment(control, name);
         }
@@ -42,7 +48,7 @@ public class FacesMock {
     }
 
     public static <T> T createMock(String name, Class<T> clazz){
-        return createMock(name, clazz, new FacesMocksClassControl(MocksControl.MockType.DEFAULT));
+        return createMock(name, clazz, new FacesMocksClassControl(MockType.DEFAULT));
     }
 
     public static <T> T createNiceMock(Class<T> clazz){
@@ -50,7 +56,7 @@ public class FacesMock {
     }
 
     public static <T> T createNiceMock(String name, Class<T> clazz) {
-        return createMock(name, clazz, new FacesMocksClassControl(MocksControl.MockType.NICE));
+        return createMock(name, clazz, new FacesMocksClassControl(MockType.NICE));
     }
 
     public static <T> T createStrictMock(Class<T> clazz){
@@ -58,13 +64,32 @@ public class FacesMock {
     }
 
     public static <T> T createStrictMock(String name, Class<T> clazz){
-        return createMock(name, clazz, new FacesMocksClassControl(MocksControl.MockType.STRICT));
+        return createMock(name, clazz, new FacesMocksClassControl(MockType.STRICT));
     }
 
-    private static IMocksControl getControl(Object mock) {
-        return ClassExtensionHelper.getControl(mock);
-    }
+    
+    private static MocksControl getControl(Object mock) {
+        ObjectMethodsFilter handler;
 
+        try {
+            //MZ if (Enhancer.isEnhanced(mock.getClass())) {
+                //MZ handler = (ObjectMethodsFilter) getInterceptor(mock).getHandler();
+            //MZ } else 
+        	if (EasyMockSupport.isAMock(mock)) {
+        		return MocksControl.getControl(mock);
+        	} else if (Proxy.isProxyClass(mock.getClass())) {
+                handler = (ObjectMethodsFilter) Proxy.getInvocationHandler(mock);
+            } else {
+                throw new IllegalArgumentException("Not a mock: " + mock.getClass().getName());
+            }
+            return handler.getDelegate().getControl();
+        } catch (final ClassCastException e) {
+            throw new IllegalArgumentException("Not a mock: " + mock.getClass().getName());
+        }
+    }
+    
+    
+    /*MZ
     private static boolean isMockClass(Class<?> clazz){
         Class<?>[] interfaces = clazz.getInterfaces();
         for (Class<?> interfaze : interfaces) {
@@ -74,6 +99,7 @@ public class FacesMock {
         }
         return false;
     }
+    */
 
     public static void replay(Object... mocks) {
         for (Object mock : mocks) {

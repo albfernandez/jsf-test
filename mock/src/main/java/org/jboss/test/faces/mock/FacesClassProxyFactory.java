@@ -1,38 +1,162 @@
 package org.jboss.test.faces.mock;
 
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.List;
+import java.lang.reflect.Proxy;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.easymock.ConstructorArgs;
-import org.easymock.internal.ClassExtensionHelper;
 import org.easymock.internal.ClassInstantiatorFactory;
+import org.easymock.internal.ClassMockingData;
 import org.easymock.internal.ClassProxyFactory.MockMethodInterceptor;
 import org.easymock.internal.IProxyFactory;
-import org.easymock.internal.ObjectMethodsFilter;
+import org.easymock.internal.classinfoprovider.ClassInfoProvider;
+import org.easymock.internal.classinfoprovider.DefaultClassInfoProvider;
+import org.easymock.internal.classinfoprovider.JdkClassInfoProvider;
 
-import net.sf.cglib.core.CollectionUtils;
-import net.sf.cglib.core.DefaultNamingPolicy;
-import net.sf.cglib.core.Predicate;
-import net.sf.cglib.core.VisibilityPredicate;
-import net.sf.cglib.proxy.Callback;
-import net.sf.cglib.proxy.Enhancer;
-import net.sf.cglib.proxy.Factory;
-import net.sf.cglib.proxy.MethodInterceptor;
+import net.bytebuddy.ByteBuddy;
+import net.bytebuddy.TypeCache;
+import net.bytebuddy.description.method.MethodDescription;
+import net.bytebuddy.description.modifier.SyntheticState;
+import net.bytebuddy.description.modifier.Visibility;
+import net.bytebuddy.dynamic.DynamicType;
+import net.bytebuddy.dynamic.loading.ClassInjector;
+import net.bytebuddy.dynamic.loading.ClassLoadingStrategy;
+import net.bytebuddy.implementation.MethodDelegation;
+import net.bytebuddy.matcher.ElementMatcher;
+import net.bytebuddy.matcher.ElementMatchers;
 
 /**
  * Factory generating a mock for a class.
  * <p>
  * Note that this class is stateful
  */
-public class FacesClassProxyFactory<T> implements IProxyFactory<T> {
+public class FacesClassProxyFactory implements IProxyFactory {
 
-    @SuppressWarnings("unchecked")
-    public T createProxy(Class<T> toMock, final InvocationHandler handler) {
+	/* MZ 
+	 * Attribution note:
+	 * 
+	 * This class was refactored with code from:
+	 * https://github.com/easymock/easymock/blob/easymock-5.4.0/core/src/main/java/org/easymock/internal/ClassProxyFactory.java
+	*/
+	
+	private static final String CALLBACK_FIELD = "$callback";
+    private static final ClassInfoProvider[] defaultClassInfoProviders = { new DefaultClassInfoProvider() , new JdkClassInfoProvider() };
+    private static final ClassInfoProvider[] jdkClassInfoProviders = { defaultClassInfoProviders[1], defaultClassInfoProviders[0] };
+    
+    private final TypeCache<Class<?>> typeCache = new TypeCache.WithInlineExpunction<>();
+    
+    private static final AtomicInteger id = new AtomicInteger(0);
 
+    private static final ThreadLocal<ClassMockingData> currentData = new ThreadLocal<>();
+	
+
+    @Override
+    public <T> T createProxy(final Class<T> toMock, InvocationHandler handler, Method[] mockedMethods, ConstructorArgs args) {
+        Throwable kept = null;
+        // We pick the provider we think will work
+        // But we still loop around all the providers just in case we are wrong when picking but that one will eventually work
+        ClassInfoProvider[] providers = isJdkClassOrWithoutPackage(toMock) ? jdkClassInfoProviders : defaultClassInfoProviders;
+        for (ClassInfoProvider provider : providers) {
+            try {
+                return doCreateProxy(toMock, handler, provider, mockedMethods, args);
+            } catch (Error | RuntimeException e) {
+                kept = e;
+            }
+        }
+        if (kept instanceof Error) {
+            throw (Error) kept;
+        }
+        throw (RuntimeException) kept;
+    }
+    
+    
+	@SuppressWarnings("unchecked")
+	private <T> T doCreateProxy(Class<T> toMock, InvocationHandler handler, ClassInfoProvider provider, Method[] mockedMethods, ConstructorArgs args) {
+		
+        ElementMatcher.Junction<MethodDescription> junction = ElementMatchers.any();
+
+        ClassLoader classLoader = provider.classLoader(toMock);
+        Class<?> mockClass = typeCache.findOrInsert(classLoader, toMock,  () -> {
+
+                try (DynamicType.Unloaded<T> unloaded = new ByteBuddy()
+                    .subclass(toMock)
+                    .name("jsftest." + provider.classPackage(toMock) + toMock.getSimpleName() + "$$$EasyMock$" + id.incrementAndGet())
+                    .defineField(CALLBACK_FIELD, ClassMockingData.class, SyntheticState.SYNTHETIC, Visibility.PUBLIC)
+                    .method(junction)
+                    .intercept(MethodDelegation.to(MockMethodInterceptor.class))
+                    .make()) {
+                    return unloaded
+                        .load(classLoader, classLoadingStrategy())
+                        .getLoaded();
+                }
+            });
+
+        T mock;
+
+        ClassMockingData classMockingData = new ClassMockingData(handler, mockedMethods);
+
+        if (args != null) {
+            // Really instantiate the class
+            Constructor<?> cstr;
+            try {
+                // Get the constructor with the same params
+                cstr = mockClass.getDeclaredConstructor(args.getConstructor().getParameterTypes());
+            } catch (NoSuchMethodException e) {
+                // Shouldn't happen, constructor is checked when ConstructorArgs is instantiated
+                // ///CLOVER:OFF
+                throw new RuntimeException("Fail to find constructor for param types", e);
+                // ///CLOVER:ON
+            }
+            try {
+                cstr.setAccessible(true); // So we can call a protected
+                // Call the constructor. The handler needs to know the mockedMethods but the callback field is not set yet
+                // So we put them in thread-local for this really special case
+                currentData.set(classMockingData);
+                try {
+                    mock = (T) cstr.newInstance(args.getInitArgs());
+                } finally {
+                    currentData.remove();
+                }
+            } catch (InstantiationException | IllegalAccessException e) {
+                // ///CLOVER:OFF
+                throw new RuntimeException("Failed to instantiate mock calling constructor", e);
+                // ///CLOVER:ON
+            } catch (InvocationTargetException e) {
+                throw new RuntimeException(
+                        "Failed to instantiate mock calling constructor: Exception in constructor",
+                        e.getTargetException());
+            }
+        } else {
+            // Do not call any constructor
+            try {
+                mock = (T) ClassInstantiatorFactory.getInstantiator().newInstance(mockClass);
+            } catch (InstantiationException e) {
+                // ///CLOVER:OFF
+                throw new RuntimeException("Fail to instantiate mock for " + toMock + " on "
+                        + ClassInstantiatorFactory.getJVM() + " JVM");
+                // ///CLOVER:ON
+            }
+        }
+
+        MethodHandle callbackField = getCallbackSetter(mock);
+        try {
+            callbackField.invoke(mock, classMockingData);
+        } catch (Error | RuntimeException e) {
+            throw e;
+        } catch (Throwable e) {
+            throw new RuntimeException(e);
+        }
+
+        return mock;
+    }
+        
+        /* MZ
+        
         // Dirty trick to fix ObjectMethodsFilter
         // It will replace the equals, hashCode, toString methods it kept that
         // are the ones
@@ -50,15 +174,12 @@ public class FacesClassProxyFactory<T> implements IProxyFactory<T> {
                     "We strangly failed to retrieve methods that always exist on an object...");
             // ///CLOVER:ON
         }
+       
 
-        MethodInterceptor interceptor = new MockMethodInterceptor(handler);
+        MethodInterceptor interceptor = new MockMethodInterceptor();
 
         // Create the mock
         Enhancer enhancer = new Enhancer() {
-            /**
-             * Filter all private constructors but do not check that there are
-             * some left
-             */
             @Override
             protected void filterConstructors(Class sc, List constructors) {
                 CollectionUtils.filter(constructors, new VisibilityPredicate(
@@ -142,9 +263,13 @@ public class FacesClassProxyFactory<T> implements IProxyFactory<T> {
             mock.getCallback(0);
 
             return (T) mock;
-        }
-    }
+            
+            }
+            
+            */
+        
 
+	/*MZ
     private void updateMethod(InvocationHandler objectMethodsFilter,
             Method correctMethod) {
         Field methodField = retrieveField(ObjectMethodsFilter.class,
@@ -163,7 +288,9 @@ public class FacesClassProxyFactory<T> implements IProxyFactory<T> {
             // ///CLOVER:ON
         }
     }
-
+	*/
+	
+	/*MZ
     private void updateField(Object instance, Object value, Field field) {
         boolean accessible = field.isAccessible();
         field.setAccessible(true);
@@ -177,4 +304,53 @@ public class FacesClassProxyFactory<T> implements IProxyFactory<T> {
         }
         field.setAccessible(accessible);
     }
+	*/
+
+	@Override
+	public InvocationHandler getInvocationHandler(Object mock) {
+		return Proxy.getInvocationHandler(mock);
+	}
+	
+	
+	private static <T> boolean isJdkClassOrWithoutPackage(Class<T> toMock) {
+        // null class loader means we are from the bootstrap class loader, the mocks will go in another package in class loader
+        // we need to verify for null since some dynamic classes have no package
+        // and I still verify for .java, which isn't perfect but a start, for classes hacked to another class loader like PowerMock does
+        if (toMock.getPackage() == null || toMock.getClassLoader() == null) {
+            return true;
+        }
+        String name = toMock.getName();
+        // Here, we just try to guess it's coming from the JDK. Some might not be. "javax" in particular
+        // But since we will try both provider, it will work in the end. It's just a matter of which one we try first
+        return name.startsWith("java.") || name.startsWith("javax.") || name.startsWith("com.sun.") || name.startsWith("jdk.");
+    }
+	
+	
+	private ClassLoadingStrategy<ClassLoader> classLoadingStrategy() {
+        if (ClassInjector.UsingUnsafe.isAvailable()) {
+            return new ClassLoadingStrategy.ForUnsafeInjection();
+        }
+        // I don't think this helps much. It was an attempt to help OSGi, but it doesn't work.
+        // Right now, everything is using Unsafe to we never get there
+        return ClassLoadingStrategy.UsingLookup.of(MethodHandles.lookup());
+    }
+	
+	/*
+	private static MethodHandle getCallbackGetter(Object mock) {
+        try {
+            return MethodHandles.lookup().findGetter(mock.getClass(), CALLBACK_FIELD, ClassMockingData.class);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    */
+
+    private static MethodHandle getCallbackSetter(Object mock) {
+        try {
+            return MethodHandles.lookup().findSetter(mock.getClass(), CALLBACK_FIELD, ClassMockingData.class);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
+	
 }
