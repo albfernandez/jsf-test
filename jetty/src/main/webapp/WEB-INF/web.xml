@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="https://jakarta.ee/xml/ns/jakartaee"
+        xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+        version="6.0">
+
+	<display-name>MZ Dummy Web Application</display-name>
+	
+    
+    <!--
+    <context-param>
+    	<param-name>org.apache.myfaces.INITIALIZE_ALWAYS_STANDALONE</param-name>
+    	<param-value>true</param-value>
+    </context-param>
+    -->
+    
+    <context-param>
+	    <param-name>jakarta.faces.PROJECT_STAGE</param-name>
+	    <param-value>Development</param-value>
+	</context-param>
+	    
+    
+    <context-param>
+    	<param-name>org.apache.myfaces.SUPPORT_MANAGED_BEANS</param-name>
+    	<param-value>false</param-value>
+	</context-param>
+	<context-param>
+	    <param-name>org.apache.myfaces.annotation.USE_CDI_FOR_ANNOTATION_SCANNING</param-name>
+	    <param-value>true</param-value>
+	</context-param> 
+
+    <!-- Faces Servlet -->
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
+    </servlet>
+
+
+    <!-- Faces Servlet Mapping -->
+
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.xhtml</url-pattern>
+    </servlet-mapping>
+    
+    <listener>
+	  <listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
+	</listener>
+
+
+</web-app>

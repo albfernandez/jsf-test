@@ -27,9 +27,9 @@ import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.expectLastCall;
 import static org.junit.Assert.assertSame;
 
-import javax.faces.component.UIOutput;
-
 import org.junit.Test;
+
+import jakarta.faces.component.UIOutput;
 
 
 /**

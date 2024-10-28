@@ -25,10 +25,10 @@ package org.jboss.test.faces.mock.component;
 
 import static org.easymock.EasyMock.expect;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIViewRoot;
-
 import org.jboss.test.faces.mock.FacesMock;
+
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIViewRoot;
 
 /**
  * <p class="changed_added_4_0"></p>
@@ -100,7 +100,7 @@ public class ViewBuilder extends TreeBuilderImpl<UIViewRoot> {
     }
 
     /* (non-Javadoc)
-     * @see org.jboss.test.faces.mock.component.TreeBuilder#addFacet(java.lang.String, javax.faces.component.UIComponent)
+     * @see org.jboss.test.faces.mock.component.TreeBuilder#addFacet(java.lang.String, jakarta.faces.component.UIComponent)
      */
     public static <T extends UIComponent> Facet<T> facet(String name, T child) {
         TreeBuilderImpl<T> treeBuilder = createComponent(child);

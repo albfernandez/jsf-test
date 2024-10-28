@@ -320,9 +320,9 @@ public class FacesClassProxyFactory implements IProxyFactory {
             return true;
         }
         String name = toMock.getName();
-        // Here, we just try to guess it's coming from the JDK. Some might not be. "javax" in particular
+        // Here, we just try to guess it's coming from the JDK. Some might not be. "jakarta" in particular
         // But since we will try both provider, it will work in the end. It's just a matter of which one we try first
-        return name.startsWith("java.") || name.startsWith("javax.") || name.startsWith("com.sun.") || name.startsWith("jdk.");
+        return name.startsWith("java.")|| name.startsWith("javax.") || name.startsWith("jakarta.") || name.startsWith("com.sun.") || name.startsWith("jdk.");
     }
 	
 	

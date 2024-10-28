@@ -26,14 +26,14 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.when;
 
-import javax.faces.application.Application;
-import javax.faces.context.FacesContext;
-import javax.inject.Inject;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+
+import jakarta.faces.application.Application;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Inject;
 
 /**
  * The Class TestMockitoRunnerBefore.

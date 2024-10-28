@@ -21,15 +21,12 @@
  */
 package org.jboss.test.faces.jetty;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
+import java.nio.file.Path;
+import java.time.Instant;
 
-import org.mortbay.resource.Resource;
+import org.eclipse.jetty.util.resource.Resource;
+
 
 /**
  * @author Nick Belaevski
@@ -37,9 +34,6 @@ import org.mortbay.resource.Resource;
  */
 final class BadResource extends Resource {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = -731399783337789651L;
     
     private String path;
@@ -54,8 +48,8 @@ final class BadResource extends Resource {
     }
 
     @Override
-    public long lastModified() {
-        return -1;
+    public Instant lastModified() {
+        return super.lastModified();
     }
 
     @Override
@@ -68,11 +62,11 @@ final class BadResource extends Resource {
         return -1;
     }
 
+    /*MZ
     @Override
     public File getFile() {
         return null;
     }
-
     @Override
     public InputStream getInputStream() throws IOException {
         throw new FileNotFoundException(path);
@@ -102,12 +96,14 @@ final class BadResource extends Resource {
     public Resource addPath(String path) throws IOException, MalformedURLException {
         return new BadResource(this.path + '/' + path);
     }
+    */
 
     @Override
     public String getName() {
         return path;
     }
 
+    /*MZ
     @Override
     public URL getURL() {
         return null;
@@ -116,5 +112,36 @@ final class BadResource extends Resource {
     @Override
     public void release() {
     }
+    */
+
+	@Override
+	public Path getPath() {
+		//MZ
+		return Path.of(path);
+	}
+
+	@Override
+	public boolean isReadable() {
+		//MZ
+		return true;
+	}
+
+	@Override
+	public URI getURI() {
+		//MZ
+		return null;
+	}
+
+	@Override
+	public String getFileName() {
+		//MZ
+		return getPath().getFileName().toString();
+	}
+
+	@Override
+	public Resource resolve(String subUriPath) {
+		//MZ
+		return null;
+	}
 
 }

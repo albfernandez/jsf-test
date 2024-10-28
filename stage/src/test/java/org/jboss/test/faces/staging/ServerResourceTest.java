@@ -13,10 +13,6 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Set;
 
-import org.jboss.test.faces.staging.ClasspathServerResource;
-import org.jboss.test.faces.staging.ServerResource;
-import org.jboss.test.faces.staging.ServerResourceDirectoryImpl;
-import org.jboss.test.faces.staging.ServerResourcePath;
 import org.junit.Test;
 
 /**

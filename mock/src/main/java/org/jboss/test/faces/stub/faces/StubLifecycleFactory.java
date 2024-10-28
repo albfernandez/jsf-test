@@ -3,8 +3,8 @@ package org.jboss.test.faces.stub.faces;
 import java.util.Arrays;
 import java.util.Iterator;
 
-import javax.faces.lifecycle.Lifecycle;
-import javax.faces.lifecycle.LifecycleFactory;
+import jakarta.faces.lifecycle.Lifecycle;
+import jakarta.faces.lifecycle.LifecycleFactory;
 
 public class StubLifecycleFactory extends LifecycleFactory
 {

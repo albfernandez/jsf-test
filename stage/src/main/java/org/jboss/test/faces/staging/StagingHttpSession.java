@@ -9,10 +9,9 @@ import java.util.Enumeration;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpSessionBindingEvent;
-import javax.servlet.http.HttpSessionBindingListener;
-import javax.servlet.http.HttpSessionContext;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSessionBindingEvent;
+import jakarta.servlet.http.HttpSessionBindingListener;
 
 /**
  * @author asmirnov
@@ -55,7 +54,7 @@ abstract class StagingHttpSession implements HttpSession {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpSession#getAttribute(java.lang.String)
+	 * @see jakarta.servlet.http.HttpSession#getAttribute(java.lang.String)
 	 */
 	public Object getAttribute(String name) {
 		checkValid();
@@ -65,7 +64,7 @@ abstract class StagingHttpSession implements HttpSession {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpSession#getAttributeNames()
+	 * @see jakarta.servlet.http.HttpSession#getAttributeNames()
 	 */
 	@SuppressWarnings("unchecked")
 	public Enumeration getAttributeNames() {
@@ -76,7 +75,7 @@ abstract class StagingHttpSession implements HttpSession {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpSession#getCreationTime()
+	 * @see jakarta.servlet.http.HttpSession#getCreationTime()
 	 */
 	public long getCreationTime() {
 		checkValid();
@@ -86,7 +85,7 @@ abstract class StagingHttpSession implements HttpSession {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpSession#getId()
+	 * @see jakarta.servlet.http.HttpSession#getId()
 	 */
 	public String getId() {
 		return SESSION_ID;
@@ -95,7 +94,7 @@ abstract class StagingHttpSession implements HttpSession {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpSession#getLastAccessedTime()
+	 * @see jakarta.servlet.http.HttpSession#getLastAccessedTime()
 	 */
 	public long getLastAccessedTime() {
 		checkValid();
@@ -106,7 +105,7 @@ abstract class StagingHttpSession implements HttpSession {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpSession#getMaxInactiveInterval()
+	 * @see jakarta.servlet.http.HttpSession#getMaxInactiveInterval()
 	 */
 	public int getMaxInactiveInterval() {
 		return inactiveTime;
@@ -115,16 +114,18 @@ abstract class StagingHttpSession implements HttpSession {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpSession#getSessionContext()
+	 * @see jakarta.servlet.http.HttpSession#getSessionContext()
 	 */
+	/*MZ
 	public HttpSessionContext getSessionContext() {
 		throw new NotImplementedException("Session context is not implemented");
 	}
-
+	*/
+	
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpSession#getValue(java.lang.String)
+	 * @see jakarta.servlet.http.HttpSession#getValue(java.lang.String)
 	 */
 	public Object getValue(String name) {
 		return getAttribute(name);
@@ -133,7 +134,7 @@ abstract class StagingHttpSession implements HttpSession {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpSession#getValueNames()
+	 * @see jakarta.servlet.http.HttpSession#getValueNames()
 	 */
 	public String[] getValueNames() {
 		checkValid();
@@ -144,7 +145,7 @@ abstract class StagingHttpSession implements HttpSession {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpSession#invalidate()
+	 * @see jakarta.servlet.http.HttpSession#invalidate()
 	 */
 	public void invalidate() {
 		checkValid();
@@ -161,7 +162,7 @@ abstract class StagingHttpSession implements HttpSession {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpSession#isNew()
+	 * @see jakarta.servlet.http.HttpSession#isNew()
 	 */
 	public boolean isNew() {
 		checkValid();
@@ -171,7 +172,7 @@ abstract class StagingHttpSession implements HttpSession {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpSession#putValue(java.lang.String,
+	 * @see jakarta.servlet.http.HttpSession#putValue(java.lang.String,
 	 * java.lang.Object)
 	 */
 	public void putValue(String name, Object value) {
@@ -182,7 +183,7 @@ abstract class StagingHttpSession implements HttpSession {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpSession#removeAttribute(java.lang.String)
+	 * @see jakarta.servlet.http.HttpSession#removeAttribute(java.lang.String)
 	 */
 	public void removeAttribute(String name) {
 		checkValid();
@@ -239,7 +240,7 @@ abstract class StagingHttpSession implements HttpSession {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpSession#removeValue(java.lang.String)
+	 * @see jakarta.servlet.http.HttpSession#removeValue(java.lang.String)
 	 */
 	public void removeValue(String name) {
 		removeAttribute(name);
@@ -248,7 +249,7 @@ abstract class StagingHttpSession implements HttpSession {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpSession#setAttribute(java.lang.String,
+	 * @see jakarta.servlet.http.HttpSession#setAttribute(java.lang.String,
 	 * java.lang.Object)
 	 */
 	public void setAttribute(String name, Object value) {
@@ -268,7 +269,7 @@ abstract class StagingHttpSession implements HttpSession {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpSession#setMaxInactiveInterval(int)
+	 * @see jakarta.servlet.http.HttpSession#setMaxInactiveInterval(int)
 	 */
 	public void setMaxInactiveInterval(int interval) {
 		this.inactiveTime = interval;

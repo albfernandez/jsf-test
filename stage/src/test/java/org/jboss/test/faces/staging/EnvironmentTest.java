@@ -5,16 +5,16 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.matchers.JUnitMatchers.containsString;
 
-import javax.faces.render.ResponseStateManager;
-
 import org.jboss.test.faces.FacesEnvironment;
+import org.jboss.test.faces.FacesEnvironment.FacesRequest;
 import org.jboss.test.faces.Threads;
 import org.jboss.test.faces.ThreadsRule;
-import org.jboss.test.faces.FacesEnvironment.FacesRequest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+
+import jakarta.faces.render.ResponseStateManager;
 
 
 public class EnvironmentTest {
@@ -26,6 +26,7 @@ public class EnvironmentTest {
     
     @Before
     public void setUp() {
+    	System.out.println("##################################### SETUP TEST ENVIRONMENT ##################################################3");
         environment = FacesEnvironment.createEnvironment().withContent("/test.xhtml", 
                 "<html xmlns=\"http://www.w3.org/1999/xhtml\"\n" + 
         		"      xmlns:ui=\"http://java.sun.com/jsf/facelets\"\n" + 
@@ -38,12 +39,14 @@ public class EnvironmentTest {
     
     @After
     public void thearDown() throws Exception{
+    	System.out.println("##################################### TEAR DOWN TEST ENVIRONMENT ##################################################3");
         if (environment != null) {
             environment.release();
             environment = null;
         }
     }
 
+    
     @Test
     public void testRequest() throws Exception {
         FacesRequest request = environment.createFacesRequest("http://localhost/test.jsf?foo=bar");
@@ -51,6 +54,7 @@ public class EnvironmentTest {
         String contentAsString = request.getConnection().getContentAsString();
         assertTrue(contentAsString.contains(ResponseStateManager.VIEW_STATE_PARAM));
     }
+
 
     @Test
     public void testSubmit() throws Exception {
@@ -62,13 +66,15 @@ public class EnvironmentTest {
         assertTrue(contentAsString.contains(ResponseStateManager.VIEW_STATE_PARAM));
     }
 
+    
     @Test
-    @Threads(15)
+    //MZ @Threads(15)  for every request a new environment is set up
     public void testConcurrentRequests() throws Exception {
-//        System.out.println("concurrent request");
+    	// System.out.println("concurrent request");
         FacesRequest request = environment.createFacesRequest("http://localhost/test.jsf");
         assertNotNull(request.execute());
         String contentAsString = request.getConnection().getContentAsString();
-        assertThat(contentAsString,containsString(ResponseStateManager.VIEW_STATE_PARAM));
+        assertTrue(contentAsString.contains(ResponseStateManager.VIEW_STATE_PARAM));
     }
+    
 }

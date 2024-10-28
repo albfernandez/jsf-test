@@ -40,23 +40,23 @@ import java.util.logging.LogManager;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.faces.FacesException;
-import javax.faces.FactoryFinder;
-import javax.faces.application.Application;
-import javax.faces.application.ApplicationFactory;
-import javax.faces.application.StateManager;
-import javax.faces.application.ViewHandler;
-import javax.faces.context.FacesContext;
-import javax.faces.context.FacesContextFactory;
-import javax.faces.lifecycle.Lifecycle;
-import javax.faces.lifecycle.LifecycleFactory;
-import javax.faces.render.ResponseStateManager;
-import javax.faces.webapp.FacesServlet;
-import javax.servlet.Filter;
-import javax.servlet.Servlet;
-
 import org.jboss.test.faces.staging.HttpConnection;
 import org.jboss.test.faces.staging.HttpMethod;
+
+import jakarta.faces.FacesException;
+import jakarta.faces.FactoryFinder;
+import jakarta.faces.application.Application;
+import jakarta.faces.application.ApplicationFactory;
+import jakarta.faces.application.StateManager;
+import jakarta.faces.application.ViewHandler;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.FacesContextFactory;
+import jakarta.faces.lifecycle.Lifecycle;
+import jakarta.faces.lifecycle.LifecycleFactory;
+import jakarta.faces.render.ResponseStateManager;
+import jakarta.faces.webapp.FacesServlet;
+import jakarta.servlet.Filter;
 
 /**
  * <p class="changed_added_4_0">
@@ -69,6 +69,8 @@ public class FacesEnvironment {
 
     public static final String WEB_XML = "/WEB-INF/web.xml";
     public static final String FACES_CONFIG_XML = "/WEB-INF/faces-config.xml";
+    //MZ
+    public static final String BEANS_CONFIG_XML = "/WEB-INF/beans.xml";
 
     public class FacesRequest {
 
@@ -93,8 +95,23 @@ public class FacesEnvironment {
                 .getFactory(FactoryFinder.FACES_CONTEXT_FACTORY);
             facesContext = facesContextFactory.getFacesContext(facesServer.getContext(), connection.getRequest(),
                 connection.getResponse(), lifecycle);
+            
+            //MZ
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!! viewId: " + viewId);
+            
             if (null != viewId) {
-                facesContext.setViewRoot(application.getViewHandler().createView(facesContext, viewId));
+            	
+            	//MZ
+            	UIViewRoot oldUIViewRoot = facesContext.getViewRoot();
+            	System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!! oldUIViewRoot: " + oldUIViewRoot);
+            	
+            	
+            	System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!! application: " + application);
+            	System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!! viewHandler: " + application.getViewHandler());
+            	UIViewRoot uiViewRoot = application.getViewHandler().createView(facesContext, viewId);
+            	System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!! uiViewRoot: " + uiViewRoot);
+            	
+                facesContext.setViewRoot(uiViewRoot);
             }
             return this;
         }
@@ -385,24 +402,68 @@ public class FacesEnvironment {
     public FacesEnvironment start() {
         contextClassLoader = Thread.currentThread().getContextClassLoader();
         Thread.currentThread().setContextClassLoader(this.getClass().getClassLoader());
+        
+        System.out.println("!!! add webXmlDefault: " + webXmlDefault);
+        
         facesServer.addResource(WEB_XML, webXmlDefault);
+        
+        System.out.println("!!! webRoot: " + webRoot);
+        
         if (null != webRoot) {
+        	
+        	System.out.println("!!! add webRoot: " + webRoot);
+        	
             facesServer.addResourcesFromDirectory("/", webRoot);
         }
 
         facesServer.addServlet(facesServletContainer);
 
         if (filterContainer != null) {
+        	
+        	System.out.println("!!! add filterContainer: " + filterContainer);
+        	
             facesServer.addFilter(filterContainer);
         }
 
         facesServer.init();
-        ApplicationFactory applicationFactory = (ApplicationFactory) FactoryFinder
-            .getFactory(FactoryFinder.APPLICATION_FACTORY);
-        application = applicationFactory.getApplication();
-        LifecycleFactory lifecycleFactory = (LifecycleFactory) FactoryFinder
-            .getFactory(FactoryFinder.LIFECYCLE_FACTORY);
-        lifecycle = lifecycleFactory.getLifecycle(LifecycleFactory.DEFAULT_LIFECYCLE);
+        
+        if (facesServer.getClass().getName().contains("Jetty")) {
+        	
+        	System.out.println("!!! Running with JETTY !!!!!!!!!!!!!!!!! ");
+        	
+        }
+        
+        /*MZ todo - why factories null with JettyServer? It initialization not complete? Load on startup missing? */
+        //MZ dirty hack
+        if (!facesServer.getClass().getName().contains("Jetty")) {
+        	
+	        ApplicationFactory applicationFactory = (ApplicationFactory) FactoryFinder
+	            .getFactory(FactoryFinder.APPLICATION_FACTORY);
+	        
+	        System.out.println("!!! applicationFactory: " + applicationFactory);
+	        
+	        //MZ
+	        if (applicationFactory != null) {
+	        	application = applicationFactory.getApplication();
+	        }
+	        
+	        System.out.println("!!! application: " + application);
+	        
+	        
+	        LifecycleFactory lifecycleFactory = (LifecycleFactory) FactoryFinder
+	            .getFactory(FactoryFinder.LIFECYCLE_FACTORY);
+	        
+	        System.out.println("!!! lifecycleFactory: " + lifecycleFactory);
+	        
+	        //MZ
+	        if (lifecycleFactory != null) {
+	        	lifecycle = lifecycleFactory.getLifecycle(LifecycleFactory.DEFAULT_LIFECYCLE);
+	        }
+	        
+	        System.out.println("!!! lifecycle: " + lifecycle);
+                
+        }
+        
         initialized = true;
         return this;
     }
@@ -414,16 +475,21 @@ public class FacesEnvironment {
      * metod also calls appropriate {@link #setupSunFaces()} or {@link #setupMyFaces()} methods.
      */
     protected void setupFacesListener() {
+    	
+    	System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! setupFacesListener FacesEnvironment");
+    	
         EventListener listener = null;
         try {
             // Check Sun RI configuration listener class.
             listener = createInstance("com.sun.faces.config.ConfigureListener");
             setupSunFaces();
+            System.out.println("SUNDONE");
         } catch (ClassNotFoundException e) {
             // No JSF RI listener, check MyFaces.
             try {
                 listener = createInstance("org.apache.myfaces.webapp.StartupServletContextListener");
                 setupMyFaces();
+                System.out.println("MYFACESDONE");
             } catch (ClassNotFoundException e1) {
                 throw new TestException("No JSF listeners have been found", e1);
             }
@@ -453,7 +519,7 @@ public class FacesEnvironment {
         facesServer.addInitParameter(ViewHandler.DEFAULT_SUFFIX_PARAM_NAME, ".xhtml");
         // Do not use Jsf 2.0 classes directly because this environment should
         // be applicable for any JSF version.
-        facesServer.addInitParameter("javax.faces.PROJECT_STAGE", "UnitTest");
+        facesServer.addInitParameter("jakarta.faces.PROJECT_STAGE", "UnitTest");
     }
 
     /**
@@ -461,7 +527,10 @@ public class FacesEnvironment {
      * default implementation does nothing.
      */
     protected void setupMyFaces() {
-        // Do nothing by default.
+        //MZ
+    	facesServer.addInitParameter("org.apache.myfaces.INITIALIZE_ALWAYS_STANDALONE", "true");
+    	facesServer.addInitParameter("org.apache.myfaces.FLASH_SCOPE_DISABLED", "true");		//TODO jakarta.servlet.SessionCookieConfig.getAttribute(String)" because the return value of "jakarta.servlet.ServletContext.getSessionCookieConfig()" is null
+    	//facesServer.addInitParameter("org.apache.myfaces.annotation.USE_CDI_FOR_ANNOTATION_SCANNING", "false");
     }
 
     /**
@@ -577,7 +646,7 @@ public class FacesEnvironment {
     private <T> T createInstance(String className) throws TestException, ClassNotFoundException {
         try {
             Class<?> clazz = FacesEnvironment.class.getClassLoader().loadClass(className);
-            return (T) clazz.newInstance();
+            return (T) clazz.getDeclaredConstructor().newInstance();
         } catch (ClassNotFoundException e) {
             throw e;
         } catch (Exception e) {

@@ -22,17 +22,20 @@
 package org.jboss.test.faces.jetty;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLStreamHandler;
+import java.nio.file.Path;
+import java.time.Instant;
+import java.util.List;
 
-import org.mortbay.resource.Resource;
+import org.eclipse.jetty.util.resource.Resource;
+
 
 /**
  * @author Nick Belaevski
@@ -40,9 +43,6 @@ import org.mortbay.resource.Resource;
  */
 public class StringContentResource extends Resource {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = -545867200766773535L;
 
     private byte[] content;
@@ -55,6 +55,7 @@ public class StringContentResource extends Resource {
         this.path = path;
     }
 
+    /*MZ
     @Override
     public Resource addPath(String path) throws IOException, MalformedURLException {
         throw new FileNotFoundException(path);
@@ -64,18 +65,21 @@ public class StringContentResource extends Resource {
     public boolean delete() throws SecurityException {
         return false;
     }
+    */
 
     @Override
     public boolean exists() {
         return true;
     }
 
+    /*MZ
     @Override
     public File getFile() throws IOException {
         return null;
     }
-
-    @Override
+	*/
+    
+    //MZ
     public InputStream getInputStream() throws IOException {
         return new ByteArrayInputStream(content);
     }
@@ -85,41 +89,52 @@ public class StringContentResource extends Resource {
         return path;
     }
 
+    /*MZ
     @Override
     public OutputStream getOutputStream() throws IOException, SecurityException {
         throw new FileNotFoundException(path);
     }
+	*/
 
     @Override
-    public URL getURL() {
-        try {
-            return new URL("urn",null,0,"", new URLStreamHandler() {
-                
-                @Override
-                protected URLConnection openConnection(URL u) throws IOException {
-                    return new URLConnection(u) {
-                        
-                        @Override
-                        public void connect() throws IOException {
-                        }
-                        
-                        @Override
-                        public Object getContent() throws IOException {
-                            return content;
-                        }
-                        
-                        @Override
-                        public InputStream getInputStream() throws IOException {
-                            return StringContentResource.this.getInputStream();
-                        }
-                    };
-                }
-            });
-        } catch (MalformedURLException e) {
-            //TODO handle
-            e.printStackTrace();
-            return null;
-        }
+    public URI getURI() {
+    	
+    	
+    	 try {
+             URL tmpurl = new URL("urn",null,0,"", new URLStreamHandler() {
+                 
+                 @Override
+                 protected URLConnection openConnection(URL u) throws IOException {
+                	 
+                	 return new URLConnection(u) {
+                         
+                         @Override
+                         public void connect() throws IOException {
+                         }
+                         
+                         @Override
+                         public Object getContent() throws IOException {
+                             return content;
+                         }
+                         
+                         @Override
+                         public InputStream getInputStream() throws IOException {
+                             return StringContentResource.this.getInputStream();
+                         }
+                     };
+                     
+                 }
+             });
+             
+             return tmpurl.toURI();
+             
+         } catch (MalformedURLException | URISyntaxException e) {
+             //TODO handle
+             e.printStackTrace();
+             return null;
+         }
+    	
+   
     }
 
     @Override
@@ -128,8 +143,8 @@ public class StringContentResource extends Resource {
     }
 
     @Override
-    public long lastModified() {
-        return -1;
+    public Instant lastModified() {
+        return super.lastModified();
     }
 
     @Override
@@ -138,10 +153,11 @@ public class StringContentResource extends Resource {
     }
 
     @Override
-    public String[] list() {
-        return null;
+    public List<Resource> list() {
+        return super.list();
     }
 
+    /*MZ
     @Override
     public void release() {
     }
@@ -150,5 +166,30 @@ public class StringContentResource extends Resource {
     public boolean renameTo(Resource dest) throws SecurityException {
         return false;
     }
+	*/
+    
+	@Override
+	public Path getPath() {
+		//MZ
+		return Path.of(path);
+	}
+
+	@Override
+	public boolean isReadable() {
+		//MZ
+		return true;
+	}
+
+	@Override
+	public String getFileName() {
+		//MZ
+		return getPath().getFileName().toString();
+	}
+
+	@Override
+	public Resource resolve(String subUriPath)  {
+		//MZ
+		return null;
+	}
 
 }

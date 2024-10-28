@@ -26,10 +26,10 @@ package org.jboss.test.faces.writer;
 import java.io.IOException;
 import java.io.Writer;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.ResponseWriter;
-
 import org.jboss.test.faces.mock.FacesTestException;
+
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.ResponseWriter;
 
 /**
  * @author asmirnov
@@ -52,7 +52,7 @@ public class RecordingResponseWriter extends ResponseWriter {
     }
 
 	/* (non-Javadoc)
-	 * @see javax.faces.context.ResponseWriter#cloneWithWriter(java.io.Writer)
+	 * @see jakarta.faces.context.ResponseWriter#cloneWithWriter(java.io.Writer)
 	 */
 	@Override
 	public ResponseWriter cloneWithWriter(Writer writer) {
@@ -60,7 +60,7 @@ public class RecordingResponseWriter extends ResponseWriter {
 	}
 
 	/* (non-Javadoc)
-     * @see javax.faces.context.ResponseWriter#startDocument()
+     * @see jakarta.faces.context.ResponseWriter#startDocument()
      */
     @Override
     public void startDocument() throws IOException {
@@ -71,7 +71,7 @@ public class RecordingResponseWriter extends ResponseWriter {
     }
 
 	/* (non-Javadoc)
-	 * @see javax.faces.context.ResponseWriter#endDocument()
+	 * @see jakarta.faces.context.ResponseWriter#endDocument()
 	 */
 	@Override
 	public void endDocument() throws IOException {
@@ -82,7 +82,7 @@ public class RecordingResponseWriter extends ResponseWriter {
 	}
 
 	/* (non-Javadoc)
-     * @see javax.faces.context.ResponseWriter#startElement(java.lang.String, javax.faces.component.UIComponent)
+     * @see jakarta.faces.context.ResponseWriter#startElement(java.lang.String, jakarta.faces.component.UIComponent)
      */
     @Override
     public void startElement(String name, UIComponent component)
@@ -91,7 +91,7 @@ public class RecordingResponseWriter extends ResponseWriter {
     }
 
 	/* (non-Javadoc)
-	 * @see javax.faces.context.ResponseWriter#endElement(java.lang.String)
+	 * @see jakarta.faces.context.ResponseWriter#endElement(java.lang.String)
 	 */
 	@Override
 	public void endElement(String name) throws IOException {
@@ -105,7 +105,7 @@ public class RecordingResponseWriter extends ResponseWriter {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.faces.context.ResponseWriter#writeAttribute(java.lang.String, java.lang.Object, java.lang.String)
+	 * @see jakarta.faces.context.ResponseWriter#writeAttribute(java.lang.String, java.lang.Object, java.lang.String)
 	 */
 	@Override
 	public void writeAttribute(String name, Object value, String property)
@@ -114,7 +114,7 @@ public class RecordingResponseWriter extends ResponseWriter {
 	}
 
 	/* (non-Javadoc)
-     * @see javax.faces.context.ResponseWriter#writeURIAttribute(java.lang.String, java.lang.Object, java.lang.String)
+     * @see jakarta.faces.context.ResponseWriter#writeURIAttribute(java.lang.String, java.lang.Object, java.lang.String)
      */
     @Override
     public void writeURIAttribute(String name, Object value, String property)
@@ -123,7 +123,7 @@ public class RecordingResponseWriter extends ResponseWriter {
     }
 
 	/* (non-Javadoc)
-	 * @see javax.faces.context.ResponseWriter#writeText(java.lang.Object, java.lang.String)
+	 * @see jakarta.faces.context.ResponseWriter#writeText(java.lang.Object, java.lang.String)
 	 */
 	@Override
 	public void writeText(Object text, String property) throws IOException {
@@ -132,7 +132,7 @@ public class RecordingResponseWriter extends ResponseWriter {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.faces.context.ResponseWriter#writeText(char[], int, int)
+	 * @see jakarta.faces.context.ResponseWriter#writeText(char[], int, int)
 	 */
 	@Override
 	public void writeText(char[] text, int off, int len) throws IOException {
@@ -158,7 +158,7 @@ public class RecordingResponseWriter extends ResponseWriter {
 		}
 	}
 	/* (non-Javadoc)
-     * @see javax.faces.context.ResponseWriter#flush()
+     * @see jakarta.faces.context.ResponseWriter#flush()
      */
     @Override
     public void flush() throws IOException {
@@ -167,7 +167,7 @@ public class RecordingResponseWriter extends ResponseWriter {
     }
 
 	/* (non-Javadoc)
-     * @see javax.faces.context.ResponseWriter#getCharacterEncoding()
+     * @see jakarta.faces.context.ResponseWriter#getCharacterEncoding()
      */
     @Override
     public String getCharacterEncoding() {
@@ -175,7 +175,7 @@ public class RecordingResponseWriter extends ResponseWriter {
     }
 
 	/* (non-Javadoc)
-     * @see javax.faces.context.ResponseWriter#getContentType()
+     * @see jakarta.faces.context.ResponseWriter#getContentType()
      */
     @Override
     public String getContentType() {

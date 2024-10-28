@@ -27,9 +27,9 @@ import static org.easymock.EasyMock.expect;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import javax.faces.component.UIData;
-
 import org.junit.Test;
+
+import jakarta.faces.component.UIData;
 
 
 /**

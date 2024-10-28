@@ -22,18 +22,19 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
 
-import javax.servlet.AsyncContext;
-import javax.servlet.DispatcherType;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.ServletInputStream;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
+import jakarta.servlet.AsyncContext;
+import jakarta.servlet.DispatcherType;
+import jakarta.servlet.ReadListener;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletInputStream;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
 
 
 /**
@@ -80,7 +81,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpServletRequest#getAuthType()
+	 * @see jakarta.servlet.http.HttpServletRequest#getAuthType()
 	 */
 	public String getAuthType() {
 		// TODO configure test auth.
@@ -91,7 +92,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpServletRequest#getContextPath()
+	 * @see jakarta.servlet.http.HttpServletRequest#getContextPath()
 	 */
 	public String getContextPath() {
 		return StagingServletContext.CONTEXT_PATH;
@@ -101,7 +102,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * javax.servlet.http.HttpServletRequest#getDateHeader(java.lang.String)
+	 * jakarta.servlet.http.HttpServletRequest#getDateHeader(java.lang.String)
 	 */
 	public long getDateHeader(String name) {
 		String value = headers.get(name);
@@ -118,7 +119,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpServletRequest#getHeader(java.lang.String)
+	 * @see jakarta.servlet.http.HttpServletRequest#getHeader(java.lang.String)
 	 */
 	public String getHeader(String name) {
 		return headers.get(name);
@@ -127,7 +128,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpServletRequest#getHeaderNames()
+	 * @see jakarta.servlet.http.HttpServletRequest#getHeaderNames()
 	 */
 	@SuppressWarnings("unchecked")
 	public Enumeration getHeaderNames() {
@@ -137,7 +138,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpServletRequest#getHeaders(java.lang.String)
+	 * @see jakarta.servlet.http.HttpServletRequest#getHeaders(java.lang.String)
 	 */
 	@SuppressWarnings("unchecked")
 	public Enumeration getHeaders(String name) {
@@ -155,7 +156,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpServletRequest#getIntHeader(java.lang.String)
+	 * @see jakarta.servlet.http.HttpServletRequest#getIntHeader(java.lang.String)
 	 */
 	public int getIntHeader(String name) {
 		String value = headers.get(name);
@@ -176,7 +177,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpServletRequest#getPathTranslated()
+	 * @see jakarta.servlet.http.HttpServletRequest#getPathTranslated()
 	 */
 	public String getPathTranslated() {
 		// we have only 'virtual' server.
@@ -186,7 +187,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpServletRequest#getRemoteUser()
+	 * @see jakarta.servlet.http.HttpServletRequest#getRemoteUser()
 	 */
 	public String getRemoteUser() {
 		// TODO configure test auth.
@@ -197,7 +198,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpServletRequest#getRequestURL()
+	 * @see jakarta.servlet.http.HttpServletRequest#getRequestURL()
 	 */
 	public StringBuffer getRequestURL() {
 		StringBuffer requestURL = new StringBuffer(HTTP + "://" + LOCALHOST
@@ -208,7 +209,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpServletRequest#getRequestedSessionId()
+	 * @see jakarta.servlet.http.HttpServletRequest#getRequestedSessionId()
 	 */
 	public String getRequestedSessionId() {
 		return StagingHttpSession.SESSION_ID;
@@ -217,7 +218,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpServletRequest#getUserPrincipal()
+	 * @see jakarta.servlet.http.HttpServletRequest#getUserPrincipal()
 	 */
 	public Principal getUserPrincipal() {
 		// TODO implement test auth.
@@ -229,7 +230,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * javax.servlet.http.HttpServletRequest#isRequestedSessionIdFromCookie()
+	 * jakarta.servlet.http.HttpServletRequest#isRequestedSessionIdFromCookie()
 	 */
 	public boolean isRequestedSessionIdFromCookie() {
 		// test do not supports cookie
@@ -239,7 +240,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpServletRequest#isRequestedSessionIdFromURL()
+	 * @see jakarta.servlet.http.HttpServletRequest#isRequestedSessionIdFromURL()
 	 */
 	public boolean isRequestedSessionIdFromURL() {
 		return true;
@@ -248,7 +249,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpServletRequest#isRequestedSessionIdFromUrl()
+	 * @see jakarta.servlet.http.HttpServletRequest#isRequestedSessionIdFromUrl()
 	 */
 	public boolean isRequestedSessionIdFromUrl() {
 		return true;
@@ -257,7 +258,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpServletRequest#isRequestedSessionIdValid()
+	 * @see jakarta.servlet.http.HttpServletRequest#isRequestedSessionIdValid()
 	 */
 	public boolean isRequestedSessionIdValid() {
 		// TODO - check session.
@@ -267,7 +268,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpServletRequest#isUserInRole(java.lang.String)
+	 * @see jakarta.servlet.http.HttpServletRequest#isUserInRole(java.lang.String)
 	 */
 	public boolean isUserInRole(String role) {
 		// TODO implement test auth.
@@ -278,7 +279,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.ServletRequest#getAttribute(java.lang.String)
+	 * @see jakarta.servlet.ServletRequest#getAttribute(java.lang.String)
 	 */
 	public Object getAttribute(String name) {
 		return attributes.get(name);
@@ -287,7 +288,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.ServletRequest#getAttributeNames()
+	 * @see jakarta.servlet.ServletRequest#getAttributeNames()
 	 */
 	@SuppressWarnings("unchecked")
 	public Enumeration getAttributeNames() {
@@ -297,7 +298,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.ServletRequest#getCharacterEncoding()
+	 * @see jakarta.servlet.ServletRequest#getCharacterEncoding()
 	 */
 	public String getCharacterEncoding() {
 		return characterEncoding;
@@ -306,7 +307,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.ServletRequest#getContentLength()
+	 * @see jakarta.servlet.ServletRequest#getContentLength()
 	 */
 	public int getContentLength() {
 		String body = getRequestBody();
@@ -316,7 +317,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.ServletRequest#getContentType()
+	 * @see jakarta.servlet.ServletRequest#getContentType()
 	 */
 	public String getContentType() {
 		return contentType;
@@ -333,7 +334,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.ServletRequest#getInputStream()
+	 * @see jakarta.servlet.ServletRequest#getInputStream()
 	 */
 	public ServletInputStream getInputStream() throws IOException {
 		String body = getRequestBody();
@@ -346,6 +347,24 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 					// TODO Auto-generated method stub
 					return input.read();
 				}
+
+				@Override
+				public boolean isFinished() {
+					//MZ
+					return input.available() == 0;
+				}
+
+				@Override
+				public boolean isReady() {
+					//MZ
+					return true;
+				}
+
+				@Override
+				public void setReadListener(ReadListener readListener) {
+					//MZ
+					throw new NotImplementedException();
+				}
 				
 			};
 		}
@@ -355,7 +374,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.ServletRequest#getLocalAddr()
+	 * @see jakarta.servlet.ServletRequest#getLocalAddr()
 	 */
 	public String getLocalAddr() {
 		return LOCALHOST_IP;
@@ -364,7 +383,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.ServletRequest#getLocalName()
+	 * @see jakarta.servlet.ServletRequest#getLocalName()
 	 */
 	public String getLocalName() {
 		return LOCALHOST;
@@ -373,7 +392,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.ServletRequest#getLocalPort()
+	 * @see jakarta.servlet.ServletRequest#getLocalPort()
 	 */
 	public int getLocalPort() {
 		return 80;
@@ -382,7 +401,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.ServletRequest#getLocale()
+	 * @see jakarta.servlet.ServletRequest#getLocale()
 	 */
 	public Locale getLocale() {
 		return Locale.US;
@@ -391,7 +410,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.ServletRequest#getLocales()
+	 * @see jakarta.servlet.ServletRequest#getLocales()
 	 */
 	@SuppressWarnings("unchecked")
 	public Enumeration getLocales() {
@@ -401,7 +420,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.ServletRequest#getProtocol()
+	 * @see jakarta.servlet.ServletRequest#getProtocol()
 	 */
 	public String getProtocol() {
 		return "HTTP/1.1";
@@ -410,7 +429,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.ServletRequest#getReader()
+	 * @see jakarta.servlet.ServletRequest#getReader()
 	 */
 	public BufferedReader getReader() throws IOException {
 		String body = getRequestBody();
@@ -423,7 +442,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.ServletRequest#getRealPath(java.lang.String)
+	 * @see jakarta.servlet.ServletRequest#getRealPath(java.lang.String)
 	 */
 	public String getRealPath(String path) {
 		return null;
@@ -432,7 +451,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.ServletRequest#getRemoteAddr()
+	 * @see jakarta.servlet.ServletRequest#getRemoteAddr()
 	 */
 	public String getRemoteAddr() {
 		return LOCALHOST_IP;
@@ -441,7 +460,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.ServletRequest#getRemoteHost()
+	 * @see jakarta.servlet.ServletRequest#getRemoteHost()
 	 */
 	public String getRemoteHost() {
 		return LOCALHOST;
@@ -450,7 +469,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.ServletRequest#getRemotePort()
+	 * @see jakarta.servlet.ServletRequest#getRemotePort()
 	 */
 	public int getRemotePort() {
 		return 1223340;
@@ -459,7 +478,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.ServletRequest#getRequestDispatcher(java.lang.String)
+	 * @see jakarta.servlet.ServletRequest#getRequestDispatcher(java.lang.String)
 	 */
 	public RequestDispatcher getRequestDispatcher(String path) {
 		// TODO Auto-generated method stub
@@ -470,7 +489,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.ServletRequest#getScheme()
+	 * @see jakarta.servlet.ServletRequest#getScheme()
 	 */
 	public String getScheme() {
 		return HTTP;
@@ -479,7 +498,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.ServletRequest#getServerName()
+	 * @see jakarta.servlet.ServletRequest#getServerName()
 	 */
 	public String getServerName() {
 		return LOCALHOST;
@@ -488,7 +507,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.ServletRequest#getServerPort()
+	 * @see jakarta.servlet.ServletRequest#getServerPort()
 	 */
 	public int getServerPort() {
 		return 80;
@@ -497,7 +516,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.ServletRequest#isSecure()
+	 * @see jakarta.servlet.ServletRequest#isSecure()
 	 */
 	public boolean isSecure() {
 		return false;
@@ -506,7 +525,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.ServletRequest#removeAttribute(java.lang.String)
+	 * @see jakarta.servlet.ServletRequest#removeAttribute(java.lang.String)
 	 */
 	public void removeAttribute(String name) {
 		// TODO - inform listeners
@@ -521,7 +540,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.ServletRequest#setAttribute(java.lang.String,
+	 * @see jakarta.servlet.ServletRequest#setAttribute(java.lang.String,
 	 * java.lang.Object)
 	 */
 	public void setAttribute(String name, Object o) {
@@ -545,7 +564,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.ServletRequest#setCharacterEncoding(java.lang.String)
+	 * @see jakarta.servlet.ServletRequest#setCharacterEncoding(java.lang.String)
 	 */
 	public void setCharacterEncoding(String env)
 			throws UnsupportedEncodingException {
@@ -557,7 +576,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletRequest#getAsyncContext()
+	 * @see jakarta.servlet.ServletRequest#getAsyncContext()
 	 */
 	public AsyncContext getAsyncContext() {
 		// TODO Auto-generated method stub
@@ -565,7 +584,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletRequest#getDispatcherType()
+	 * @see jakarta.servlet.ServletRequest#getDispatcherType()
 	 */
 	public DispatcherType getDispatcherType() {
 		// TODO Auto-generated method stub
@@ -573,7 +592,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletRequest#getParameter(java.lang.String)
+	 * @see jakarta.servlet.ServletRequest#getParameter(java.lang.String)
 	 */
 	public String getParameter(String arg0) {
 		// TODO Auto-generated method stub
@@ -581,7 +600,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletRequest#getParameterMap()
+	 * @see jakarta.servlet.ServletRequest#getParameterMap()
 	 */
 	public Map<String, String[]> getParameterMap() {
 		// TODO Auto-generated method stub
@@ -589,7 +608,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletRequest#getParameterNames()
+	 * @see jakarta.servlet.ServletRequest#getParameterNames()
 	 */
 	public Enumeration<String> getParameterNames() {
 		// TODO Auto-generated method stub
@@ -597,7 +616,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletRequest#getParameterValues(java.lang.String)
+	 * @see jakarta.servlet.ServletRequest#getParameterValues(java.lang.String)
 	 */
 	public String[] getParameterValues(String arg0) {
 		// TODO Auto-generated method stub
@@ -605,7 +624,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletRequest#getServletContext()
+	 * @see jakarta.servlet.ServletRequest#getServletContext()
 	 */
 	public ServletContext getServletContext() {
 		// TODO Auto-generated method stub
@@ -613,7 +632,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletRequest#isAsyncStarted()
+	 * @see jakarta.servlet.ServletRequest#isAsyncStarted()
 	 */
 	public boolean isAsyncStarted() {
 		// TODO Auto-generated method stub
@@ -621,7 +640,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletRequest#isAsyncSupported()
+	 * @see jakarta.servlet.ServletRequest#isAsyncSupported()
 	 */
 	public boolean isAsyncSupported() {
 		// TODO Auto-generated method stub
@@ -629,7 +648,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletRequest#startAsync()
+	 * @see jakarta.servlet.ServletRequest#startAsync()
 	 */
 	public AsyncContext startAsync() throws IllegalStateException {
 		// TODO Auto-generated method stub
@@ -637,7 +656,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletRequest#startAsync(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
+	 * @see jakarta.servlet.ServletRequest#startAsync(jakarta.servlet.ServletRequest, jakarta.servlet.ServletResponse)
 	 */
 	public AsyncContext startAsync(ServletRequest arg0, ServletResponse arg1)
 			throws IllegalStateException {
@@ -646,7 +665,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.http.HttpServletRequest#authenticate(javax.servlet.http.HttpServletResponse)
+	 * @see jakarta.servlet.http.HttpServletRequest#authenticate(jakarta.servlet.http.HttpServletResponse)
 	 */
 	public boolean authenticate(HttpServletResponse arg0) throws IOException,
 			ServletException {
@@ -655,7 +674,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.http.HttpServletRequest#getPart(java.lang.String)
+	 * @see jakarta.servlet.http.HttpServletRequest#getPart(java.lang.String)
 	 */
 	public Part getPart(String arg0) throws IOException, ServletException {
 		// TODO Auto-generated method stub
@@ -663,7 +682,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.http.HttpServletRequest#getParts()
+	 * @see jakarta.servlet.http.HttpServletRequest#getParts()
 	 */
 	public Collection<Part> getParts() throws IOException, ServletException {
 		// TODO Auto-generated method stub
@@ -671,7 +690,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.http.HttpServletRequest#getSession(boolean)
+	 * @see jakarta.servlet.http.HttpServletRequest#getSession(boolean)
 	 */
 	public HttpSession getSession(boolean arg0) {
 		// TODO Auto-generated method stub
@@ -679,7 +698,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.http.HttpServletRequest#login(java.lang.String, java.lang.String)
+	 * @see jakarta.servlet.http.HttpServletRequest#login(java.lang.String, java.lang.String)
 	 */
 	public void login(String arg0, String arg1) throws ServletException {
 		// TODO Auto-generated method stub
@@ -687,7 +706,7 @@ abstract class StagingHttpRequest implements HttpServletRequest {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.http.HttpServletRequest#logout()
+	 * @see jakarta.servlet.http.HttpServletRequest#logout()
 	 */
 	public void logout() throws ServletException {
 		// TODO Auto-generated method stub

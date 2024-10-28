@@ -1,14 +1,11 @@
 package org.jboss.test.faces.stub.faces;
 
-import java.io.IOException;
-
-import javax.faces.application.StateManager.SerializedView;
-import javax.faces.context.FacesContext;
-import javax.faces.render.ResponseStateManager;
+import jakarta.faces.render.ResponseStateManager;
 
 @SuppressWarnings("deprecation")
 public class StubResponseStateManager extends ResponseStateManager
 {
+   /*MZ
    @Override
    public Object getComponentStateToRestore(FacesContext ctx)
    {
@@ -25,4 +22,6 @@ public class StubResponseStateManager extends ResponseStateManager
    public void writeState(FacesContext ctx, SerializedView viewState) throws IOException
    {
    }
+   */
+	
 }

@@ -5,17 +5,17 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.EventListener;
 
-import javax.faces.FacesException;
-import javax.faces.application.Application;
-import javax.faces.lifecycle.Lifecycle;
-import javax.servlet.Filter;
-import javax.servlet.ServletRequestEvent;
-import javax.servlet.ServletRequestListener;
-
 import org.jboss.test.faces.FacesEnvironment.FacesRequest;
 import org.junit.rules.MethodRule;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.Statement;
+
+import jakarta.faces.FacesException;
+import jakarta.faces.application.Application;
+import jakarta.faces.lifecycle.Lifecycle;
+import jakarta.servlet.Filter;
+import jakarta.servlet.ServletRequestEvent;
+import jakarta.servlet.ServletRequestListener;
 
 /**
  * 

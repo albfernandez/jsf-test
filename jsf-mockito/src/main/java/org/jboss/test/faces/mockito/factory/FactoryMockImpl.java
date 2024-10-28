@@ -21,17 +21,19 @@
  */
 package org.jboss.test.faces.mockito.factory;
 
-import java.lang.reflect.Field;
+import static org.mockito.Mockito.RETURNS_DEFAULTS;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+
+import org.mockito.MockSettings;
 import org.mockito.Mockito;
-import org.mockito.cglib.proxy.Callback;
-import org.mockito.cglib.proxy.Factory;
 import org.mockito.internal.MockitoCore;
-import org.mockito.internal.MockitoInvocationHandler;
-import org.mockito.internal.creation.MethodInterceptorFilter;
 import org.mockito.internal.creation.MockSettingsImpl;
-import org.mockito.internal.creation.jmock.SerializableNoOp;
 import org.mockito.internal.util.MockUtil;
+import org.mockito.invocation.MockHandler;
+import org.mockito.mock.MockCreationSettings;
+import org.mockito.plugins.MockMaker;
 
 /**
  * The implementation of factory mocks - mocks which needs to be created by constructing class instance by class name (e.g.
@@ -96,14 +98,27 @@ public class FactoryMockImpl<T> implements FactoryMock<T> {
     @SuppressWarnings("unchecked")
     public T createNewMockInstance() {
         try {
-            return (T) mock.getClass().newInstance();
+            return (T) mock.getClass().getConstructor().newInstance();
         } catch (IllegalAccessException e) {
             throw new IllegalStateException("Cannot create instance for mock factory of class '" + originalClass + "'",
                 e);
         } catch (InstantiationException e) {
             throw new IllegalStateException("Cannot create instance for mock factory of class '" + originalClass + "'",
                 e);
-        }
+        } catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
     }
 
     /**
@@ -113,10 +128,80 @@ public class FactoryMockImpl<T> implements FactoryMock<T> {
      *            the mock to enhance
      */
     void enhance(T mockToEnhance) {
-        MockUtil mockUtil = getMockUtil();
-        MockitoInvocationHandler mockHandler = (MockitoInvocationHandler) mockUtil.getMockHandler(mock);
-        MethodInterceptorFilter filter = new MethodInterceptorFilter(mockHandler, getDefaultSettings());
-        ((Factory) mockToEnhance).setCallbacks(new Callback[] { filter, SerializableNoOp.SERIALIZABLE_INSTANCE });
+        //MZ MockUtil mockUtil = getMockUtil();
+        //MZ MockitoInvocationHandler mockHandler = (MockitoInvocationHandler) mockUtil.getMockHandler(mock);
+        //MZ MethodInterceptorFilter filter = new MethodInterceptorFilter(mockHandler, getDefaultSettings());
+        //MZ ((Factory) mockToEnhance).setCallbacks(new Callback[] { filter, SerializableNoOp.SERIALIZABLE_INSTANCE });
+        
+    	/*
+    	MockHandler<T> handler =  (MockHandler<T>) MockUtil.getMockHandler(mock);
+    	
+    	MockCreationSettings<T> settings = handler.getMockSettings();
+    	
+    	MockMaker mockMaker = MockUtil.getMockMaker(settings.getMockMaker());
+    	
+    	mockToEnhance = (T) mockMaker.createSpy(settings, handler, mockToEnhance);
+    	*/
+    	
+    	System.out.println("STARTLOG");
+    	
+    	System.out.println("ismock" + MockUtil.isMock(mockToEnhance));
+    	
+    	System.out.println("isspy" + MockUtil.isSpy(mockToEnhance));
+    	
+    	System.out.println("ENDLOG");
+    	
+    	/*
+    	mockToEnhance = Mockito.spy(mockToEnhance);
+    	
+    	MockSettings impl = getDefaultSettings();
+    	
+    	MockCreationSettings<T> settings = impl.build((Class<T>)mockToEnhance.getClass());
+    	
+    	MockHandler<?> handler =  MockUtil.getMockHandler(mock);
+    	
+    	MockMethodInterceptor mockMethodInterceptor = new MockMethodInterceptor(handler, settings);
+    	
+    	if (mockToEnhance instanceof MockAccess) {
+    		System.out.println("isMOCKACCESS");
+    		
+    		((MockAccess) mockToEnhance).setMockitoInterceptor(mockMethodInterceptor);}
+    	*/
+    	
+    	/*
+    	
+        
+    	MockHandler<?> handler =  MockUtil.getMockHandler(mock);
+    	
+    	MockMethodInterceptor mockMethodInterceptor = new MockMethodInterceptor(handler, settings);
+    	
+    	MockMaker mockMaker = MockUtil.getMockMaker(settings.getMockMaker());
+    	
+    	TypeMockability tm = mockMaker.isTypeMockable((Class<T>)mockToEnhance.getClass());
+    	
+    	System.out.println(tm.mockable() + tm.nonMockableReason());
+    	
+    	mockToEnhance = mockMaker.createMock(settings, handler);
+    	
+    	if (mockToEnhance instanceof MockAccess) {
+    		System.out.println("isMOCKACCESS");
+    		
+    		((MockAccess) mockToEnhance).setMockitoInterceptor(mockMethodInterceptor);}
+        
+        */
+        
+        /*
+        mockToEnhance = mockMaker.createSpy(settings, mockHandler, (T) mockToEnhance)
+                            .orElseGet(
+                                    () -> {
+                                        T instance = mockMaker.createMock(settings, mockHandler);
+                                        new LenientCopyTool().copyToMock(mock, instance);
+                                        return instance;
+                                    });
+       
+        */
+       //mockToEnhance = mockMaker.createMock(settings, mockHandler);
+    
     }
 
     /**
@@ -124,8 +209,8 @@ public class FactoryMockImpl<T> implements FactoryMock<T> {
      * 
      * @return the default settings of Mockito
      */
-    private MockSettingsImpl getDefaultSettings() {
-        return (MockSettingsImpl) new MockSettingsImpl().defaultAnswer(Mockito.RETURNS_DEFAULTS);
+    private MockSettings getDefaultSettings() {
+    	return new MockSettingsImpl().defaultAnswer(RETURNS_DEFAULTS);
     }
 
     /**
@@ -161,6 +246,7 @@ public class FactoryMockImpl<T> implements FactoryMock<T> {
      */
     private Field getDeclaredFieldFromType(Class<?> type, String fieldName) {
         try {
+        	System.out.println("FielNAME: "+ fieldName);
             return type.getDeclaredField(fieldName);
         } catch (Exception e) {
             throw new IllegalStateException(MOCKITO_COMPATIBILITY_MESSAGE, e);

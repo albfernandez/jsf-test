@@ -22,17 +22,20 @@
 package org.jboss.test.faces.jetty;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URLStreamHandler;
+import java.nio.file.Path;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.eclipse.jetty.util.resource.Resource;
 import org.jboss.test.faces.TestException;
 import org.jboss.test.faces.staging.DirectoryMap;
 import org.jboss.test.faces.staging.ServerResourcePath;
-import org.mortbay.resource.Resource;
 
 /**
  * @author Nick Belaevski
@@ -52,24 +55,26 @@ public class VirtualDirectoryResource extends Resource {
 
     private String path;
     
-    private DirectoryMap<Resource, VirtualDirectoryResource> directoryMap = 
-        new DirectoryMap<Resource, VirtualDirectoryResource>(this, JettyDirectoryMapAdapter.INSTANCE);
+    private DirectoryMap<Resource, VirtualDirectoryResource> directoryMap = new DirectoryMap<Resource, VirtualDirectoryResource>(this, JettyDirectoryMapAdapter.INSTANCE);
     
     public VirtualDirectoryResource(String path) {
         super();
         this.path = path;
     }
 
+    /*MZ
     @Override
     public boolean delete() throws SecurityException {
         throw new SecurityException(path);
     }
+	*/
 
     @Override
     public boolean exists() {
         return true;
     }
-
+    
+    /*MZ
     @Override
     public File getFile() throws IOException {
         return null;
@@ -79,17 +84,21 @@ public class VirtualDirectoryResource extends Resource {
     public InputStream getInputStream() throws IOException {
         throw new FileNotFoundException(path);
     }
+	*/
 
     @Override
     public String getName() {
         return path;
     }
 
+    /*MZ
     @Override
     public OutputStream getOutputStream() throws IOException, SecurityException {
         throw new FileNotFoundException(path);
     }
-
+	*/
+    
+    /*MZ
     @Override
     public URL getURL() {
         //necessary to avoid NPE for temp directories
@@ -99,6 +108,7 @@ public class VirtualDirectoryResource extends Resource {
             throw new TestException(e.getMessage(), e);
         }
     }
+    */
 
     @Override
     public boolean isDirectory() {
@@ -106,56 +116,62 @@ public class VirtualDirectoryResource extends Resource {
     }
 
     @Override
-    public long lastModified() {
-        return -1;
+    public Instant lastModified() {
+        return super.lastModified();
     }
 
     @Override
     public long length() {
-        return 0;
+        return -1L;
     }
 
     @Override
-    public String[] list() {
-        return directoryMap.getResourceNames().toArray(EMPTY_STRINGS_ARRAY);
+    public List<Resource> list() {
+        return new ArrayList<Resource>(directoryMap.getResources());
     }
 
+    /*MZ
     @Override
     public void release() {
         for (Resource childResource : directoryMap.getResources()) {
             childResource.release();
         }
     }
+	*/
 
+    /*MZ
     @Override
     public boolean renameTo(Resource dest) throws SecurityException {
         throw new SecurityException(path);
     }
+    */
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("VirtualResource: ");
         sb.append(path);
 
-        try {
-            File file = getFile();
-            if (file != null) {
-                sb.append(", ");
-                sb.append(file.getAbsolutePath());
-            } else {
-                URL url = getURL();
-                sb.append(", ");
-                sb.append(url.toExternalForm());
-            }
-        } catch (IOException e) {
-            //ignore
-        }
+        File file = getPath().toFile();
+		if (file != null) {
+		    sb.append(", IsFile: ");
+		    sb.append(file.getAbsolutePath());
+		} else {
+		    URL url;
+			try {
+				url = getURI().toURL();
+				sb.append(", IsURL: ");
+			    sb.append(url.toExternalForm());
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 
         return sb.toString();
     }
 
     @Override
-    public Resource addPath(String path) throws IOException, MalformedURLException {
+    public Resource resolve(String path) {
         Resource resource = directoryMap.getResource(new ServerResourcePath("/" + path));
         if (resource == null) {
             resource = new BadResource(path);
@@ -175,4 +191,36 @@ public class VirtualDirectoryResource extends Resource {
     public void createChildDirectory(ServerResourcePath serverResourcePath) {
         directoryMap.addDirectory(serverResourcePath);
     }
+
+	@Override
+	public Path getPath() {
+		//MZ
+		return Path.of(path);
+	}
+
+	@Override
+	public boolean isReadable() {
+		//MZ
+		return true;
+	}
+
+	@Override
+	public URI getURI() {
+		//MZ
+		try {
+			// URL(String protocol, String host, int port, String file, URLStreamHandler handler) 
+			
+            return new URL("http://", null, -1, path, VirtualResourceURLStreamHandler.INSTANCE).toURI();
+        } catch (MalformedURLException e) {
+            throw new TestException(e.getMessage(), e);
+        } catch (URISyntaxException e) {
+        	throw new TestException(e.getMessage(), e);
+		}
+	}
+
+	@Override
+	public String getFileName() {
+		//MZ
+		return getPath().getFileName().toString();
+	}
 }

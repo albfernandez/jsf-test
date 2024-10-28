@@ -25,32 +25,32 @@ package org.jboss.test.faces.mock;
 
 import java.util.HashMap;
 
-import javax.el.ELContext;
-import javax.faces.FactoryFinder;
-import javax.faces.application.Application;
-import javax.faces.application.ApplicationFactory;
-import javax.faces.application.ViewHandler;
-import javax.faces.context.ExceptionHandlerFactory;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.ExternalContextFactory;
-import javax.faces.context.FacesContext;
-import javax.faces.context.FacesContextFactory;
-import javax.faces.context.PartialViewContextFactory;
-import javax.faces.lifecycle.LifecycleFactory;
-import javax.faces.render.RenderKit;
-import javax.faces.render.RenderKitFactory;
-import javax.faces.render.ResponseStateManager;
-import javax.faces.view.facelets.TagHandlerDelegateFactory;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.easymock.EasyMock;
 import org.easymock.IMocksControl;
 import org.easymock.MockType;
 import org.jboss.test.faces.mock.factory.FactoryMock;
 import org.jboss.test.faces.mock.factory.FactoryMockingService;
 import org.jboss.test.faces.writer.RecordingResponseWriter;
+
+import jakarta.el.ELContext;
+import jakarta.faces.FactoryFinder;
+import jakarta.faces.application.Application;
+import jakarta.faces.application.ApplicationFactory;
+import jakarta.faces.application.ViewHandler;
+import jakarta.faces.context.ExceptionHandlerFactory;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.ExternalContextFactory;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.FacesContextFactory;
+import jakarta.faces.context.PartialViewContextFactory;
+import jakarta.faces.lifecycle.LifecycleFactory;
+import jakarta.faces.render.RenderKit;
+import jakarta.faces.render.RenderKitFactory;
+import jakarta.faces.render.ResponseStateManager;
+import jakarta.faces.view.facelets.TagHandlerDelegateFactory;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * <p class="changed_added_4_0">
@@ -98,7 +98,7 @@ public class MockFacesEnvironment {
 
     static {
         try {
-            Class.forName("javax.faces.component.behavior.Behavior", false, FacesContext.class.getClassLoader());
+            Class.forName("jakarta.faces.component.behavior.Behavior", false, FacesContext.class.getClassLoader());
             jsf2 = true;
         } catch (Throwable e) {
             jsf2 = false;

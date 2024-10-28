@@ -36,16 +36,19 @@
  holder.
 -->
 
-<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+<faces-config version="4.0" xmlns="https://jakarta.ee/xml/ns/jakartaee"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              version="2.0">   
+              xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+              https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_4_0.xsd">
 
     <!-- our NumberBean we created before -->
+    <!-- MZ removed in jakarta faces 4
     <managed-bean>
         <managed-bean-name>HelloBean</managed-bean-name>
         <managed-bean-class>org.jboss.test.faces.htmlunit.HelloBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
+    -->
 
     <!-- going from guess.xhtml to response.xhtml -->
     <navigation-rule>

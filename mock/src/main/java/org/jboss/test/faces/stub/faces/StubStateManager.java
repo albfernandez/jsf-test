@@ -2,24 +2,25 @@ package org.jboss.test.faces.stub.faces;
 
 import java.io.IOException;
 
-import javax.faces.application.StateManager;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.StateManager;
+import jakarta.faces.context.FacesContext;
 
 @SuppressWarnings("deprecation")
 public class StubStateManager extends StateManager
 {
+   /*MZ
    @Override
    public Object saveView(FacesContext ctx)
    {
       return null;
-   }
+   }*/
 
    @Override
    public void writeState(FacesContext ctx, Object state) throws IOException
    {
    }
 
+   /*
    @Override
    public SerializedView saveSerializedView(FacesContext ctx)
    {
@@ -60,4 +61,5 @@ public class StubStateManager extends StateManager
    protected void restoreComponentState(FacesContext ctx, UIViewRoot viewRoot, String x)
    {
    }
+   */
 }

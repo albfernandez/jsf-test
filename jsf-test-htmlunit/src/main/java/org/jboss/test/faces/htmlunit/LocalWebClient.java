@@ -3,12 +3,11 @@
  */
 package org.jboss.test.faces.htmlunit;
 
-import org.jboss.test.faces.staging.StagingServer;
-
 import org.htmlunit.BrowserVersion;
 import org.htmlunit.NicelyResynchronizingAjaxController;
 import org.htmlunit.WebClient;
 import org.htmlunit.WebConnection;
+import org.jboss.test.faces.staging.StagingServer;
 
 /**
  * Modified version of the HtmlUnit {@link WebClient}. This subclass uses {@link LocalWebConnection} by default,

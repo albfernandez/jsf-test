@@ -1,6 +1,6 @@
 package org.jboss.test.faces.mockito.component;
 
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.UIComponent;
 
 public class Facet<T extends UIComponent> {
     

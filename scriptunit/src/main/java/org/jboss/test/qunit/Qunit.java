@@ -28,10 +28,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.rules.MethodRule;
-import org.junit.runners.model.FrameworkMethod;
-import org.junit.runners.model.Statement;
-
 import org.htmlunit.BrowserVersion;
 import org.htmlunit.FailingHttpStatusCodeException;
 import org.htmlunit.MockWebConnection;
@@ -40,6 +36,9 @@ import org.htmlunit.ScriptResult;
 import org.htmlunit.WebClient;
 import org.htmlunit.html.HtmlPage;
 import org.htmlunit.javascript.SilentJavaScriptErrorListener;
+import org.junit.rules.MethodRule;
+import org.junit.runners.model.FrameworkMethod;
+import org.junit.runners.model.Statement;
 
 /**
  * <p class="changed_added_4_0">This class represents qunit test environment ( html page, java script libraries ... ) </p>

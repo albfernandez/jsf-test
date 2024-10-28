@@ -1,7 +1,7 @@
 package org.jboss.test.faces.stub.faces;
 
-import javax.faces.application.NavigationHandler;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.NavigationHandler;
+import jakarta.faces.context.FacesContext;
 
 public class StubNavigationHandler extends NavigationHandler
 {

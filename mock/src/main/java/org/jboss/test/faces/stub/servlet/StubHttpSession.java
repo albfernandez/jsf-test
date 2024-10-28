@@ -10,11 +10,10 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpSessionContext;
-
 import org.jboss.test.faces.stub.util.IteratorEnumeration;
+
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * @author Gavin King
@@ -68,10 +67,12 @@ public class StubHttpSession implements HttpSession
       return maxInactiveInterval;
    }
    
-   public HttpSessionContext getSessionContext()
+   /*MZ
+   public HttpSessionContex getSessionContext()
    {
       throw new UnsupportedOperationException();
    }
+   */
 
    public Object getAttribute(String att)
    {

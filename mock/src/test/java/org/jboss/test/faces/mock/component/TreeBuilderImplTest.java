@@ -8,12 +8,12 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
-
 import org.jboss.test.faces.mock.FacesMock;
 import org.junit.Before;
 import org.junit.Test;
+
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIInput;
 
 public class TreeBuilderImplTest {
     

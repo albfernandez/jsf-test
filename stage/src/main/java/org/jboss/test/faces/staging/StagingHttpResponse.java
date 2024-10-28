@@ -14,9 +14,10 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.WriteListener;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * @author asmirnov
@@ -67,7 +68,7 @@ abstract class StagingHttpResponse implements HttpServletResponse {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * javax.servlet.http.HttpServletResponse#addDateHeader(java.lang.String,
+	 * jakarta.servlet.http.HttpServletResponse#addDateHeader(java.lang.String,
 	 * long)
 	 */
 	public void addDateHeader(String name, long date) {
@@ -78,7 +79,7 @@ abstract class StagingHttpResponse implements HttpServletResponse {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpServletResponse#addHeader(java.lang.String,
+	 * @see jakarta.servlet.http.HttpServletResponse#addHeader(java.lang.String,
 	 * java.lang.String)
 	 */
 	public void addHeader(String name, String value) {
@@ -99,7 +100,7 @@ abstract class StagingHttpResponse implements HttpServletResponse {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * javax.servlet.http.HttpServletResponse#addIntHeader(java.lang.String,
+	 * jakarta.servlet.http.HttpServletResponse#addIntHeader(java.lang.String,
 	 * int)
 	 */
 	public void addIntHeader(String name, int value) {
@@ -125,7 +126,7 @@ abstract class StagingHttpResponse implements HttpServletResponse {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * javax.servlet.http.HttpServletResponse#containsHeader(java.lang.String)
+	 * jakarta.servlet.http.HttpServletResponse#containsHeader(java.lang.String)
 	 */
 	public boolean containsHeader(String name) {
 		return headers.containsKey(name);
@@ -135,7 +136,7 @@ abstract class StagingHttpResponse implements HttpServletResponse {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * javax.servlet.http.HttpServletResponse#encodeRedirectURL(java.lang.String
+	 * jakarta.servlet.http.HttpServletResponse#encodeRedirectURL(java.lang.String
 	 * )
 	 */
 	public String encodeRedirectURL(String url) {
@@ -146,7 +147,7 @@ abstract class StagingHttpResponse implements HttpServletResponse {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * javax.servlet.http.HttpServletResponse#encodeRedirectUrl(java.lang.String
+	 * jakarta.servlet.http.HttpServletResponse#encodeRedirectUrl(java.lang.String
 	 * )
 	 */
 	public String encodeRedirectUrl(String url) {
@@ -156,7 +157,7 @@ abstract class StagingHttpResponse implements HttpServletResponse {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpServletResponse#encodeURL(java.lang.String)
+	 * @see jakarta.servlet.http.HttpServletResponse#encodeURL(java.lang.String)
 	 */
 	public String encodeURL(String url) {
 		return url;
@@ -165,7 +166,7 @@ abstract class StagingHttpResponse implements HttpServletResponse {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpServletResponse#encodeUrl(java.lang.String)
+	 * @see jakarta.servlet.http.HttpServletResponse#encodeUrl(java.lang.String)
 	 */
 	public String encodeUrl(String url) {
 		return encodeURL(url);
@@ -174,7 +175,7 @@ abstract class StagingHttpResponse implements HttpServletResponse {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpServletResponse#sendError(int)
+	 * @see jakarta.servlet.http.HttpServletResponse#sendError(int)
 	 */
 	public void sendError(int sc) throws IOException {
 		status = sc;
@@ -184,7 +185,7 @@ abstract class StagingHttpResponse implements HttpServletResponse {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpServletResponse#sendError(int,
+	 * @see jakarta.servlet.http.HttpServletResponse#sendError(int,
 	 * java.lang.String)
 	 */
 	public void sendError(int sc, String msg) throws IOException {
@@ -196,7 +197,7 @@ abstract class StagingHttpResponse implements HttpServletResponse {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * javax.servlet.http.HttpServletResponse#sendRedirect(java.lang.String)
+	 * jakarta.servlet.http.HttpServletResponse#sendRedirect(java.lang.String)
 	 */
 	public void sendRedirect(String location) throws IOException {
 		redirectLocation = location;
@@ -206,7 +207,7 @@ abstract class StagingHttpResponse implements HttpServletResponse {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * javax.servlet.http.HttpServletResponse#setDateHeader(java.lang.String,
+	 * jakarta.servlet.http.HttpServletResponse#setDateHeader(java.lang.String,
 	 * long)
 	 */
 	public void setDateHeader(String name, long date) {
@@ -217,7 +218,7 @@ abstract class StagingHttpResponse implements HttpServletResponse {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpServletResponse#setHeader(java.lang.String,
+	 * @see jakarta.servlet.http.HttpServletResponse#setHeader(java.lang.String,
 	 * java.lang.String)
 	 */
 	public void setHeader(String name, String value) {
@@ -228,7 +229,7 @@ abstract class StagingHttpResponse implements HttpServletResponse {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * javax.servlet.http.HttpServletResponse#setIntHeader(java.lang.String,
+	 * jakarta.servlet.http.HttpServletResponse#setIntHeader(java.lang.String,
 	 * int)
 	 */
 	public void setIntHeader(String name, int value) {
@@ -238,7 +239,7 @@ abstract class StagingHttpResponse implements HttpServletResponse {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpServletResponse#setStatus(int)
+	 * @see jakarta.servlet.http.HttpServletResponse#setStatus(int)
 	 */
 	public void setStatus(int sc) {
 		status = sc;
@@ -248,7 +249,7 @@ abstract class StagingHttpResponse implements HttpServletResponse {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpServletResponse#setStatus(int,
+	 * @see jakarta.servlet.http.HttpServletResponse#setStatus(int,
 	 * java.lang.String)
 	 */
 	public void setStatus(int sc, String sm) {
@@ -258,7 +259,7 @@ abstract class StagingHttpResponse implements HttpServletResponse {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.ServletResponse#flushBuffer()
+	 * @see jakarta.servlet.ServletResponse#flushBuffer()
 	 */
 	public void flushBuffer() throws IOException {
 		// do nothing
@@ -268,7 +269,7 @@ abstract class StagingHttpResponse implements HttpServletResponse {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.ServletResponse#getBufferSize()
+	 * @see jakarta.servlet.ServletResponse#getBufferSize()
 	 */
 	public int getBufferSize() {
 		return bufferSize;
@@ -277,7 +278,7 @@ abstract class StagingHttpResponse implements HttpServletResponse {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.ServletResponse#getCharacterEncoding()
+	 * @see jakarta.servlet.ServletResponse#getCharacterEncoding()
 	 */
 	public String getCharacterEncoding() {
 		return encoding;
@@ -286,7 +287,7 @@ abstract class StagingHttpResponse implements HttpServletResponse {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.ServletResponse#getContentType()
+	 * @see jakarta.servlet.ServletResponse#getContentType()
 	 */
 	public String getContentType() {
 		return contentType;
@@ -295,7 +296,7 @@ abstract class StagingHttpResponse implements HttpServletResponse {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.ServletResponse#getLocale()
+	 * @see jakarta.servlet.ServletResponse#getLocale()
 	 */
 	public Locale getLocale() {
 		return locale;
@@ -304,7 +305,7 @@ abstract class StagingHttpResponse implements HttpServletResponse {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.ServletResponse#getOutputStream()
+	 * @see jakarta.servlet.ServletResponse#getOutputStream()
 	 */
 	public ServletOutputStream getOutputStream() throws IOException {
 		if (null != this.outputWriter) {
@@ -318,6 +319,18 @@ abstract class StagingHttpResponse implements HttpServletResponse {
 				public void write(int b) throws IOException {
 					StagingHttpResponse.this.outputStream.write(b);				
 				}
+
+				@Override
+				public boolean isReady() {
+					//MZ
+					return true;
+				}
+
+				@Override
+				public void setWriteListener(WriteListener writeListener) {
+					//MZ
+					throw new NotImplementedException();
+				}
 				
 			};			
 		}
@@ -327,7 +340,7 @@ abstract class StagingHttpResponse implements HttpServletResponse {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.ServletResponse#getWriter()
+	 * @see jakarta.servlet.ServletResponse#getWriter()
 	 */
 	public PrintWriter getWriter() throws IOException {
 		if (null != this.outputStream) {
@@ -357,7 +370,7 @@ abstract class StagingHttpResponse implements HttpServletResponse {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.ServletResponse#isCommitted()
+	 * @see jakarta.servlet.ServletResponse#isCommitted()
 	 */
 	public boolean isCommitted() {
 		// TODO Auto-generated method stub
@@ -367,7 +380,7 @@ abstract class StagingHttpResponse implements HttpServletResponse {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.ServletResponse#reset()
+	 * @see jakarta.servlet.ServletResponse#reset()
 	 */
 	public void reset() {
 		if(isCommitted()){
@@ -379,7 +392,7 @@ abstract class StagingHttpResponse implements HttpServletResponse {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.ServletResponse#resetBuffer()
+	 * @see jakarta.servlet.ServletResponse#resetBuffer()
 	 */
 	public void resetBuffer() {
 		if(isCommitted()){
@@ -394,7 +407,7 @@ abstract class StagingHttpResponse implements HttpServletResponse {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.ServletResponse#setBufferSize(int)
+	 * @see jakarta.servlet.ServletResponse#setBufferSize(int)
 	 */
 	public void setBufferSize(int size) {
 		this.bufferSize = size;
@@ -403,7 +416,7 @@ abstract class StagingHttpResponse implements HttpServletResponse {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.ServletResponse#setCharacterEncoding(java.lang.String)
+	 * @see jakarta.servlet.ServletResponse#setCharacterEncoding(java.lang.String)
 	 */
 	public void setCharacterEncoding(String charset) {
 		encoding = charset;
@@ -412,7 +425,7 @@ abstract class StagingHttpResponse implements HttpServletResponse {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.ServletResponse#setContentLength(int)
+	 * @see jakarta.servlet.ServletResponse#setContentLength(int)
 	 */
 	public void setContentLength(int len) {
 		this.contentLength = len;
@@ -421,7 +434,7 @@ abstract class StagingHttpResponse implements HttpServletResponse {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.ServletResponse#setContentType(java.lang.String)
+	 * @see jakarta.servlet.ServletResponse#setContentType(java.lang.String)
 	 */
 	public void setContentType(String type) {
 		if(null == type){
@@ -444,7 +457,7 @@ abstract class StagingHttpResponse implements HttpServletResponse {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.servlet.ServletResponse#setLocale(java.util.Locale)
+	 * @see jakarta.servlet.ServletResponse#setLocale(java.util.Locale)
 	 */
 	public void setLocale(Locale loc) {
 		this.locale  = loc;
@@ -459,7 +472,7 @@ abstract class StagingHttpResponse implements HttpServletResponse {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.http.HttpServletResponse#getHeader(java.lang.String)
+	 * @see jakarta.servlet.http.HttpServletResponse#getHeader(java.lang.String)
 	 */
 	public String getHeader(String arg0) {
 		// TODO Auto-generated method stub
@@ -467,7 +480,7 @@ abstract class StagingHttpResponse implements HttpServletResponse {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.http.HttpServletResponse#getHeaderNames()
+	 * @see jakarta.servlet.http.HttpServletResponse#getHeaderNames()
 	 */
 	public Collection<String> getHeaderNames() {
 		// TODO Auto-generated method stub
@@ -475,7 +488,7 @@ abstract class StagingHttpResponse implements HttpServletResponse {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.http.HttpServletResponse#getHeaders(java.lang.String)
+	 * @see jakarta.servlet.http.HttpServletResponse#getHeaders(java.lang.String)
 	 */
 	public Collection<String> getHeaders(String arg0) {
 		// TODO Auto-generated method stub

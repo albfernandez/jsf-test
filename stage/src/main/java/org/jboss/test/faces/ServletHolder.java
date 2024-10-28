@@ -21,7 +21,7 @@
  */
 package org.jboss.test.faces;
 
-import javax.servlet.Servlet;
+import jakarta.servlet.Servlet;
 
 /**
  * @author Nick Belaevski

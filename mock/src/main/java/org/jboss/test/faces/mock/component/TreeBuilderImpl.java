@@ -32,11 +32,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.component.UIComponent;
-
 import org.easymock.Capture;
 import org.easymock.IAnswer;
 import org.jboss.test.faces.mock.FacesMock;
+
+import jakarta.faces.component.UIComponent;
 
 /**
  * <p class="changed_added_4_0">

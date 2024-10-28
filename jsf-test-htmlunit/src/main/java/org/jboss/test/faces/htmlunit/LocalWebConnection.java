@@ -7,16 +7,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map.Entry;
 
-import org.jboss.test.faces.staging.HttpMethod;
-import org.jboss.test.faces.staging.StagingConnection;
-import org.jboss.test.faces.staging.StagingServer;
-
 import org.htmlunit.FormEncodingType;
 import org.htmlunit.WebConnection;
 import org.htmlunit.WebRequest;
 import org.htmlunit.WebResponse;
 import org.htmlunit.WebResponseData;
 import org.htmlunit.util.NameValuePair;
+import org.jboss.test.faces.staging.HttpMethod;
+import org.jboss.test.faces.staging.StagingConnection;
+import org.jboss.test.faces.staging.StagingServer;
 
 /**
  * This implementation of the HtmlUnit {@link WebConnection} execute http requests on the local

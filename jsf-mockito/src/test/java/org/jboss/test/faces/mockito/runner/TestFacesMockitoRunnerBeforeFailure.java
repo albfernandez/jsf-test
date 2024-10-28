@@ -5,7 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import javax.faces.context.FacesContext;
+import java.lang.reflect.InvocationTargetException;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -15,15 +15,20 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.model.InitializationError;
-import org.mockito.internal.runners.JUnit45AndHigherRunnerImpl;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import jakarta.faces.context.FacesContext;
 
 public class TestFacesMockitoRunnerBeforeFailure {
 
     @Test
     public void test() throws InitializationError {
         try {
-            new JUnit45AndHigherRunnerImpl(PrivateTest.class).run(new RunNotifier());
-        } finally {
+            new MockitoJUnitRunner(PrivateTest.class).run(new RunNotifier());
+        } catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
             assertNull("FacesContext should be cleared after failed test", FacesContext.getCurrentInstance());
             assertTrue("@Before should be invoked", PrivateTest.beforeWasCalled);
             assertFalse("@Test should not be invoked", PrivateTest.testWasCalled);

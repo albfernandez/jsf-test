@@ -25,9 +25,9 @@ package org.jboss.test.faces.writer;
 
 import java.util.LinkedHashMap;
 
-import javax.faces.component.UIComponent;
-
 import org.jboss.test.faces.mock.FacesTestException;
+
+import jakarta.faces.component.UIComponent;
 
 /**
  * @author asmirnov
