@@ -5,7 +5,7 @@
     <mock-controller>org.jboss.test.faces.mock.FacesMockController</mock-controller>
     <mock>
        <name>org.jboss.test.faces.mock.context.MockFacesContext</name>
-       <class-name>javax.faces.context.FacesContext</class-name>
+       <class-name>jakarta.faces.context.FacesContext</class-name>
        <!-- <postConstruct>setCurrentInstance(this);</postConstruct> -->
        <code><![CDATA[//
            @Override
@@ -13,8 +13,8 @@
                setCurrentInstance(null);
            }
            
-           public static void setCurrentInstance(javax.faces.context.FacesContext context) {
-                javax.faces.context.FacesContext.setCurrentInstance(context);
+           public static void setCurrentInstance(jakarta.faces.context.FacesContext context) {
+                jakarta.faces.context.FacesContext.setCurrentInstance(context);
             }
                 //]]></code>
        <method name="release" exclude="true" />
@@ -23,8 +23,8 @@
         <name>org.jboss.test.faces.mock.context.MockInitFacesContext</name>
         <class-name>com.sun.faces.config.InitFacesContext</class-name>
         <imports>
-            import javax.faces.context.ExternalContext;
-            import javax.servlet.ServletContext;
+            import jakarta.faces.context.ExternalContext;
+            import jakarta.servlet.ServletContext;
             import org.jboss.test.faces.mock.FacesMock;
         </imports>
         <constructors>
@@ -66,30 +66,30 @@
                setCurrentInstance(null);
            }
            
-           public static void setCurrentInstance(javax.faces.context.FacesContext context) {
-                javax.faces.context.FacesContext.setCurrentInstance(context);
+           public static void setCurrentInstance(jakarta.faces.context.FacesContext context) {
+                jakarta.faces.context.FacesContext.setCurrentInstance(context);
             }
                 //]]></code>
        <method name="release" exclude="true" />
     </mock>
     <mock>
        <name>org.jboss.test.faces.mock.context.MockFacesContextFactory</name>
-       <class-name>javax.faces.context.FacesContextFactory</class-name>
+       <class-name>jakarta.faces.context.FacesContextFactory</class-name>
     </mock>
     <mock>
        <name>org.jboss.test.faces.mock.context.MockExternalContext</name>
-       <class-name>javax.faces.context.ExternalContext</class-name>
+       <class-name>jakarta.faces.context.ExternalContext</class-name>
     </mock>
     <mock>
        <name>org.jboss.test.faces.mock.context.MockExternalContextFactory</name>
-       <class-name>javax.faces.context.ExternalContextFactory</class-name>
+       <class-name>jakarta.faces.context.ExternalContextFactory</class-name>
     </mock>
     <mock>
        <name>org.jboss.test.faces.mock.context.MockFlash</name>
-       <class-name>javax.faces.context.Flash</class-name>
+       <class-name>jakarta.faces.context.Flash</class-name>
        <method name="put" exclude="true"/>
        <code><![CDATA[
-     private static final Method putMethod0 = findMethod(javax.faces.context.Flash.class, "put",java.lang.String.class,java.lang.Object.class);
+     private static final Method putMethod0 = findMethod(jakarta.faces.context.Flash.class, "put",java.lang.String.class,java.lang.Object.class);
      public java.lang.Object put(java.lang.String arg0,java.lang.Object arg1) {
             return (java.lang.Object)invokeMethod(this, putMethod0 ,arg0,arg1);
      }
@@ -97,194 +97,194 @@
     </mock>
     <mock>
        <name>org.jboss.test.faces.mock.context.MockExceptionHandler</name>
-       <class-name>javax.faces.context.ExceptionHandler</class-name>
+       <class-name>jakarta.faces.context.ExceptionHandler</class-name>
     </mock>
     <mock>
        <name>org.jboss.test.faces.mock.context.MockExceptionHandlerFactory</name>
-       <class-name>javax.faces.context.ExceptionHandlerFactory</class-name>
+       <class-name>jakarta.faces.context.ExceptionHandlerFactory</class-name>
     </mock>
     <mock>
        <name>org.jboss.test.faces.mock.context.MockPartialViewContext</name>
-       <class-name>javax.faces.context.PartialViewContext</class-name>
+       <class-name>jakarta.faces.context.PartialViewContext</class-name>
     </mock>
     <mock>
        <name>org.jboss.test.faces.mock.context.MockPartialViewContextFactory</name>
-       <class-name>javax.faces.context.PartialViewContextFactory</class-name>
+       <class-name>jakarta.faces.context.PartialViewContextFactory</class-name>
     </mock>
     <!-- pending for constructor analyzing.
     <mock>
        <name>org.jboss.test.faces.mock.context.MockPartialResponseWriter</name>
-       <class-name>javax.faces.context.PartialResponseWriter</class-name>
+       <class-name>jakarta.faces.context.PartialResponseWriter</class-name>
     </mock>
     -->
     <mock>
        <name>org.jboss.test.faces.mock.context.MockResponseWriter</name>
-       <class-name>javax.faces.context.ResponseWriter</class-name>
+       <class-name>jakarta.faces.context.ResponseWriter</class-name>
     </mock>
     
     <mock>
        <name>org.jboss.test.faces.mock.application.MockApplication</name>
-       <class-name>javax.faces.application.Application</class-name>
+       <class-name>jakarta.faces.application.Application</class-name>
     </mock>
     <mock>
        <name>org.jboss.test.faces.mock.application.MockApplicationFactory</name>
-       <class-name>javax.faces.application.ApplicationFactory</class-name>
+       <class-name>jakarta.faces.application.ApplicationFactory</class-name>
     </mock>
     <mock>
        <name>org.jboss.test.faces.mock.application.MockViewHandler</name>
-       <class-name>javax.faces.application.ViewHandler</class-name>
+       <class-name>jakarta.faces.application.ViewHandler</class-name>
     </mock>
     <mock>
        <name>org.jboss.test.faces.mock.application.MockNavigationHandler</name>
-       <class-name>javax.faces.application.NavigationHandler</class-name>
+       <class-name>jakarta.faces.application.NavigationHandler</class-name>
     </mock>
     <mock>
        <name>org.jboss.test.faces.mock.application.MockStateManager</name>
-       <class-name>javax.faces.application.StateManager</class-name>
+       <class-name>jakarta.faces.application.StateManager</class-name>
     </mock>
     <mock>
        <name>org.jboss.test.faces.mock.application.MockResource</name>
-       <class-name>javax.faces.application.Resource</class-name>
+       <class-name>jakarta.faces.application.Resource</class-name>
     </mock>
     <mock>
        <name>org.jboss.test.faces.mock.application.MockResourceHandler</name>
-       <class-name>javax.faces.application.ResourceHandler</class-name>
+       <class-name>jakarta.faces.application.ResourceHandler</class-name>
     </mock>
     <mock>
        <name>org.jboss.test.faces.mock.component.MockUIComponent</name>
-       <class-name>javax.faces.component.UIComponent</class-name>
+       <class-name>jakarta.faces.component.UIComponent</class-name>
        <code><![CDATA[
     @Override
-    protected void addFacesListener(javax.faces.event.FacesListener listener) {
+    protected void addFacesListener(jakarta.faces.event.FacesListener listener) {
         
     }
 
     @Override
-    protected javax.faces.context.FacesContext getFacesContext() {
+    protected jakarta.faces.context.FacesContext getFacesContext() {
         return null;
     }
 
     @Override
-    protected javax.faces.event.FacesListener[] getFacesListeners(Class clazz) {
+    protected jakarta.faces.event.FacesListener[] getFacesListeners(Class clazz) {
         return null;
     }
 
     @Override
-    protected javax.faces.render.Renderer getRenderer(javax.faces.context.FacesContext context) {
+    protected jakarta.faces.render.Renderer getRenderer(jakarta.faces.context.FacesContext context) {
         return null;
     }
 
     @Override
-    protected void removeFacesListener(javax.faces.event.FacesListener listener) {
+    protected void removeFacesListener(jakarta.faces.event.FacesListener listener) {
     }
        
        ]]></code>
     </mock>
     <mock>
        <name>org.jboss.test.faces.mock.component.MockUIComponentBase</name>
-       <class-name>javax.faces.component.UIComponentBase</class-name>
+       <class-name>jakarta.faces.component.UIComponentBase</class-name>
     </mock>
     <mock>
        <name>org.jboss.test.faces.mock.component.MockUIViewRoot</name>
-       <class-name>javax.faces.component.UIViewRoot</class-name>
+       <class-name>jakarta.faces.component.UIViewRoot</class-name>
     </mock>
     <mock>
        <name>org.jboss.test.faces.mock.component.MockUIOutput</name>
-       <class-name>javax.faces.component.UIOutput</class-name>
+       <class-name>jakarta.faces.component.UIOutput</class-name>
     </mock>
     <mock>
        <name>org.jboss.test.faces.mock.component.MockUIInput</name>
-       <class-name>javax.faces.component.UIInput</class-name>
+       <class-name>jakarta.faces.component.UIInput</class-name>
 
     </mock>
     <mock>
        <name>org.jboss.test.faces.mock.component.MockUICommand</name>
-       <class-name>javax.faces.component.UICommand</class-name>
+       <class-name>jakarta.faces.component.UICommand</class-name>
 
     </mock>
     <mock>
        <name>org.jboss.test.faces.mock.component.behavior.MockClientBehaviorContext</name>
-       <class-name>javax.faces.component.behavior.ClientBehaviorContext</class-name>
+       <class-name>jakarta.faces.component.behavior.ClientBehaviorContext</class-name>
     </mock>
     <mock>
        <name>org.jboss.test.faces.mock.component.visit.MockVisitContext</name>
-       <class-name>javax.faces.component.visit.VisitContext</class-name>
+       <class-name>jakarta.faces.component.visit.VisitContext</class-name>
     </mock>
     <mock>
        <name>org.jboss.test.faces.mock.component.visit.MockVisitContextFactory</name>
-       <class-name>javax.faces.component.visit.VisitContextFactory</class-name>
+       <class-name>jakarta.faces.component.visit.VisitContextFactory</class-name>
     </mock>
     <mock>
        <name>org.jboss.test.faces.mock.el.MockMethodBinding</name>
-       <class-name>javax.faces.el.MethodBinding</class-name>
+       <class-name>jakarta.faces.el.MethodBinding</class-name>
     </mock>
     <mock>
        <name>org.jboss.test.faces.mock.el.MockValueBinding</name>
-       <class-name>javax.faces.el.ValueBinding</class-name>
+       <class-name>jakarta.faces.el.ValueBinding</class-name>
     </mock>
     <mock>
        <name>org.jboss.test.faces.mock.el.MockPropertyResolver</name>
-       <class-name>javax.faces.el.PropertyResolver</class-name>
+       <class-name>jakarta.faces.el.PropertyResolver</class-name>
     </mock>
     <mock>
        <name>org.jboss.test.faces.mock.el.MockVariableResolver</name>
-       <class-name>javax.faces.el.VariableResolver</class-name>
+       <class-name>jakarta.faces.el.VariableResolver</class-name>
     </mock>
     <mock>
        <name>org.jboss.test.faces.mock.lifecycle.MockLifecycle</name>
-       <class-name>javax.faces.lifecycle.Lifecycle</class-name>
+       <class-name>jakarta.faces.lifecycle.Lifecycle</class-name>
     </mock>
     <mock>
        <name>org.jboss.test.faces.mock.lifecycle.MockLifecycleFactory</name>
-       <class-name>javax.faces.lifecycle.LifecycleFactory</class-name>
+       <class-name>jakarta.faces.lifecycle.LifecycleFactory</class-name>
     </mock>
     <mock>
        <name>org.jboss.test.faces.mock.render.MockClientBehaviorRenderer</name>
-       <class-name>javax.faces.render.ClientBehaviorRenderer</class-name>
+       <class-name>jakarta.faces.render.ClientBehaviorRenderer</class-name>
     </mock>
     <mock>
        <name>org.jboss.test.faces.mock.render.MockRenderer</name>
-       <class-name>javax.faces.render.Renderer</class-name>
+       <class-name>jakarta.faces.render.Renderer</class-name>
     </mock>
     <mock>
        <name>org.jboss.test.faces.mock.render.MockRenderKit</name>
-       <class-name>javax.faces.render.RenderKit</class-name>
+       <class-name>jakarta.faces.render.RenderKit</class-name>
     </mock>
     <mock>
        <name>org.jboss.test.faces.mock.render.MockRenderKitFactory</name>
-       <class-name>javax.faces.render.RenderKitFactory</class-name>
+       <class-name>jakarta.faces.render.RenderKitFactory</class-name>
     </mock>
     <mock>
        <name>org.jboss.test.faces.mock.render.MockResponseStateManager</name>
-       <class-name>javax.faces.render.ResponseStateManager</class-name>
+       <class-name>jakarta.faces.render.ResponseStateManager</class-name>
     </mock>
     <mock>
        <name>org.jboss.test.faces.mock.view.MockViewDeclarationLanguage</name>
-       <class-name>javax.faces.view.ViewDeclarationLanguage</class-name>
+       <class-name>jakarta.faces.view.ViewDeclarationLanguage</class-name>
     </mock>
     <mock>
        <name>org.jboss.test.faces.mock.view.MockViewDeclarationLanguageFactory</name>
-       <class-name>javax.faces.view.ViewDeclarationLanguageFactory</class-name>
+       <class-name>jakarta.faces.view.ViewDeclarationLanguageFactory</class-name>
     </mock>
     <mock>
        <name>org.jboss.test.faces.mock.view.MockStateManagementStrategy</name>
-       <class-name>javax.faces.view.StateManagementStrategy</class-name>
+       <class-name>jakarta.faces.view.StateManagementStrategy</class-name>
     </mock>
     <mock>
        <name>org.jboss.test.faces.mock.el.MockValueExpression</name>
-       <class-name>javax.el.ValueExpression</class-name>
+       <class-name>jakarta.el.ValueExpression</class-name>
     </mock>
     <mock>
        <name>org.jboss.test.faces.mock.el.MockMethodExpression</name>
-       <class-name>javax.el.MethodExpression</class-name>
+       <class-name>jakarta.el.MethodExpression</class-name>
     </mock>
     <mock>
        <name>org.jboss.test.faces.mock.el.MockExpressionFactory</name>
-       <class-name>javax.el.ExpressionFactory</class-name>
+       <class-name>jakarta.el.ExpressionFactory</class-name>
     </mock>
     <mock>
        <name>org.jboss.test.faces.mock.el.MockELContext</name>
-       <class-name>javax.el.ELContext</class-name>
+       <class-name>jakarta.el.ELContext</class-name>
     </mock>
     
 </mock-config>

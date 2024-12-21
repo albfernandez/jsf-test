@@ -10,12 +10,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import javax.servlet.Servlet;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import jakarta.servlet.Servlet;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 
 
 /**
@@ -191,8 +191,8 @@ public class ServletContainer implements RequestChain {
 	 * (non-Javadoc)
 	 *
 	 * @see
-	 * org.jboss.test.faces.staging.RequestChain#execute(javax.servlet.ServletRequest
-	 * , javax.servlet.ServletResponse)
+	 * org.jboss.test.faces.staging.RequestChain#execute(jakarta.servlet.ServletRequest
+	 * , jakarta.servlet.ServletResponse)
 	 */
 	public void execute(ServletRequest request, ServletResponse response)
 			throws ServletException, IOException {

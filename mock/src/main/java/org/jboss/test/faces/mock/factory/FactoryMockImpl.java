@@ -21,14 +21,12 @@
  */
 package org.jboss.test.faces.mock.factory;
 
-import java.lang.reflect.Field;
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
 
 import org.easymock.EasyMock;
-import org.easymock.internal.ClassExtensionHelper;
-import org.easymock.internal.ClassProxyFactory.MockMethodInterceptor;
-
-import net.sf.cglib.proxy.Callback;
-import net.sf.cglib.proxy.Factory;
+import org.easymock.internal.ClassInstantiatorFactory;
+import org.easymock.internal.ClassMockingData;
 
 /**
  * The implementation of factory mocks - mocks which needs to be created by constructing class instance by class name (e.g.
@@ -38,9 +36,11 @@ import net.sf.cglib.proxy.Factory;
  *            the generic type
  */
 public class FactoryMockImpl<T> implements FactoryMock<T> {
+	
+	private static final String CALLBACK_FIELD = "$callback";
 
     /** The message thrown when compatibility issue of used Mockito version are detected */
-    private final static String MOCKITO_COMPATIBILITY_MESSAGE = "Mockito internals has changed and this code not anymore compatible";
+    //MZ private final static String MOCKITO_COMPATIBILITY_MESSAGE = "Mockito internals has changed and this code not anymore compatible";
 
     /** The original class. */
     private Class<T> originalClass;
@@ -93,10 +93,10 @@ public class FactoryMockImpl<T> implements FactoryMock<T> {
     @SuppressWarnings("unchecked")
     public T createNewMockInstance() {
         try {
-            return (T) mock.getClass().newInstance();
-        } catch (IllegalAccessException e) {
-            throw new IllegalStateException("Cannot create instance for mock factory of class '" + originalClass + "'",
-                e);
+            return (T) ClassInstantiatorFactory.getInstantiator().newInstance(mock.getClass()); //MZ mock.getClass().newInstance();
+        //MZ } catch (IllegalAccessException e) {
+            //MZ throw new IllegalStateException("Cannot create instance for mock factory of class '" + originalClass + "'",
+                //MZ e);
         } catch (InstantiationException e) {
             throw new IllegalStateException("Cannot create instance for mock factory of class '" + originalClass + "'",
                 e);
@@ -110,8 +110,31 @@ public class FactoryMockImpl<T> implements FactoryMock<T> {
      *            the mock to enhance
      */
     void enhance(T mockToEnhance) {
-        MockMethodInterceptor interceptor = ClassExtensionHelper.getInterceptor(mock);
-        ((Factory) mockToEnhance).setCallbacks(new Callback[] { interceptor, SerializableNoOp.SERIALIZABLE_INSTANCE });
+    	
+    	//MZ MockMethodInterceptor interceptor = ClassExtensionHelper.getInterceptor(mock);
+       	
+    	//MZ ((Factory) mockToEnhance).setCallbacks(new Callback[] { interceptor, SerializableNoOp.SERIALIZABLE_INSTANCE });
+    	
+    	try {
+    		
+    		MethodHandle mockCallbackGetter = MethodHandles.lookup().findGetter(mock.getClass(), CALLBACK_FIELD, ClassMockingData.class);
+    		
+            MethodHandle mockToEnhanceCallbackSetter = MethodHandles.lookup().findSetter(mockToEnhance.getClass(), CALLBACK_FIELD, ClassMockingData.class);
+            
+            try {
+            	
+            	mockToEnhanceCallbackSetter.invoke(mockToEnhance, mockCallbackGetter.invoke(mock));
+            
+            } catch (Error | RuntimeException e) {
+                throw e;
+            } catch (Throwable e) {
+                throw new RuntimeException(e);
+            }
+            
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    	
     }
 
     /**
@@ -123,6 +146,7 @@ public class FactoryMockImpl<T> implements FactoryMock<T> {
      *            the field name
      * @return the declared field from type
      */
+    /*MZ
     private Field getDeclaredFieldFromType(Class<?> type, String fieldName) {
         try {
             return type.getDeclaredField(fieldName);
@@ -130,6 +154,8 @@ public class FactoryMockImpl<T> implements FactoryMock<T> {
             throw new IllegalStateException(MOCKITO_COMPATIBILITY_MESSAGE, e);
         }
     }
+    */
+
 
     /**
      * Gets the object from declared field.
@@ -140,6 +166,7 @@ public class FactoryMockImpl<T> implements FactoryMock<T> {
      *            the field
      * @return the object from declared field
      */
+    /*MZ
     private Object getObjectFromDeclaredField(Object instance, Field field) {
         boolean accessible = field.isAccessible();
         Object result = null;
@@ -157,4 +184,6 @@ public class FactoryMockImpl<T> implements FactoryMock<T> {
         }
         return result;
     }
+    */
+    
 }

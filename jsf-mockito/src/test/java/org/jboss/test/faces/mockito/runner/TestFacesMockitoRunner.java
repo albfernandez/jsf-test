@@ -26,13 +26,13 @@ import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import javax.faces.application.Application;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
-import javax.inject.Inject;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import jakarta.faces.application.Application;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Inject;
 
 /**
  * The Class TestFacesMockitoRunner.

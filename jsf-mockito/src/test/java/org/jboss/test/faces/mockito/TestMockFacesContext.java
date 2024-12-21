@@ -25,12 +25,12 @@ import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import javax.faces.application.Application;
-import javax.faces.context.FacesContext;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import jakarta.faces.application.Application;
+import jakarta.faces.context.FacesContext;
 
 /**
  * The Class TestMockFacesContext.

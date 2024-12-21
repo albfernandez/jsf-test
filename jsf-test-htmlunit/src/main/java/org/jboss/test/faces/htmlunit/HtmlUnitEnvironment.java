@@ -27,15 +27,13 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.text.MessageFormat;
 
-import org.jboss.test.faces.ApplicationServer;
-import org.jboss.test.faces.FacesEnvironment;
-import org.jboss.test.faces.staging.StagingServer;
-
 import org.htmlunit.BrowserVersion;
 import org.htmlunit.FailingHttpStatusCodeException;
 import org.htmlunit.Page;
 import org.htmlunit.WebClient;
-import org.htmlunit.html.HtmlPage;
+import org.jboss.test.faces.ApplicationServer;
+import org.jboss.test.faces.FacesEnvironment;
+import org.jboss.test.faces.staging.StagingServer;
 
 /**
  * <p class="changed_added_4_0">
@@ -50,7 +48,7 @@ public class HtmlUnitEnvironment extends FacesEnvironment {
     private BrowserVersion browserVersion = BrowserVersion.getDefault();
 
     public HtmlUnitEnvironment() {
-        super();
+    	super();
     }
 
     public HtmlUnitEnvironment(ApplicationServer applicationServer) {
@@ -80,7 +78,11 @@ public class HtmlUnitEnvironment extends FacesEnvironment {
     
     @Override
     public FacesEnvironment start() {
-        super.start();
+    	
+    	//MZ
+    	super.getServer().addResource(BEANS_CONFIG_XML, "org/jboss/test/WEB-INF/beans.xml");
+        
+    	super.start();
         this.webClient = createWebClient();
         return this;
     }

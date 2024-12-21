@@ -5,9 +5,9 @@ import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Locale;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 
 public class StubHttpServletResponse implements HttpServletResponse
 {
@@ -174,5 +174,17 @@ public Collection<String> getHeaders(String name) {
 public Collection<String> getHeaderNames() {
 	// TODO Auto-generated method stub
 	return null;
+}
+
+@Override
+public void setContentLengthLong(long len) {
+	// TODO Auto-generated method stub
+	
+}
+
+@Override
+public void sendRedirect(String location, int sc, boolean clearBuffer) throws IOException {
+	// TODO Auto-generated method stub
+	
 }
 }

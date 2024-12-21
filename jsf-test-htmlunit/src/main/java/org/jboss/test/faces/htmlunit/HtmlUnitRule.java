@@ -3,11 +3,10 @@ package org.jboss.test.faces.htmlunit;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
-import org.jboss.test.faces.ApplicationServer;
-import org.jboss.test.faces.FacesRule;
-
 import org.htmlunit.FailingHttpStatusCodeException;
 import org.htmlunit.Page;
+import org.jboss.test.faces.ApplicationServer;
+import org.jboss.test.faces.FacesRule;
 
 /**
  * 

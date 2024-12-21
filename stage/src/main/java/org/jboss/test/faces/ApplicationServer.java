@@ -34,21 +34,20 @@ import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-import javax.servlet.Filter;
-import javax.servlet.Servlet;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextAttributeListener;
-import javax.servlet.ServletContextListener;
-import javax.servlet.ServletRequestAttributeListener;
-import javax.servlet.ServletRequestListener;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpSessionAttributeListener;
-import javax.servlet.http.HttpSessionListener;
-import javax.servlet.jsp.JspFactory;
-
 import org.jboss.test.faces.staging.HttpConnection;
 import org.jboss.test.faces.staging.ServerLogger;
 import org.jboss.test.faces.staging.StagingServer;
+
+import jakarta.servlet.Filter;
+import jakarta.servlet.Servlet;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletContextAttributeListener;
+import jakarta.servlet.ServletContextListener;
+import jakarta.servlet.ServletRequestAttributeListener;
+import jakarta.servlet.ServletRequestListener;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSessionAttributeListener;
+import jakarta.servlet.http.HttpSessionListener;
 
 /**
  * @author Nick Belaevski
@@ -351,7 +350,7 @@ public abstract class ApplicationServer {
             Class<? extends ApplicationServer> applicationServerClass = 
                 applicationServer.asSubclass(ApplicationServer.class);
             
-            return applicationServerClass.newInstance();
+            return applicationServerClass.getDeclaredConstructor().newInstance();
         } catch (Exception e) {
             log.log(Level.SEVERE, e.getMessage(), e);
             throw new TestException(e);

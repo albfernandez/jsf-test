@@ -15,14 +15,11 @@
  */
 package org.jboss.test.faces.mock.factory;
 
-import net.sf.cglib.proxy.Callback;
-import net.sf.cglib.proxy.Enhancer;
-
 /**
  * Methods using this {@link Enhancer} callback will delegate directly to the
  * default (super) implementation in the base class.
  */
-public interface NoOp extends Callback
+public interface NoOp
 {
     /**
      * A thread-safe singleton instance of the <code>NoOp</code> callback.

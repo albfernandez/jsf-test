@@ -21,13 +21,9 @@
  */
 package org.jboss.test.faces.jetty;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-
-import org.jboss.test.faces.TestException;
+import org.eclipse.jetty.util.resource.Resource;
 import org.jboss.test.faces.staging.DirectoryMapAdapter;
 import org.jboss.test.faces.staging.ServerResourcePath;
-import org.mortbay.resource.Resource;
 
 /**
  * @author Nick Belaevski
@@ -52,13 +48,7 @@ public class JettyDirectoryMapAdapter implements DirectoryMapAdapter<Resource, V
     }
 
     public Resource getResource(Resource resource, ServerResourcePath path) {
-        try {
-            return resource.addPath(path.toString());
-        } catch (MalformedURLException e) {
-            throw new TestException(e.getMessage(), e);
-        } catch (IOException e) {
-            throw new TestException(e.getMessage(), e);
-        }
+            return resource.resolve(path.toString());
     }
 
     public VirtualDirectoryResource addDirectory(VirtualDirectoryResource directory, String name) {

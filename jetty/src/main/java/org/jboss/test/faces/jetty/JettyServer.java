@@ -25,18 +25,10 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.EnumSet;
 import java.util.EventListener;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.servlet.Filter;
-import javax.servlet.Servlet;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpSessionEvent;
-import javax.servlet.http.HttpSessionListener;
 
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
@@ -45,20 +37,31 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
+import org.eclipse.jetty.ee10.servlet.DefaultServlet;
+import org.eclipse.jetty.ee10.webapp.WebAppContext;
+import org.eclipse.jetty.server.Handler;
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.handler.ContextHandlerCollection;
+import org.eclipse.jetty.server.handler.DefaultHandler;
+import org.eclipse.jetty.util.resource.Resource;
+import org.eclipse.jetty.util.resource.ResourceFactory;
 import org.jboss.test.faces.ApplicationServer;
 import org.jboss.test.faces.FilterHolder;
 import org.jboss.test.faces.ServletHolder;
 import org.jboss.test.faces.TestException;
 import org.jboss.test.faces.staging.HttpConnection;
 import org.jboss.test.faces.staging.ServerResourcePath;
-import org.jboss.test.faces.staging.StaggingJspApplicationContext;
-import org.mortbay.jetty.Handler;
-import org.mortbay.jetty.Server;
-import org.mortbay.jetty.handler.DefaultHandler;
-import org.mortbay.jetty.handler.HandlerList;
-import org.mortbay.jetty.servlet.DefaultServlet;
-import org.mortbay.jetty.webapp.WebAppContext;
-import org.mortbay.resource.Resource;
+
+import jakarta.servlet.DispatcherType;
+import jakarta.servlet.Filter;
+import jakarta.servlet.Servlet;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSessionEvent;
+import jakarta.servlet.http.HttpSessionListener;
+
 
 /**
  * @author Nick Belaevski
@@ -238,6 +241,9 @@ public class JettyServer extends ApplicationServer {
     }
 
     private static final String WEB_XML = "/WEB-INF/web.xml";
+    
+    //MZ
+    private static final String BEANS_XML = "/WEB-INF/beans.xml";
 
     private static final String DUMMY_WEB_XML = "org/jboss/test/faces/jetty/dummy/web.xml";
     
@@ -277,8 +283,8 @@ public class JettyServer extends ApplicationServer {
         webAppContext.setBaseResource(serverRoot);
         webAppContext.setClassLoader(getClassLoader());
         
-        org.mortbay.jetty.servlet.ServletHolder defaultServletHolder = 
-            new org.mortbay.jetty.servlet.ServletHolder(new DefaultServlet());
+        org.eclipse.jetty.ee10.servlet.ServletHolder defaultServletHolder = 
+            new org.eclipse.jetty.ee10.servlet.ServletHolder(new DefaultServlet());
         //defaultServletHolder.setInitParameter("aliases", Boolean.FALSE.toString());
 
         webAppContext.addServlet(defaultServletHolder, "/");
@@ -306,23 +312,29 @@ public class JettyServer extends ApplicationServer {
 
     @Override
     public void init() {
+    	
         server = new Server(port);
 
-        HandlerList handlers = new HandlerList();
+        ContextHandlerCollection handlers = new ContextHandlerCollection();
 
         handlers.setHandlers(new Handler[] { webAppContext, new DefaultHandler() });
         server.setHandler(handlers);
+        /*MZ
         // Try to register EL Expression factory explicitly, because we does not use JSF.
         if(isClassAvailable(StaggingJspApplicationContext.SUN_EXPRESSION_FACTORY)){
             addInitParameter(StaggingJspApplicationContext.FACES_EXPRESSION_FACTORY, StaggingJspApplicationContext.SUN_EXPRESSION_FACTORY);
         } else if(isClassAvailable(StaggingJspApplicationContext.JBOSS_EXPRESSION_FACTORY)){
             addInitParameter(StaggingJspApplicationContext.FACES_EXPRESSION_FACTORY, StaggingJspApplicationContext.JBOSS_EXPRESSION_FACTORY);
         }
+        */
         //JSF initialization listener requires web.xml file, so add dummy web.xml if none was registered
         Resource webXml;
         try {
             webXml = webAppContext.getResource(WEB_XML);
             if (webXml == null || !webXml.exists()) {
+            	
+            	System.out.println("!!! webXML addddddddddddddddeddd");
+            	
                 URL dummyWebXml = webAppContext.getClassLoader().getResource(DUMMY_WEB_XML);
                 addResource(WEB_XML, dummyWebXml);
             }
@@ -331,11 +343,27 @@ public class JettyServer extends ApplicationServer {
         }
         
         try {
+        	System.out.println("!!! startServer");
             server.start();
+            
+            
+            System.out.println("!!! " + serverRoot.list());
+            
             server.setStopAtShutdown(true);
+            
+            // System.out.println("!!! " + server.dump());
+            
+            // server.join();
+            
+            
+            
         } catch (Exception e) {
+        	System.out.println("!!! TestException");
             throw new TestException(e.getMessage(), e);
         }
+        
+        System.out.println("!!! ... done init.");
+        
     }
 
     @Override
@@ -383,41 +411,48 @@ public class JettyServer extends ApplicationServer {
 
     @Override
     public void addResource(String path, String resource) {
-        serverRoot.addResource(path, Resource.newClassPathResource(resource));
+    	
+    	System.out.println("????????????????????????? addResourceStringString: " + path + "  -   " + resource);
+    	
+        serverRoot.addResource(path, ResourceFactory.root().newResource(resource));
     }
 
     @Override
     public void addResource(String path, URL resource) {
-        try {
-            serverRoot.addResource(path, Resource.newResource(resource));
-        } catch (IOException e) {
-            throw new TestException(e.getMessage(), e);
-        }
+    	
+    	System.out.println("????????????????????????? addResourceStringURL: " + path + "  -   " + resource.toString());
+    	
+		serverRoot.addResource(path, ResourceFactory.root().newResource(resource));
     }
 
     @Override
     public void addFilter(FilterHolder filerHolder) {
         Map<String, String> initParameters = filerHolder.getInitParameters();
+        
+        System.out.println(initParameters.values());
+        
         String mapping = filerHolder.getMapping();
         String name = filerHolder.getName();
         Filter filter = filerHolder.getFilter();
 
-        org.mortbay.jetty.servlet.FilterHolder jettyFilterHolder = new org.mortbay.jetty.servlet.FilterHolder(filter);
+        org.eclipse.jetty.ee10.servlet.FilterHolder jettyFilterHolder = new org.eclipse.jetty.ee10.servlet.FilterHolder(filter);
         jettyFilterHolder.setName(name);
         jettyFilterHolder.setInitParameters(initParameters);
 
-        webAppContext.addFilter(jettyFilterHolder, mapping, Handler.ALL);
+        webAppContext.addFilter(jettyFilterHolder, mapping, EnumSet.allOf(DispatcherType.class));
     }
 
     @Override
     public void addServlet(ServletHolder servletHolder) {
         Map<String, String> initParameters = servletHolder.getInitParameters();
+        
+        System.out.println(initParameters.values());
+        
         String mapping = servletHolder.getMapping();
         String name = servletHolder.getName();
         Servlet servlet = servletHolder.getServlet();
 
-        org.mortbay.jetty.servlet.ServletHolder jettyServletHolder = new org.mortbay.jetty.servlet.ServletHolder(
-            servlet);
+        org.eclipse.jetty.ee10.servlet.ServletHolder jettyServletHolder = new org.eclipse.jetty.ee10.servlet.ServletHolder(servlet);
         jettyServletHolder.setName(name);
         jettyServletHolder.setInitParameters(initParameters);
 

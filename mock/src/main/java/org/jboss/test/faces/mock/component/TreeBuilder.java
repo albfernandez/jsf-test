@@ -1,6 +1,6 @@
 package org.jboss.test.faces.mock.component;
 
-import javax.faces.component.UIComponent;
+import jakarta.faces.component.UIComponent;
 
 public interface TreeBuilder<C extends UIComponent> {
 

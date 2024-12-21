@@ -21,6 +21,7 @@
  */
 package org.jboss.test.faces;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -31,7 +32,7 @@ abstract class AbstractServletObjectHolder {
 
     private String name = "Default";
     
-    private Map<String, String> initParameters;
+    private Map<String, String> initParameters = new HashMap<String, String>(3);
     
     private String mapping;
     

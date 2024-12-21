@@ -9,43 +9,37 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.el.CompositeELResolver;
-import javax.el.ExpressionFactory;
-import javax.faces.FacesException;
-import javax.faces.application.Application;
-import javax.faces.application.NavigationHandler;
-import javax.faces.application.StateManager;
-import javax.faces.application.ViewHandler;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIOutput;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.BigDecimalConverter;
-import javax.faces.convert.BigIntegerConverter;
-import javax.faces.convert.BooleanConverter;
-import javax.faces.convert.ByteConverter;
-import javax.faces.convert.CharacterConverter;
-import javax.faces.convert.Converter;
-import javax.faces.convert.DoubleConverter;
-import javax.faces.convert.FloatConverter;
-import javax.faces.convert.IntegerConverter;
-import javax.faces.convert.LongConverter;
-import javax.faces.convert.ShortConverter;
-import javax.faces.el.EvaluationException;
-import javax.faces.el.MethodBinding;
-import javax.faces.el.PropertyResolver;
-import javax.faces.el.ReferenceSyntaxException;
-import javax.faces.el.ValueBinding;
-import javax.faces.el.VariableResolver;
-import javax.faces.event.ActionListener;
-import javax.faces.event.SystemEvent;
-import javax.faces.validator.Validator;
+import jakarta.el.CompositeELResolver;
+import jakarta.el.ExpressionFactory;
+import jakarta.faces.FacesException;
+import jakarta.faces.application.Application;
+import jakarta.faces.application.NavigationHandler;
+import jakarta.faces.application.StateManager;
+import jakarta.faces.application.ViewHandler;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIOutput;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.BigDecimalConverter;
+import jakarta.faces.convert.BigIntegerConverter;
+import jakarta.faces.convert.BooleanConverter;
+import jakarta.faces.convert.ByteConverter;
+import jakarta.faces.convert.CharacterConverter;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.convert.DoubleConverter;
+import jakarta.faces.convert.FloatConverter;
+import jakarta.faces.convert.IntegerConverter;
+import jakarta.faces.convert.LongConverter;
+import jakarta.faces.convert.ShortConverter;
+import jakarta.faces.event.ActionListener;
+import jakarta.faces.event.SystemEvent;
+import jakarta.faces.validator.Validator;
 
 @SuppressWarnings("deprecation")
 public class StubApplication extends Application
 {
    
-   private javax.el.CompositeELResolver elResolver;
-   private javax.el.CompositeELResolver additionalResolvers;
+   private jakarta.el.CompositeELResolver elResolver;
+   private jakarta.el.CompositeELResolver additionalResolvers;
    private Collection locales;
    
    public StubApplication()
@@ -57,37 +51,37 @@ public class StubApplication extends Application
    }
    
    @Override
-   public Object evaluateExpressionGet(FacesContext context, String expression, Class type) throws javax.el.ELException 
+   public Object evaluateExpressionGet(FacesContext context, String expression, Class type) throws jakarta.el.ELException 
    {
       return getExpressionFactory().createValueExpression(context.getELContext(), expression, type).getValue(context.getELContext());
    }
    
    @Override
-   public void addELContextListener(javax.el.ELContextListener elcl) 
+   public void addELContextListener(jakarta.el.ELContextListener elcl) 
    {
       throw new UnsupportedOperationException();
    }
    
    @Override
-   public void addELResolver(javax.el.ELResolver r) 
+   public void addELResolver(jakarta.el.ELResolver r) 
    {
       additionalResolvers.add(r);
    }
    
    @Override
-   public UIComponent createComponent(javax.el.ValueExpression ve, FacesContext context, String id) throws FacesException 
+   public UIComponent createComponent(jakarta.el.ValueExpression ve, FacesContext context, String id) throws FacesException 
    {
       throw new UnsupportedOperationException();
    }
    
    @Override
-   public javax.el.ELContextListener[] getELContextListeners() 
+   public jakarta.el.ELContextListener[] getELContextListeners() 
    {
       throw new UnsupportedOperationException();
    }
    
    @Override
-   public javax.el.ELResolver getELResolver() 
+   public jakarta.el.ELResolver getELResolver() 
    {
       return elResolver;
    }
@@ -99,7 +93,7 @@ public class StubApplication extends Application
    }
    
    @Override
-   public void removeELContextListener(javax.el.ELContextListener elcl) 
+   public void removeELContextListener(jakarta.el.ELContextListener elcl) 
    {
       throw new UnsupportedOperationException();
    }
@@ -170,25 +164,28 @@ public class StubApplication extends Application
       this.navigationHandler = navigationHandler;
    }
 
+   /*MZ
    @Override
    public PropertyResolver getPropertyResolver()
    {
       throw new UnsupportedOperationException();
    }
-
+   */
+   
+   /*MZ
    @Override
    public void setPropertyResolver(PropertyResolver pr)
    {
       throw new UnsupportedOperationException();
    }
 
-   private VariableResolver variableResolver = /*new SeamVariableResolver(*/ new VariableResolver() { 
+   private VariableResolver variableResolver = new VariableResolver() { 
       @Override
       public Object resolveVariable(FacesContext ctx, String name) throws EvaluationException
       {
          return null;
       }
-   } /*)*/;
+   };
 
    @Override
    public VariableResolver getVariableResolver()
@@ -201,7 +198,8 @@ public class StubApplication extends Application
    {
       this.variableResolver = variableResolver;
    }
-
+   */
+   
    private ViewHandler viewHandler = null; //new SeamViewHandler( new StubViewHandler() );
 
    @Override
@@ -258,12 +256,14 @@ public class StubApplication extends Application
       }
    }
 
+   /*MZ
    @Override
    public UIComponent createComponent(ValueBinding vb, FacesContext fc, String x)
             throws FacesException
    {
       throw new UnsupportedOperationException();
    }
+   */
 
    @Override
    public Iterator getComponentTypes()
@@ -347,6 +347,7 @@ public class StubApplication extends Application
       return converters.keySet().iterator();
    }
 
+   /*MZ
    @Override
    public MethodBinding createMethodBinding(String expression, Class[] params)
          throws ReferenceSyntaxException
@@ -354,13 +355,15 @@ public class StubApplication extends Application
       return null; //new UnifiedELMethodBinding(expression, params);
 
    }
-
+   */
+   
+   /*MZ
    @Override
    public ValueBinding createValueBinding(String expression)
          throws ReferenceSyntaxException
    {
       return null; //new UnifiedELValueBinding(expression);
-   }
+   }*/
 
    @Override
    public Iterator getSupportedLocales()

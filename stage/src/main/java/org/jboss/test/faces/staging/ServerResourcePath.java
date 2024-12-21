@@ -5,7 +5,7 @@ package org.jboss.test.faces.staging;
 
 import java.util.regex.Pattern;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 /**
  * Class to represent web server resources directory path.
@@ -21,6 +21,8 @@ public class ServerResourcePath {
 	public static final ServerResourcePath META_INF = new ServerResourcePath("/META-INF/");
 	public static final ServerResourcePath WEB_XML = new ServerResourcePath("/WEB-INF/web.xml");
 	public static final ServerResourcePath FACES_CONFIG = new ServerResourcePath("/WEB-INF/faces-config.xml");
+	//MZ
+	public static final ServerResourcePath BEANS_CONFIG = new ServerResourcePath("/WEB-INF/beans.xml");
 
 	private final int pathIndex;
 	

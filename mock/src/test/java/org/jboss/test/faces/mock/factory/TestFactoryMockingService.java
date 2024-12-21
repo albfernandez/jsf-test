@@ -23,12 +23,12 @@ package org.jboss.test.faces.mock.factory;
 
 import static org.junit.Assert.assertSame;
 
-import javax.faces.FactoryFinder;
-import javax.faces.application.Application;
-import javax.faces.application.ApplicationFactory;
-
 import org.easymock.EasyMock;
 import org.junit.Test;
+
+import jakarta.faces.FactoryFinder;
+import jakarta.faces.application.Application;
+import jakarta.faces.application.ApplicationFactory;
 
 /**
  * The Class TestFactoryMockingService.

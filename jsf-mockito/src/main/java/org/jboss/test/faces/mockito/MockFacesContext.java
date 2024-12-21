@@ -26,20 +26,21 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.el.ELContext;
-import javax.faces.application.Application;
-import javax.faces.application.FacesMessage;
-import javax.faces.application.FacesMessage.Severity;
-import javax.faces.application.ProjectStage;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.ExceptionHandler;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.context.PartialViewContext;
-import javax.faces.context.ResponseStream;
-import javax.faces.context.ResponseWriter;
-import javax.faces.event.PhaseId;
-import javax.faces.render.RenderKit;
+import jakarta.el.ELContext;
+import jakarta.faces.application.Application;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.application.FacesMessage.Severity;
+import jakarta.faces.application.ProjectStage;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.context.ExceptionHandler;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.PartialViewContext;
+import jakarta.faces.context.ResponseStream;
+import jakarta.faces.context.ResponseWriter;
+import jakarta.faces.event.PhaseId;
+import jakarta.faces.lifecycle.Lifecycle;
+import jakarta.faces.render.RenderKit;
 
 /**
  * <p>
@@ -69,7 +70,7 @@ public class MockFacesContext extends FacesContext {
     /*
      * (non-Javadoc)
      * 
-     * @see javax.faces.context.FacesContext#release()
+     * @see jakarta.faces.context.FacesContext#release()
      */
     @Override
     public void release() {
@@ -79,7 +80,7 @@ public class MockFacesContext extends FacesContext {
     /*
      * (non-Javadoc)
      * 
-     * @see javax.faces.context.FacesContext#getApplication()
+     * @see jakarta.faces.context.FacesContext#getApplication()
      */
     @Override
     public Application getApplication() {
@@ -89,7 +90,7 @@ public class MockFacesContext extends FacesContext {
     /*
      * (non-Javadoc)
      * 
-     * @see javax.faces.context.FacesContext#getClientIdsWithMessages()
+     * @see jakarta.faces.context.FacesContext#getClientIdsWithMessages()
      */
     @Override
     public Iterator<String> getClientIdsWithMessages() {
@@ -99,7 +100,7 @@ public class MockFacesContext extends FacesContext {
     /*
      * (non-Javadoc)
      * 
-     * @see javax.faces.context.FacesContext#getExternalContext()
+     * @see jakarta.faces.context.FacesContext#getExternalContext()
      */
     @Override
     public ExternalContext getExternalContext() {
@@ -109,7 +110,7 @@ public class MockFacesContext extends FacesContext {
     /*
      * (non-Javadoc)
      * 
-     * @see javax.faces.context.FacesContext#getMaximumSeverity()
+     * @see jakarta.faces.context.FacesContext#getMaximumSeverity()
      */
     @Override
     public Severity getMaximumSeverity() {
@@ -119,7 +120,7 @@ public class MockFacesContext extends FacesContext {
     /*
      * (non-Javadoc)
      * 
-     * @see javax.faces.context.FacesContext#getMessages()
+     * @see jakarta.faces.context.FacesContext#getMessages()
      */
     @Override
     public Iterator<FacesMessage> getMessages() {
@@ -129,7 +130,7 @@ public class MockFacesContext extends FacesContext {
     /*
      * (non-Javadoc)
      * 
-     * @see javax.faces.context.FacesContext#getMessages(java.lang.String)
+     * @see jakarta.faces.context.FacesContext#getMessages(java.lang.String)
      */
     @Override
     public Iterator<FacesMessage> getMessages(String clientId) {
@@ -139,7 +140,7 @@ public class MockFacesContext extends FacesContext {
     /*
      * (non-Javadoc)
      * 
-     * @see javax.faces.context.FacesContext#getRenderKit()
+     * @see jakarta.faces.context.FacesContext#getRenderKit()
      */
     @Override
     public RenderKit getRenderKit() {
@@ -149,7 +150,7 @@ public class MockFacesContext extends FacesContext {
     /*
      * (non-Javadoc)
      * 
-     * @see javax.faces.context.FacesContext#getRenderResponse()
+     * @see jakarta.faces.context.FacesContext#getRenderResponse()
      */
     @Override
     public boolean getRenderResponse() {
@@ -159,7 +160,7 @@ public class MockFacesContext extends FacesContext {
     /*
      * (non-Javadoc)
      * 
-     * @see javax.faces.context.FacesContext#getResponseComplete()
+     * @see jakarta.faces.context.FacesContext#getResponseComplete()
      */
     @Override
     public boolean getResponseComplete() {
@@ -169,7 +170,7 @@ public class MockFacesContext extends FacesContext {
     /*
      * (non-Javadoc)
      * 
-     * @see javax.faces.context.FacesContext#getResponseStream()
+     * @see jakarta.faces.context.FacesContext#getResponseStream()
      */
     @Override
     public ResponseStream getResponseStream() {
@@ -179,7 +180,7 @@ public class MockFacesContext extends FacesContext {
     /*
      * (non-Javadoc)
      * 
-     * @see javax.faces.context.FacesContext#setResponseStream(javax.faces.context.ResponseStream)
+     * @see jakarta.faces.context.FacesContext#setResponseStream(jakarta.faces.context.ResponseStream)
      */
     @Override
     public void setResponseStream(ResponseStream responseStream) {
@@ -189,7 +190,7 @@ public class MockFacesContext extends FacesContext {
     /*
      * (non-Javadoc)
      * 
-     * @see javax.faces.context.FacesContext#getResponseWriter()
+     * @see jakarta.faces.context.FacesContext#getResponseWriter()
      */
     @Override
     public ResponseWriter getResponseWriter() {
@@ -199,7 +200,7 @@ public class MockFacesContext extends FacesContext {
     /*
      * (non-Javadoc)
      * 
-     * @see javax.faces.context.FacesContext#setResponseWriter(javax.faces.context.ResponseWriter)
+     * @see jakarta.faces.context.FacesContext#setResponseWriter(jakarta.faces.context.ResponseWriter)
      */
     @Override
     public void setResponseWriter(ResponseWriter responseWriter) {
@@ -208,7 +209,7 @@ public class MockFacesContext extends FacesContext {
     /*
      * (non-Javadoc)
      * 
-     * @see javax.faces.context.FacesContext#getViewRoot()
+     * @see jakarta.faces.context.FacesContext#getViewRoot()
      */
     @Override
     public UIViewRoot getViewRoot() {
@@ -218,7 +219,7 @@ public class MockFacesContext extends FacesContext {
     /*
      * (non-Javadoc)
      * 
-     * @see javax.faces.context.FacesContext#setViewRoot(javax.faces.component.UIViewRoot)
+     * @see jakarta.faces.context.FacesContext#setViewRoot(jakarta.faces.component.UIViewRoot)
      */
     @Override
     public void setViewRoot(UIViewRoot root) {
@@ -227,7 +228,7 @@ public class MockFacesContext extends FacesContext {
     /*
      * (non-Javadoc)
      * 
-     * @see javax.faces.context.FacesContext#addMessage(java.lang.String, javax.faces.application.FacesMessage)
+     * @see jakarta.faces.context.FacesContext#addMessage(java.lang.String, jakarta.faces.application.FacesMessage)
      */
     @Override
     public void addMessage(String clientId, FacesMessage message) {
@@ -236,7 +237,7 @@ public class MockFacesContext extends FacesContext {
     /*
      * (non-Javadoc)
      * 
-     * @see javax.faces.context.FacesContext#renderResponse()
+     * @see jakarta.faces.context.FacesContext#renderResponse()
      */
     @Override
     public void renderResponse() {
@@ -245,7 +246,7 @@ public class MockFacesContext extends FacesContext {
     /*
      * (non-Javadoc)
      * 
-     * @see javax.faces.context.FacesContext#responseComplete()
+     * @see jakarta.faces.context.FacesContext#responseComplete()
      */
     @Override
     public void responseComplete() {
@@ -254,7 +255,7 @@ public class MockFacesContext extends FacesContext {
     /*
      * (non-Javadoc)
      * 
-     * @see javax.faces.context.FacesContext#getAttributes()
+     * @see jakarta.faces.context.FacesContext#getAttributes()
      */
     @Override
     public Map<Object, Object> getAttributes() {
@@ -264,7 +265,7 @@ public class MockFacesContext extends FacesContext {
     /*
      * (non-Javadoc)
      * 
-     * @see javax.faces.context.FacesContext#getPartialViewContext()
+     * @see jakarta.faces.context.FacesContext#getPartialViewContext()
      */
     @Override
     public PartialViewContext getPartialViewContext() {
@@ -274,7 +275,7 @@ public class MockFacesContext extends FacesContext {
     /*
      * (non-Javadoc)
      * 
-     * @see javax.faces.context.FacesContext#getELContext()
+     * @see jakarta.faces.context.FacesContext#getELContext()
      */
     @Override
     public ELContext getELContext() {
@@ -284,7 +285,7 @@ public class MockFacesContext extends FacesContext {
     /*
      * (non-Javadoc)
      * 
-     * @see javax.faces.context.FacesContext#getExceptionHandler()
+     * @see jakarta.faces.context.FacesContext#getExceptionHandler()
      */
     @Override
     public ExceptionHandler getExceptionHandler() {
@@ -294,7 +295,7 @@ public class MockFacesContext extends FacesContext {
     /*
      * (non-Javadoc)
      * 
-     * @see javax.faces.context.FacesContext#setExceptionHandler(javax.faces.context.ExceptionHandler)
+     * @see jakarta.faces.context.FacesContext#setExceptionHandler(jakarta.faces.context.ExceptionHandler)
      */
     @Override
     public void setExceptionHandler(ExceptionHandler exceptionHandler) {
@@ -303,7 +304,7 @@ public class MockFacesContext extends FacesContext {
     /*
      * (non-Javadoc)
      * 
-     * @see javax.faces.context.FacesContext#getMessageList()
+     * @see jakarta.faces.context.FacesContext#getMessageList()
      */
     @Override
     public List<FacesMessage> getMessageList() {
@@ -313,7 +314,7 @@ public class MockFacesContext extends FacesContext {
     /*
      * (non-Javadoc)
      * 
-     * @see javax.faces.context.FacesContext#getMessageList(java.lang.String)
+     * @see jakarta.faces.context.FacesContext#getMessageList(java.lang.String)
      */
     @Override
     public List<FacesMessage> getMessageList(String clientId) {
@@ -323,7 +324,7 @@ public class MockFacesContext extends FacesContext {
     /*
      * (non-Javadoc)
      * 
-     * @see javax.faces.context.FacesContext#isValidationFailed()
+     * @see jakarta.faces.context.FacesContext#isValidationFailed()
      */
     @Override
     public boolean isValidationFailed() {
@@ -333,7 +334,7 @@ public class MockFacesContext extends FacesContext {
     /*
      * (non-Javadoc)
      * 
-     * @see javax.faces.context.FacesContext#isPostback()
+     * @see jakarta.faces.context.FacesContext#isPostback()
      */
     @Override
     public boolean isPostback() {
@@ -343,7 +344,7 @@ public class MockFacesContext extends FacesContext {
     /*
      * (non-Javadoc)
      * 
-     * @see javax.faces.context.FacesContext#validationFailed()
+     * @see jakarta.faces.context.FacesContext#validationFailed()
      */
     @Override
     public void validationFailed() {
@@ -352,7 +353,7 @@ public class MockFacesContext extends FacesContext {
     /*
      * (non-Javadoc)
      * 
-     * @see javax.faces.context.FacesContext#getCurrentPhaseId()
+     * @see jakarta.faces.context.FacesContext#getCurrentPhaseId()
      */
     @Override
     public PhaseId getCurrentPhaseId() {
@@ -362,7 +363,7 @@ public class MockFacesContext extends FacesContext {
     /*
      * (non-Javadoc)
      * 
-     * @see javax.faces.context.FacesContext#setCurrentPhaseId(javax.faces.event.PhaseId)
+     * @see jakarta.faces.context.FacesContext#setCurrentPhaseId(jakarta.faces.event.PhaseId)
      */
     @Override
     public void setCurrentPhaseId(PhaseId currentPhaseId) {
@@ -371,7 +372,7 @@ public class MockFacesContext extends FacesContext {
     /*
      * (non-Javadoc)
      * 
-     * @see javax.faces.context.FacesContext#setProcessingEvents(boolean)
+     * @see jakarta.faces.context.FacesContext#setProcessingEvents(boolean)
      */
     @Override
     public void setProcessingEvents(boolean processingEvents) {
@@ -380,7 +381,7 @@ public class MockFacesContext extends FacesContext {
     /*
      * (non-Javadoc)
      * 
-     * @see javax.faces.context.FacesContext#isProcessingEvents()
+     * @see jakarta.faces.context.FacesContext#isProcessingEvents()
      */
     @Override
     public boolean isProcessingEvents() {
@@ -390,11 +391,17 @@ public class MockFacesContext extends FacesContext {
     /*
      * (non-Javadoc)
      * 
-     * @see javax.faces.context.FacesContext#isProjectStage(javax.faces.application.ProjectStage)
+     * @see jakarta.faces.context.FacesContext#isProjectStage(jakarta.faces.application.ProjectStage)
      */
     @Override
     public boolean isProjectStage(ProjectStage stage) {
         return false;
     }
+
+	@Override
+	public Lifecycle getLifecycle() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

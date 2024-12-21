@@ -1,7 +1,7 @@
 package org.jboss.test.faces.stub.faces;
 
-import javax.faces.application.Application;
-import javax.faces.application.ApplicationFactory;
+import jakarta.faces.application.Application;
+import jakarta.faces.application.ApplicationFactory;
 
 /**
  * An mock implementation of the JSF ApplicationFactory which returns a mock

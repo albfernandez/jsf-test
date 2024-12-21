@@ -18,18 +18,18 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterRegistration;
-import javax.servlet.FilterRegistration.Dynamic;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.Servlet;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextAttributeEvent;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRegistration;
-import javax.servlet.SessionCookieConfig;
-import javax.servlet.SessionTrackingMode;
-import javax.servlet.descriptor.JspConfigDescriptor;
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterRegistration;
+import jakarta.servlet.FilterRegistration.Dynamic;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.Servlet;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletContextAttributeEvent;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRegistration;
+import jakarta.servlet.SessionCookieConfig;
+import jakarta.servlet.SessionTrackingMode;
+import jakarta.servlet.descriptor.JspConfigDescriptor;
 
 
 /**
@@ -47,14 +47,14 @@ abstract class StagingServletContext implements ServletContext {
 	private final Map<String,String> initParameters = new HashMap<String, String>();
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#getAttribute(java.lang.String)
+	 * @see jakarta.servlet.ServletContext#getAttribute(java.lang.String)
 	 */
 	public Object getAttribute(String name) {
 		return attributes.get(name);
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#getAttributeNames()
+	 * @see jakarta.servlet.ServletContext#getAttributeNames()
 	 */
 	@SuppressWarnings("unchecked")
 	public Enumeration getAttributeNames() {
@@ -62,7 +62,7 @@ abstract class StagingServletContext implements ServletContext {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#getContext(java.lang.String)
+	 * @see jakarta.servlet.ServletContext#getContext(java.lang.String)
 	 */
 	public ServletContext getContext(String uripath) {
 		// stub server has only one context.
@@ -70,7 +70,7 @@ abstract class StagingServletContext implements ServletContext {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#getContextPath()
+	 * @see jakarta.servlet.ServletContext#getContextPath()
 	 */
 	public String getContextPath() {
 		// Test always run in the root context.
@@ -81,7 +81,7 @@ abstract class StagingServletContext implements ServletContext {
 		initParameters.putAll(parameters);
 	}
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#getInitParameter(java.lang.String)
+	 * @see jakarta.servlet.ServletContext#getInitParameter(java.lang.String)
 	 */
 	public String getInitParameter(String name) {
 		return initParameters.get(name);
@@ -99,7 +99,7 @@ abstract class StagingServletContext implements ServletContext {
 	}
 	
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#getInitParameterNames()
+	 * @see jakarta.servlet.ServletContext#getInitParameterNames()
 	 */
 	@SuppressWarnings("unchecked")
 	public Enumeration getInitParameterNames() {
@@ -107,7 +107,7 @@ abstract class StagingServletContext implements ServletContext {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#getMajorVersion()
+	 * @see jakarta.servlet.ServletContext#getMajorVersion()
 	 */
 	public int getMajorVersion() {
 		return 2;
@@ -115,14 +115,14 @@ abstract class StagingServletContext implements ServletContext {
 
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#getMinorVersion()
+	 * @see jakarta.servlet.ServletContext#getMinorVersion()
 	 */
 	public int getMinorVersion() {
 		return 5;
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#getNamedDispatcher(java.lang.String)
+	 * @see jakarta.servlet.ServletContext#getNamedDispatcher(java.lang.String)
 	 */
 	public RequestDispatcher getNamedDispatcher(String name) {
 		// TODO create stub dispatcher.
@@ -131,7 +131,7 @@ abstract class StagingServletContext implements ServletContext {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#getRealPath(java.lang.String)
+	 * @see jakarta.servlet.ServletContext#getRealPath(java.lang.String)
 	 */
 	public String getRealPath(String path) {
 		// we always use 'virtual' configuration.
@@ -139,7 +139,7 @@ abstract class StagingServletContext implements ServletContext {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#getRequestDispatcher(java.lang.String)
+	 * @see jakarta.servlet.ServletContext#getRequestDispatcher(java.lang.String)
 	 */
 	public RequestDispatcher getRequestDispatcher(String path) {
 		// TODO implement stub dispatcher.
@@ -148,7 +148,7 @@ abstract class StagingServletContext implements ServletContext {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#getResource(java.lang.String)
+	 * @see jakarta.servlet.ServletContext#getResource(java.lang.String)
 	 */
 	public URL getResource(String path) throws MalformedURLException {
 		URL url = null;
@@ -166,7 +166,7 @@ abstract class StagingServletContext implements ServletContext {
 	protected abstract ServerResource getServerResource(String path);
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#getResourceAsStream(java.lang.String)
+	 * @see jakarta.servlet.ServletContext#getResourceAsStream(java.lang.String)
 	 */
 	public InputStream getResourceAsStream(String path) {
 		ServerResource resource = getServerResource(path);
@@ -181,7 +181,7 @@ abstract class StagingServletContext implements ServletContext {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#getResourcePaths(java.lang.String)
+	 * @see jakarta.servlet.ServletContext#getResourcePaths(java.lang.String)
 	 */
 	@SuppressWarnings("unchecked")
 	public Set getResourcePaths(String path) {
@@ -204,14 +204,14 @@ abstract class StagingServletContext implements ServletContext {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#getServerInfo()
+	 * @see jakarta.servlet.ServletContext#getServerInfo()
 	 */
 	public String getServerInfo() {
 		return "Stub test server";
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#getServlet(java.lang.String)
+	 * @see jakarta.servlet.ServletContext#getServlet(java.lang.String)
 	 */
 	public Servlet getServlet(String name) throws ServletException {
 		// always return null.
@@ -220,7 +220,7 @@ abstract class StagingServletContext implements ServletContext {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#getServletContextName()
+	 * @see jakarta.servlet.ServletContext#getServletContextName()
 	 */
 	public String getServletContextName() {
 		// Stub server has no declared name.
@@ -228,7 +228,7 @@ abstract class StagingServletContext implements ServletContext {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#getServletNames()
+	 * @see jakarta.servlet.ServletContext#getServletNames()
 	 */
 	@SuppressWarnings("unchecked")
 	public Enumeration getServletNames() {
@@ -237,7 +237,7 @@ abstract class StagingServletContext implements ServletContext {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#getServlets()
+	 * @see jakarta.servlet.ServletContext#getServlets()
 	 */
 	@SuppressWarnings("unchecked")
 	public Enumeration getServlets() {
@@ -246,7 +246,7 @@ abstract class StagingServletContext implements ServletContext {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#log(java.lang.String)
+	 * @see jakarta.servlet.ServletContext#log(java.lang.String)
 	 */
 	public void log(String msg) {
 		log.finest(msg);
@@ -254,7 +254,7 @@ abstract class StagingServletContext implements ServletContext {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#log(java.lang.Exception, java.lang.String)
+	 * @see jakarta.servlet.ServletContext#log(java.lang.Exception, java.lang.String)
 	 */
 	public void log(Exception exception, String msg) {
 		log.log(Level.FINEST, msg, exception);
@@ -262,14 +262,14 @@ abstract class StagingServletContext implements ServletContext {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#log(java.lang.String, java.lang.Throwable)
+	 * @see jakarta.servlet.ServletContext#log(java.lang.String, java.lang.Throwable)
 	 */
 	public void log(String message, Throwable throwable) {
 		log.log(Level.FINEST, message, throwable);
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#removeAttribute(java.lang.String)
+	 * @see jakarta.servlet.ServletContext#removeAttribute(java.lang.String)
 	 */
 	public void removeAttribute(String name) {
 		// TODO - inform listeners
@@ -281,7 +281,7 @@ abstract class StagingServletContext implements ServletContext {
 
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#setAttribute(java.lang.String, java.lang.Object)
+	 * @see jakarta.servlet.ServletContext#setAttribute(java.lang.String, java.lang.Object)
 	 */
 	public void setAttribute(String name, Object object) {
 		// TODO - inform listeners
@@ -306,7 +306,7 @@ abstract class StagingServletContext implements ServletContext {
 			ServletContextAttributeEvent servletContextAttributeEvent);
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#addFilter(java.lang.String, java.lang.Class)
+	 * @see jakarta.servlet.ServletContext#addFilter(java.lang.String, java.lang.Class)
 	 */
 	public Dynamic addFilter(String arg0, Class<? extends Filter> arg1) {
 		// TODO Auto-generated method stub
@@ -314,7 +314,7 @@ abstract class StagingServletContext implements ServletContext {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#addFilter(java.lang.String, javax.servlet.Filter)
+	 * @see jakarta.servlet.ServletContext#addFilter(java.lang.String, jakarta.servlet.Filter)
 	 */
 	public Dynamic addFilter(String arg0, Filter arg1) {
 		// TODO Auto-generated method stub
@@ -322,7 +322,7 @@ abstract class StagingServletContext implements ServletContext {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#addFilter(java.lang.String, java.lang.String)
+	 * @see jakarta.servlet.ServletContext#addFilter(java.lang.String, java.lang.String)
 	 */
 	public Dynamic addFilter(String arg0, String arg1) {
 		// TODO Auto-generated method stub
@@ -330,7 +330,7 @@ abstract class StagingServletContext implements ServletContext {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#addListener(java.lang.Class)
+	 * @see jakarta.servlet.ServletContext#addListener(java.lang.Class)
 	 */
 	public void addListener(Class<? extends EventListener> arg0) {
 		// TODO Auto-generated method stub
@@ -338,7 +338,7 @@ abstract class StagingServletContext implements ServletContext {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#addListener(java.lang.String)
+	 * @see jakarta.servlet.ServletContext#addListener(java.lang.String)
 	 */
 	public void addListener(String arg0) {
 		// TODO Auto-generated method stub
@@ -346,7 +346,7 @@ abstract class StagingServletContext implements ServletContext {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#addListener(java.util.EventListener)
+	 * @see jakarta.servlet.ServletContext#addListener(java.util.EventListener)
 	 */
 	public <T extends EventListener> void addListener(T arg0) {
 		// TODO Auto-generated method stub
@@ -354,34 +354,34 @@ abstract class StagingServletContext implements ServletContext {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#addServlet(java.lang.String, java.lang.Class)
+	 * @see jakarta.servlet.ServletContext#addServlet(java.lang.String, java.lang.Class)
 	 */
-	public javax.servlet.ServletRegistration.Dynamic addServlet(String arg0,
+	public jakarta.servlet.ServletRegistration.Dynamic addServlet(String arg0,
 			Class<? extends Servlet> arg1) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#addServlet(java.lang.String, javax.servlet.Servlet)
+	 * @see jakarta.servlet.ServletContext#addServlet(java.lang.String, jakarta.servlet.Servlet)
 	 */
-	public javax.servlet.ServletRegistration.Dynamic addServlet(String arg0,
+	public jakarta.servlet.ServletRegistration.Dynamic addServlet(String arg0,
 			Servlet arg1) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#addServlet(java.lang.String, java.lang.String)
+	 * @see jakarta.servlet.ServletContext#addServlet(java.lang.String, java.lang.String)
 	 */
-	public javax.servlet.ServletRegistration.Dynamic addServlet(String arg0,
+	public jakarta.servlet.ServletRegistration.Dynamic addServlet(String arg0,
 			String arg1) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#createFilter(java.lang.Class)
+	 * @see jakarta.servlet.ServletContext#createFilter(java.lang.Class)
 	 */
 	public <T extends Filter> T createFilter(Class<T> arg0)
 			throws ServletException {
@@ -390,7 +390,7 @@ abstract class StagingServletContext implements ServletContext {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#createListener(java.lang.Class)
+	 * @see jakarta.servlet.ServletContext#createListener(java.lang.Class)
 	 */
 	public <T extends EventListener> T createListener(Class<T> arg0)
 			throws ServletException {
@@ -399,7 +399,7 @@ abstract class StagingServletContext implements ServletContext {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#createServlet(java.lang.Class)
+	 * @see jakarta.servlet.ServletContext#createServlet(java.lang.Class)
 	 */
 	public <T extends Servlet> T createServlet(Class<T> arg0)
 			throws ServletException {
@@ -408,7 +408,7 @@ abstract class StagingServletContext implements ServletContext {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#declareRoles(java.lang.String[])
+	 * @see jakarta.servlet.ServletContext#declareRoles(java.lang.String[])
 	 */
 	public void declareRoles(String... arg0) {
 		// TODO Auto-generated method stub
@@ -416,7 +416,7 @@ abstract class StagingServletContext implements ServletContext {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#getClassLoader()
+	 * @see jakarta.servlet.ServletContext#getClassLoader()
 	 */
 	public ClassLoader getClassLoader() {
 		// TODO Auto-generated method stub
@@ -424,7 +424,7 @@ abstract class StagingServletContext implements ServletContext {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#getDefaultSessionTrackingModes()
+	 * @see jakarta.servlet.ServletContext#getDefaultSessionTrackingModes()
 	 */
 	public Set<SessionTrackingMode> getDefaultSessionTrackingModes() {
 		// TODO Auto-generated method stub
@@ -432,21 +432,21 @@ abstract class StagingServletContext implements ServletContext {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#getEffectiveMajorVersion()
+	 * @see jakarta.servlet.ServletContext#getEffectiveMajorVersion()
 	 */
 	public int getEffectiveMajorVersion() {
 		return 3;
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#getEffectiveMinorVersion()
+	 * @see jakarta.servlet.ServletContext#getEffectiveMinorVersion()
 	 */
 	public int getEffectiveMinorVersion() {
 		return 0;
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#getEffectiveSessionTrackingModes()
+	 * @see jakarta.servlet.ServletContext#getEffectiveSessionTrackingModes()
 	 */
 	public Set<SessionTrackingMode> getEffectiveSessionTrackingModes() {
 		// TODO Auto-generated method stub
@@ -454,7 +454,7 @@ abstract class StagingServletContext implements ServletContext {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#getFilterRegistration(java.lang.String)
+	 * @see jakarta.servlet.ServletContext#getFilterRegistration(java.lang.String)
 	 */
 	public FilterRegistration getFilterRegistration(String arg0) {
 		// TODO Auto-generated method stub
@@ -462,7 +462,7 @@ abstract class StagingServletContext implements ServletContext {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#getFilterRegistrations()
+	 * @see jakarta.servlet.ServletContext#getFilterRegistrations()
 	 */
 	public Map<String, ? extends FilterRegistration> getFilterRegistrations() {
 		// TODO Auto-generated method stub
@@ -470,7 +470,7 @@ abstract class StagingServletContext implements ServletContext {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#getJspConfigDescriptor()
+	 * @see jakarta.servlet.ServletContext#getJspConfigDescriptor()
 	 */
 	public JspConfigDescriptor getJspConfigDescriptor() {
 		// TODO Auto-generated method stub
@@ -478,7 +478,7 @@ abstract class StagingServletContext implements ServletContext {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#getMimeType(java.lang.String)
+	 * @see jakarta.servlet.ServletContext#getMimeType(java.lang.String)
 	 */
 	public String getMimeType(String arg0) {
 		// TODO Auto-generated method stub
@@ -486,7 +486,7 @@ abstract class StagingServletContext implements ServletContext {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#getServletRegistration(java.lang.String)
+	 * @see jakarta.servlet.ServletContext#getServletRegistration(java.lang.String)
 	 */
 	public ServletRegistration getServletRegistration(String arg0) {
 		// TODO Auto-generated method stub
@@ -494,7 +494,7 @@ abstract class StagingServletContext implements ServletContext {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#getServletRegistrations()
+	 * @see jakarta.servlet.ServletContext#getServletRegistrations()
 	 */
 	public Map<String, ? extends ServletRegistration> getServletRegistrations() {
 		// TODO Auto-generated method stub
@@ -502,7 +502,7 @@ abstract class StagingServletContext implements ServletContext {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#getSessionCookieConfig()
+	 * @see jakarta.servlet.ServletContext#getSessionCookieConfig()
 	 */
 	public SessionCookieConfig getSessionCookieConfig() {
 		// TODO Auto-generated method stub
@@ -510,7 +510,7 @@ abstract class StagingServletContext implements ServletContext {
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.servlet.ServletContext#setSessionTrackingModes(java.util.Set)
+	 * @see jakarta.servlet.ServletContext#setSessionTrackingModes(java.util.Set)
 	 */
 	public void setSessionTrackingModes(Set<SessionTrackingMode> arg0) {
 		// TODO Auto-generated method stub

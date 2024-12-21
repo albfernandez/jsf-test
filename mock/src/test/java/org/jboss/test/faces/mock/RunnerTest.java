@@ -1,18 +1,21 @@
 package org.jboss.test.faces.mock;
 
-import static org.easymock.EasyMock.*;
-import static org.junit.Assert.*;
-
-import javax.faces.FactoryFinder;
-import javax.faces.component.UIData;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
+import static org.easymock.EasyMock.expect;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 
 import org.jboss.test.faces.mock.Environment.Feature;
 import org.junit.AfterClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import jakarta.faces.FactoryFinder;
+import jakarta.faces.component.UIData;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
 
 
 @RunWith(MockTestRunner.class)

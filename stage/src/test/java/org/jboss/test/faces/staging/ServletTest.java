@@ -6,10 +6,11 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-import javax.servlet.ServletContextAttributeEvent;
-import javax.servlet.ServletException;
-
 import org.junit.Test;
+
+import jakarta.servlet.ServletContextAttributeEvent;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRegistration.Dynamic;
 
 public class ServletTest {
 
@@ -86,6 +87,54 @@ public class ServletTest {
 			public String getMimeType(String file) {
 				// TODO Auto-generated method stub
 				return null;
+			}
+
+			@Override
+			public Dynamic addJspFile(String servletName, String jspFile) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public String getVirtualServerName() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public int getSessionTimeout() {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+
+			@Override
+			public void setSessionTimeout(int sessionTimeout) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public String getRequestCharacterEncoding() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public void setRequestCharacterEncoding(String encoding) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public String getResponseCharacterEncoding() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public void setResponseCharacterEncoding(String encoding) {
+				// TODO Auto-generated method stub
+				
 			}
 
 		};

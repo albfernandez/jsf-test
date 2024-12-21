@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>com.github.albfernandez.test-jsf</groupId>
 		<artifactId>parent</artifactId>
-		<version>1.1.18-SNAPSHOT</version>
+		<version>10.0.1-SNAPSHOT</version>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
@@ -17,7 +17,7 @@
 		<plugins>
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.0.0-M5</version>
+				<version>3.5.1</version>
 				<configuration>
 					<excludes>
 						<exclude>**/org/jboss/test/faces/staging/suite/**</exclude>
@@ -28,11 +28,17 @@
 						<include>**/*TestSuite.java</include>
 						<include>**/*TestCase.java</include>
 					</includes>
+					<systemProperties>
+		             <property> 
+		               <name>java.util.logging.config.file</name>
+		               <value>src/test/resources/logging.properties</value>
+		             </property>
+		           </systemProperties>
 				</configuration>
 			</plugin>
 			<plugin>
 				<artifactId>maven-jar-plugin</artifactId>
-				<version>3.2.0</version>
+				<version>3.4.2</version>
 				<executions>
 					<execution>
 						<id>test-jar</id>
@@ -47,24 +53,59 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>javax.el</groupId>
-			<artifactId>el-api</artifactId>
+			<groupId>jakarta.el</groupId>
+			<artifactId>jakarta.el-api</artifactId>
 		</dependency>
+		<dependency>
+		    <groupId>org.glassfish</groupId>
+		    <artifactId>jakarta.el</artifactId>
+		    <scope>test</scope>
+		</dependency>
+		<!--MZ
 		<dependency>
 			<groupId>com.github.albfernandez</groupId>
 			<artifactId>jboss-el</artifactId>
 		</dependency>
+		-->
 		<dependency>
-			<groupId>org.glassfish</groupId>
-			<artifactId>javax.servlet</artifactId>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
 		</dependency>
+		<dependency>
+		    <groupId>jakarta.websocket</groupId>
+		    <artifactId>jakarta.websocket-client-api</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>jakarta.websocket</groupId>
+		    <artifactId>jakarta.websocket-api</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>jakarta.enterprise</groupId>
+		    <artifactId>jakarta.enterprise.cdi-api</artifactId>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.jboss.weld.module</groupId>
+		    <artifactId>weld-web</artifactId>
+		</dependency>
+	    <dependency>
+		    <groupId>org.jboss.weld.module</groupId>
+		    <artifactId>weld-jsf</artifactId>
+		</dependency>
+		<dependency>
+	      <groupId>org.jboss.weld.servlet</groupId>
+	      <artifactId>weld-servlet-core</artifactId>
+	    </dependency>
+		
+		<!--MZ
  		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>jsp-api</artifactId>
 		</dependency>
+		-->
 		<dependency>
-			<groupId>javax.annotation</groupId>
-			<artifactId>jsr250-api</artifactId>
+			<groupId>jakarta.annotation</groupId>
+			<artifactId>jakarta.annotation-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>

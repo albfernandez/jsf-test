@@ -4,7 +4,7 @@
 	<parent>
 		<artifactId>parent</artifactId>
 		<groupId>com.github.albfernandez.test-jsf</groupId>
-		<version>1.1.18-SNAPSHOT</version>
+		<version>10.0.1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>htmlunit-client</artifactId>
@@ -18,30 +18,43 @@
 		<dependency>
 			<groupId>com.github.albfernandez.test-jsf</groupId>
 			<artifactId>jsf-test-stage</artifactId>
-			<version>1.1.18-SNAPSHOT</version>
+			<version>10.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.albfernandez.test-jsf</groupId>
 			<artifactId>jsf-test-jetty</artifactId>
-			<version>1.1.18-SNAPSHOT</version>
+			<version>10.0.1-SNAPSHOT</version>
 			<optional>true</optional>
 		</dependency>
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
         </dependency>
+        <dependency>
+		    <groupId>jakarta.enterprise</groupId>
+		    <artifactId>jakarta.enterprise.cdi-api</artifactId>
+		</dependency>
+        <!--MZ
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>jsp-api</artifactId>
         </dependency>
+        -->
         <dependency>
-            <groupId>javax.el</groupId>
-            <artifactId>el-api</artifactId>
+            <groupId>jakarta.el</groupId>
+            <artifactId>jakarta.el-api</artifactId>
         </dependency>
+        <dependency>
+		    <groupId>org.glassfish</groupId>
+		    <artifactId>jakarta.el</artifactId>
+		    <scope>test</scope>
+		</dependency>
+		<!--MZ
         <dependency>
                 <groupId>com.github.albfernandez</groupId>
                 <artifactId>jboss-el</artifactId>
         </dependency>
+        -->
 		<dependency>
 			<groupId>org.htmlunit</groupId>
 			<artifactId>htmlunit</artifactId>
@@ -66,10 +79,12 @@
 			<groupId>commons-collections</groupId>
 			<artifactId>commons-collections</artifactId>
 		</dependency>
+		<!--MZ
 		<dependency>
 			<groupId>xml-apis</groupId>
 			<artifactId>xml-apis</artifactId>
 		</dependency>
+		-->
 
 		<dependency>
 			<groupId>xalan</groupId>
@@ -80,6 +95,10 @@
 					<artifactId>xml-apis</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+		<dependency>
+		    <groupId>xalan</groupId>
+		    <artifactId>serializer</artifactId>
 		</dependency>
 	</dependencies>
 </project>

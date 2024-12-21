@@ -26,7 +26,6 @@ package org.jboss.test.qunit;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.net.URLConnection;
 
 /**
  * <p class="changed_added_4_0"></p>

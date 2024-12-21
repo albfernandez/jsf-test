@@ -13,28 +13,27 @@ import java.util.Locale;
 import java.util.Properties;
 import java.util.logging.LogManager;
 
-import javax.faces.FacesException;
-import javax.faces.FactoryFinder;
-import javax.faces.application.Application;
-import javax.faces.application.ApplicationFactory;
-import javax.faces.application.ProjectStage;
-import javax.faces.application.StateManager;
-import javax.faces.application.ViewHandler;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
-import javax.faces.context.FacesContextFactory;
-import javax.faces.lifecycle.Lifecycle;
-import javax.faces.lifecycle.LifecycleFactory;
-import javax.faces.render.RenderKitFactory;
-import javax.faces.webapp.FacesServlet;
-import javax.servlet.Filter;
-
-import junit.framework.TestCase;
-
 import org.jboss.test.faces.staging.HttpConnection;
 import org.jboss.test.faces.staging.StagingServer;
 import org.junit.After;
 import org.junit.Before;
+
+import jakarta.faces.FacesException;
+import jakarta.faces.FactoryFinder;
+import jakarta.faces.application.Application;
+import jakarta.faces.application.ApplicationFactory;
+import jakarta.faces.application.ProjectStage;
+import jakarta.faces.application.StateManager;
+import jakarta.faces.application.ViewHandler;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.FacesContextFactory;
+import jakarta.faces.lifecycle.Lifecycle;
+import jakarta.faces.lifecycle.LifecycleFactory;
+import jakarta.faces.render.RenderKitFactory;
+import jakarta.faces.webapp.FacesServlet;
+import jakarta.servlet.Filter;
+import junit.framework.TestCase;
 
 /**
  * Base class for all JSF test cases. 
@@ -126,14 +125,19 @@ public abstract class AbstractFacesTest extends TestCase {
 	 * This metod also calls appropriate {@link #setupSunFaces()} or {@link #setupMyFaces()} methods.
 	 */
 	protected void setupFacesListener() {
+		
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! setupFacesListener");
+		
 		EventListener listener = null;
 		try {
 			// Check Sun RI configuration listener class.
 			Class<? extends EventListener> listenerClass = contextClassLoader
 					.loadClass("com.sun.faces.config.ConfigureListener")
 					.asSubclass(EventListener.class);
-			listener = listenerClass.newInstance();
+			listener = listenerClass.getDeclaredConstructor().newInstance();
 			setupSunFaces();
+			
+			System.out.println("SUNDONE");
 		} catch (ClassNotFoundException e) {
 			// No JSF RI listener, check MyFaces.
 			Class<? extends EventListener> listenerClass;
@@ -142,8 +146,9 @@ public abstract class AbstractFacesTest extends TestCase {
 						.loadClass(
 								"org.apache.myfaces.webapp.StartupServletContextListener")
 						.asSubclass(EventListener.class);
-				listener = listenerClass.newInstance();
+				listener = listenerClass.getDeclaredConstructor().newInstance();
 				setupMyFaces();
+				System.out.println("MYFACESDONE");
 			} catch (ClassNotFoundException e1) {
 				throw new TestException("No JSF listeners have been found", e1);
 			} catch (Exception e2) {
@@ -170,7 +175,7 @@ public abstract class AbstractFacesTest extends TestCase {
 			// Check for an ajax4jsf filter.
 			Class<? extends Filter> ajaxFilterClass = contextClassLoader
 					.loadClass("org.ajax4jsf.Filter").asSubclass(Filter.class);
-			Filter ajaxFilter = ajaxFilterClass.newInstance();
+			Filter ajaxFilter = ajaxFilterClass.getDeclaredConstructor().newInstance();
 			
 			FilterHolder filterHolder = new FilterHolder("*.jsf", ajaxFilter);
 			filterHolder.setName("ajax4jsf");
@@ -207,7 +212,9 @@ public abstract class AbstractFacesTest extends TestCase {
 	 * The default implementation does nothing.
 	 */
 	protected void setupMyFaces() {
-		// Do nothing by default.
+		//MZ
+    	facesServer.addInitParameter("org.apache.myfaces.INITIALIZE_ALWAYS_STANDALONE", "true");
+    	facesServer.addInitParameter("org.apache.myfaces.FLASH_SCOPE_DISABLED", "true");		//TODO jakarta.servlet.SessionCookieConfig.getAttribute(String)" because the return value of "jakarta.servlet.ServletContext.getSessionCookieConfig()" is null
 	}
 
 	/**

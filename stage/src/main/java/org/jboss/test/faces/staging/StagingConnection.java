@@ -15,16 +15,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import org.jboss.test.faces.TestException;
+
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletConnection;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpUpgradeHandler;
 
 /**
  * This class represent single connection ( request ) to the virtual server. These instance should not be created directly, but by the {@link StagingServer#getConnection(URL)}.
@@ -81,9 +83,9 @@ public class StagingConnection extends HttpConnection {
 		this.servletPath = servlet.getServletPath(path);
 		this.request = new ConnectionRequest();
 		this.response = new ConnectionResponse();
-		this.request.setAttribute("javax.servlet.include.path_info",
+		this.request.setAttribute("jakarta.servlet.include.path_info",
 				this.pathInfo);
-		this.request.setAttribute("javax.servlet.include.servlet_path",
+		this.request.setAttribute("jakarta.servlet.include.servlet_path",
 				this.servletPath);
 		String queryString = url.getQuery();
 		if (null != queryString) {
@@ -343,7 +345,7 @@ public class StagingConnection extends HttpConnection {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see javax.servlet.http.HttpServletRequest#getMethod()
+		 * @see jakarta.servlet.http.HttpServletRequest#getMethod()
 		 */
 		public String getMethod() {
 			return getRequestMethod().toString();
@@ -352,7 +354,7 @@ public class StagingConnection extends HttpConnection {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see javax.servlet.http.HttpServletRequest#getServletPath()
+		 * @see jakarta.servlet.http.HttpServletRequest#getServletPath()
 		 */
 		public String getServletPath() {
 			return servletPath;
@@ -361,7 +363,7 @@ public class StagingConnection extends HttpConnection {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see javax.servlet.http.HttpServletRequest#getPathInfo()
+		 * @see jakarta.servlet.http.HttpServletRequest#getPathInfo()
 		 */
 		public String getPathInfo() {
 			return pathInfo;
@@ -370,7 +372,7 @@ public class StagingConnection extends HttpConnection {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see javax.servlet.http.HttpServletRequest#getQueryString()
+		 * @see jakarta.servlet.http.HttpServletRequest#getQueryString()
 		 */
 		public String getQueryString() {
 		    return getRequestQueryString();
@@ -379,7 +381,7 @@ public class StagingConnection extends HttpConnection {
         /*
 		 * (non-Javadoc)
 		 * 
-		 * @see javax.servlet.http.HttpServletRequest#getRequestURI()
+		 * @see jakarta.servlet.http.HttpServletRequest#getRequestURI()
 		 */
 		public String getRequestURI() {
 			return url.getPath();
@@ -405,7 +407,7 @@ public class StagingConnection extends HttpConnection {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see javax.servlet.ServletRequest#getParameter(java.lang.String)
+		 * @see jakarta.servlet.ServletRequest#getParameter(java.lang.String)
 		 */
 		public String getParameter(String name) {
 			String[] values = getRequestParameters().get(name);
@@ -418,7 +420,7 @@ public class StagingConnection extends HttpConnection {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see javax.servlet.ServletRequest#getParameterMap()
+		 * @see jakarta.servlet.ServletRequest#getParameterMap()
 		 */
 		@SuppressWarnings("unchecked")
 		public Map getParameterMap() {
@@ -428,7 +430,7 @@ public class StagingConnection extends HttpConnection {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see javax.servlet.ServletRequest#getParameterNames()
+		 * @see jakarta.servlet.ServletRequest#getParameterNames()
 		 */
 		@SuppressWarnings("unchecked")
 		public Enumeration getParameterNames() {
@@ -439,7 +441,7 @@ public class StagingConnection extends HttpConnection {
 		 * (non-Javadoc)
 		 * 
 		 * @see
-		 * javax.servlet.ServletRequest#getParameterValues(java.lang.String)
+		 * jakarta.servlet.ServletRequest#getParameterValues(java.lang.String)
 		 */
 		public String[] getParameterValues(String name) {
 			return getRequestParameters().get(name);
@@ -448,7 +450,7 @@ public class StagingConnection extends HttpConnection {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see javax.servlet.http.HttpServletRequest#getSession()
+		 * @see jakarta.servlet.http.HttpServletRequest#getSession()
 		 */
 		public HttpSession getSession() {
 			return server.getSession();
@@ -457,7 +459,7 @@ public class StagingConnection extends HttpConnection {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see javax.servlet.http.HttpServletRequest#getSession(boolean)
+		 * @see jakarta.servlet.http.HttpServletRequest#getSession(boolean)
 		 */
 		public HttpSession getSession(boolean create) {
 			return server.getSession(create);
@@ -513,6 +515,42 @@ public class StagingConnection extends HttpConnection {
 			server.requestAttributeReplaced(this, name, o);
 	
 		}
+
+		@Override
+		public String changeSessionId() {
+			//MZ
+			return requestProxy.changeSessionId();
+		}
+
+		@Override
+		public <T extends HttpUpgradeHandler> T upgrade(Class<T> handlerClass) throws IOException, ServletException {
+			//MZ
+			return requestProxy.upgrade(handlerClass);
+		}
+
+		@Override
+		public long getContentLengthLong() {
+			//MZ
+			return requestProxy.getContentLengthLong();
+		}
+
+		@Override
+		public String getRequestId() {
+			//MZ
+			return requestProxy.getRequestId();
+		}
+
+		@Override
+		public String getProtocolRequestId() {
+			//MZ
+			return requestProxy.getProtocolRequestId();
+		}
+
+		@Override
+		public ServletConnection getServletConnection() {
+			//MZ
+			return requestProxy.getServletConnection();
+		}
 	
 	}
 
@@ -521,7 +559,7 @@ public class StagingConnection extends HttpConnection {
 		 * (non-Javadoc)
 		 * 
 		 * @see
-		 * javax.servlet.http.HttpServletResponse#addCookie(javax.servlet.http
+		 * jakarta.servlet.http.HttpServletResponse#addCookie(jakarta.servlet.http
 		 * .Cookie )
 		 */
 		@Override
@@ -529,6 +567,18 @@ public class StagingConnection extends HttpConnection {
 		    super.addCookie(cookie);
 			cookies.add(cookie);
 	
+		}
+
+		@Override
+		public void sendRedirect(String location, int sc, boolean clearBuffer) throws IOException {
+			//MZ
+			super.sendRedirect(location);
+		}
+
+		@Override
+		public void setContentLengthLong(long len) {
+			//MZ
+			super.setContentLength((int)len);
 		}
 	
 	}

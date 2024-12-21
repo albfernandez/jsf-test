@@ -3,10 +3,10 @@ package org.jboss.test.faces.stub.faces;
 import java.io.IOException;
 import java.util.Locale;
 
-import javax.faces.FacesException;
-import javax.faces.application.ViewHandler;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
+import jakarta.faces.FacesException;
+import jakarta.faces.application.ViewHandler;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.context.FacesContext;
 
 public class StubViewHandler extends ViewHandler
 {
@@ -86,4 +86,11 @@ public class StubViewHandler extends ViewHandler
    public void writeState(FacesContext ctx) throws IOException
    {
    }
+
+   @Override
+   public String getWebsocketURL(FacesContext context, String channel) {
+	
+      return channel;
+   }
+   
 }

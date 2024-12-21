@@ -24,12 +24,10 @@
 package org.jboss.test.faces.writer;
 
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-
-import javax.faces.component.UIComponent;
 
 import org.jboss.test.faces.FacesTestException;
+
+import jakarta.faces.component.UIComponent;
 
 /**
  * @author asmirnov

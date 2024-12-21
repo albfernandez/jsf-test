@@ -9,8 +9,10 @@ import static org.junit.Assert.assertNotNull;
 import java.util.Arrays;
 import java.util.Collection;
 
-import javax.servlet.http.HttpSession;
-
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlForm;
+import org.htmlunit.html.HtmlInput;
+import org.htmlunit.html.HtmlPage;
 import org.jboss.test.faces.ApplicationServer;
 import org.jboss.test.faces.jetty.JettyServer;
 import org.jboss.test.faces.staging.StagingServer;
@@ -22,10 +24,8 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.w3c.dom.Element;
 
-import org.htmlunit.html.HtmlElement;
-import org.htmlunit.html.HtmlForm;
-import org.htmlunit.html.HtmlInput;
-import org.htmlunit.html.HtmlPage;
+import jakarta.enterprise.inject.se.SeContainer;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * @author asmirnov
@@ -37,6 +37,8 @@ public class FacesServerTest {
     private final Class<?  extends ApplicationServer> applicationServerClass;
 
     private HtmlUnitEnvironment environment;
+    
+    private SeContainer cdicontainer;
 
     public FacesServerTest(Class<? extends ApplicationServer> applicationServerClass) {
         super();
@@ -47,9 +49,12 @@ public class FacesServerTest {
     public static Collection<Class<?>[]> serverClasses() {
         return Arrays.asList(new Class<?>[][] {{
             JettyServer.class
-        }, {
+        }, 
+        	/*MZ TODO StagingServer lacks CDI support
+        	 * {
             StagingServer.class
-        }});
+        }*/
+        	});
     }
 
     /**
@@ -71,7 +76,7 @@ public class FacesServerTest {
         this.environment = null;
         System.clearProperty(ApplicationServer.APPLICATION_SERVER_PROPERTY);
     }
-
+    
     /**
      * Test method for
      * {@link org.jboss.test.faces.staging.StagingServer#getConnection(java.net.URL)}.
@@ -92,11 +97,13 @@ public class FacesServerTest {
         HtmlPage responsePage = submitElement.click();
         assertNotNull(responsePage);
         System.out.println(responsePage.asXml());
+        /*MZ not possible with CDI - only old ManagedBeans
         HttpSession session = environment.getServer().getSession(false);
         assertNotNull(session);
         HelloBean bean = (HelloBean) session.getAttribute("HelloBean");
         assertNotNull(bean);
         assertEquals("foo", bean.getName());
+        */
         Element span = responsePage.getElementById("responseform:userLabel");
         assertNotNull(span);
         assertEquals("foo", span.getTextContent().trim());

@@ -23,7 +23,8 @@
 
 package org.jboss.test.faces.mock.component;
 
-import static org.easymock.EasyMock.*;
+import static org.easymock.EasyMock.capture;
+import static org.easymock.EasyMock.expect;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,11 +32,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.component.UIComponent;
-
 import org.easymock.Capture;
 import org.easymock.IAnswer;
 import org.jboss.test.faces.mock.FacesMock;
+
+import jakarta.faces.component.UIComponent;
 
 /**
  * <p class="changed_added_4_0">
@@ -68,7 +69,7 @@ public class TreeBuilderImpl<C extends UIComponent> implements TreeBuilder<C> {
                 return children.size();
             }
         });
-        final Capture<String> facetNameCapture = new Capture<String>();
+        final Capture<String> facetNameCapture = Capture.newInstance();
         expect(component.getFacet(capture(facetNameCapture))).andStubAnswer(new IAnswer<UIComponent>() {
 
             public UIComponent answer() throws Throwable {

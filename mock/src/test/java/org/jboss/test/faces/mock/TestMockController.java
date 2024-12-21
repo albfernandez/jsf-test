@@ -23,12 +23,13 @@
 
 package org.jboss.test.faces.mock;
 
-import static org.easymock.EasyMock.*;
-import static org.junit.Assert.*;
-
-import javax.faces.component.UIData;
+import static org.easymock.EasyMock.expect;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+
+import jakarta.faces.component.UIData;
 
 
 /**

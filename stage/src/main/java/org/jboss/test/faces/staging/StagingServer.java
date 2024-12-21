@@ -20,32 +20,33 @@ import java.util.logging.Logger;
 
 import javax.naming.NamingException;
 import javax.naming.spi.NamingManager;
-import javax.servlet.Filter;
-import javax.servlet.Servlet;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextAttributeEvent;
-import javax.servlet.ServletContextAttributeListener;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletRequestAttributeEvent;
-import javax.servlet.ServletRequestAttributeListener;
-import javax.servlet.ServletRequestEvent;
-import javax.servlet.ServletRequestListener;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpSessionAttributeListener;
-import javax.servlet.http.HttpSessionBindingEvent;
-import javax.servlet.http.HttpSessionEvent;
-import javax.servlet.http.HttpSessionListener;
-import javax.servlet.jsp.JspFactory;
 
 import org.jboss.test.faces.ApplicationServer;
 import org.jboss.test.faces.FilterHolder;
 import org.jboss.test.faces.ServletHolder;
 import org.jboss.test.faces.TestException;
+
+import jakarta.servlet.Filter;
+import jakarta.servlet.Servlet;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletContextAttributeEvent;
+import jakarta.servlet.ServletContextAttributeListener;
+import jakarta.servlet.ServletContextEvent;
+import jakarta.servlet.ServletContextListener;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRegistration.Dynamic;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletRequestAttributeEvent;
+import jakarta.servlet.ServletRequestAttributeListener;
+import jakarta.servlet.ServletRequestEvent;
+import jakarta.servlet.ServletRequestListener;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSessionAttributeListener;
+import jakarta.servlet.http.HttpSessionBindingEvent;
+import jakarta.servlet.http.HttpSessionEvent;
+import jakarta.servlet.http.HttpSessionListener;
 
 /**
  * This class implements limited Http servlet container 2.5 functionality. It is
@@ -119,7 +120,7 @@ public class StagingServer extends ApplicationServer {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see javax.servlet.ServletContext#getMimeType(java.lang.String)
+		 * @see jakarta.servlet.ServletContext#getMimeType(java.lang.String)
 		 */
 		public String getMimeType(String file) {
 			int indexOfDot = file.lastIndexOf('.');
@@ -134,7 +135,7 @@ public class StagingServer extends ApplicationServer {
 		 * (non-Javadoc)
 		 * 
 		 * @see
-		 * org.jboss.test.faces.staging.StagingServletContext#valueBound(javax
+		 * org.jboss.test.faces.staging.StagingServletContext#valueBound(jakarta
 		 * .servlet.ServletContextAttributeEvent)
 		 */
 		@Override
@@ -152,7 +153,7 @@ public class StagingServer extends ApplicationServer {
 		 * (non-Javadoc)
 		 * 
 		 * @see
-		 * org.jboss.test.faces.staging.StagingServletContext#valueReplaced(javax
+		 * org.jboss.test.faces.staging.StagingServletContext#valueReplaced(jakarta
 		 * .servlet.ServletContextAttributeEvent)
 		 */
 		@Override
@@ -170,7 +171,7 @@ public class StagingServer extends ApplicationServer {
 		 * (non-Javadoc)
 		 * 
 		 * @see
-		 * org.jboss.test.faces.staging.StagingServletContext#valueUnbound(javax
+		 * org.jboss.test.faces.staging.StagingServletContext#valueUnbound(jakarta
 		 * .servlet.ServletContextAttributeEvent)
 		 */
 		@Override
@@ -196,6 +197,54 @@ public class StagingServer extends ApplicationServer {
 			return serverRoot.getResource(new ServerResourcePath(path));
 		}
 
+		@Override
+		public Dynamic addJspFile(String servletName, String jspFile) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public String getVirtualServerName() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public int getSessionTimeout() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public void setSessionTimeout(int sessionTimeout) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public String getRequestCharacterEncoding() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public void setRequestCharacterEncoding(String encoding) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public String getResponseCharacterEncoding() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public void setResponseCharacterEncoding(String encoding) {
+			// TODO Auto-generated method stub
+			
+		}
+
 	}
 
 	/**
@@ -209,7 +258,7 @@ public class StagingServer extends ApplicationServer {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see javax.servlet.http.HttpSession#getServletContext()
+		 * @see jakarta.servlet.http.HttpSession#getServletContext()
 		 */
 		public ServletContext getServletContext() {
 			return context;
@@ -219,7 +268,7 @@ public class StagingServer extends ApplicationServer {
 		 * (non-Javadoc)
 		 * 
 		 * @see
-		 * org.jboss.test.faces.staging.StagingHttpSession#valueBound(javax.servlet
+		 * org.jboss.test.faces.staging.StagingHttpSession#valueBound(jakarta.servlet
 		 * .http.HttpSessionBindingEvent)
 		 */
 		@Override
@@ -238,7 +287,7 @@ public class StagingServer extends ApplicationServer {
 		 * (non-Javadoc)
 		 * 
 		 * @see
-		 * org.jboss.test.faces.staging.StagingHttpSession#valueUnbound(javax.
+		 * org.jboss.test.faces.staging.StagingHttpSession#valueUnbound(jakarta.
 		 * servlet.http.HttpSessionBindingEvent)
 		 */
 		@Override
@@ -257,7 +306,7 @@ public class StagingServer extends ApplicationServer {
 		 * (non-Javadoc)
 		 * 
 		 * @see
-		 * org.jboss.test.faces.staging.StagingHttpSession#valueReplaced(javax
+		 * org.jboss.test.faces.staging.StagingHttpSession#valueReplaced(jakarta
 		 * .servlet.http.HttpSessionBindingEvent)
 		 */
 		@Override
@@ -552,9 +601,13 @@ public class StagingServer extends ApplicationServer {
         readDefaultMimeTypes();
 		
 		// Create Jsp factory
-		JspFactory.setDefaultFactory(new StaggingJspFactory(this.context));
+		// MZ JspFactory.setDefaultFactory(new StaggingJspFactory(this.context));
 		// Create init parameters
-		context.addInitParameters(initParameters);
+        System.out.println(initParameters.keySet());
+        System.out.println(initParameters.values());
+        
+		context.addInitParameters(initParameters);		
+		
 		// Inform listeners
 		// Create proxy objects.
 		ClassLoader loader = Thread.currentThread().getContextClassLoader();
@@ -631,7 +684,7 @@ public class StagingServer extends ApplicationServer {
 		}
 		defaultServlet.destroy();
 		// Clear Jsp factory
-		JspFactory.setDefaultFactory(null);
+		//MZ JspFactory.setDefaultFactory(null);
 		this.contextProxy = null;
 		log.info("Staging server have been destroyed");
 	}

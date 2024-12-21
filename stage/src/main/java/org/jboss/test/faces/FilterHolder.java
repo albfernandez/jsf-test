@@ -21,7 +21,7 @@
  */
 package org.jboss.test.faces;
 
-import javax.servlet.Filter;
+import jakarta.servlet.Filter;
 
 /**
  * @author Nick Belaevski

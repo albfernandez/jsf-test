@@ -34,26 +34,6 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.el.ELContext;
-import javax.faces.application.Application;
-import javax.faces.application.ApplicationFactory;
-import javax.faces.application.ViewHandler;
-import javax.faces.context.ExceptionHandlerFactory;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.ExternalContextFactory;
-import javax.faces.context.FacesContext;
-import javax.faces.context.FacesContextFactory;
-import javax.faces.context.PartialViewContextFactory;
-import javax.faces.lifecycle.LifecycleFactory;
-import javax.faces.render.RenderKit;
-import javax.faces.render.RenderKitFactory;
-import javax.faces.render.ResponseStateManager;
-import javax.faces.view.facelets.TagHandlerDelegateFactory;
-import javax.inject.Inject;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.jboss.test.faces.annotation.Environment;
 import org.jboss.test.faces.mockito.MockFacesEnvironment;
 import org.jboss.test.faces.writer.RecordingResponseWriter;
@@ -64,8 +44,26 @@ import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.InitializationError;
 import org.junit.runners.model.Statement;
 import org.mockito.MockitoAnnotations;
-import org.mockito.internal.runners.util.FrameworkUsageValidator;
-import org.mockito.runners.MockitoJUnitRunner;
+
+import jakarta.el.ELContext;
+import jakarta.faces.application.Application;
+import jakarta.faces.application.ApplicationFactory;
+import jakarta.faces.application.ViewHandler;
+import jakarta.faces.context.ExceptionHandlerFactory;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.ExternalContextFactory;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.FacesContextFactory;
+import jakarta.faces.context.PartialViewContextFactory;
+import jakarta.faces.lifecycle.LifecycleFactory;
+import jakarta.faces.render.RenderKit;
+import jakarta.faces.render.RenderKitFactory;
+import jakarta.faces.render.ResponseStateManager;
+import jakarta.faces.view.facelets.TagHandlerDelegateFactory;
+import jakarta.inject.Inject;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * <p>
@@ -75,11 +73,6 @@ import org.mockito.runners.MockitoJUnitRunner;
  * <p>
  * It initialized {@link MockFacesEnvironment} and is able to inject mocked JSF classes held by {@link MockFacesEnvironment} to
  * current test instance.
- * </p>
- * 
- * <p>
- * Similarly to {@link MockitoJUnitRunner}, it uses {@link MockitoAnnotations#initMocks(Object)} on test instance to mock all
- * the test dependencies annotated by Mockito annotations.
  * </p>
  * 
  * 
@@ -111,7 +104,7 @@ public class FacesMockitoRunner extends BlockJUnit4ClassRunner {
      */
     @Override
     public void run(RunNotifier notifier) {
-        notifier.addListener(new FrameworkUsageValidator(notifier));
+        //MZ notifier.addListener(new FrameworkUsageValidator(notifier));
         super.run(notifier);
     }
 
