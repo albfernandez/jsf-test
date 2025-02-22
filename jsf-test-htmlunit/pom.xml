@@ -4,7 +4,7 @@
 	<parent>
 		<artifactId>parent</artifactId>
 		<groupId>com.github.albfernandez.test-jsf</groupId>
-		<version>10.0.0</version>
+		<version>10.0.1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>htmlunit-client</artifactId>
@@ -18,12 +18,12 @@
 		<dependency>
 			<groupId>com.github.albfernandez.test-jsf</groupId>
 			<artifactId>jsf-test-stage</artifactId>
-			<version>10.0.0</version>
+			<version>10.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.albfernandez.test-jsf</groupId>
 			<artifactId>jsf-test-jetty</artifactId>
-			<version>10.0.0</version>
+			<version>10.0.1-SNAPSHOT</version>
 			<optional>true</optional>
 		</dependency>
         <dependency>
