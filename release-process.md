@@ -17,7 +17,7 @@ mvn clean package verify
 # change release in poms and README.md 
 mvn clean verify javadoc:jar 
 mvn clean install javadoc:jar 
-mvn -Psign clean package javadoc:jar deploy
+mvn -Psign clean javadoc:jar deploy
 git add -A
 git commit -S -m 'Release <1.1.14>'
 git tag -a <1.1.14> -m "Tagging release <1.1.14>"
