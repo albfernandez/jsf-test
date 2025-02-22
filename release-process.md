@@ -8,15 +8,15 @@ This guide provides a chronological steps which goes through release tagging, st
 Check that the project builds in java 8 and java 11.
 
 ```bash
-mvn clean package install verify
-JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/ mvn clean package install verify
+mvn clean package verify
 ```
 
 ## Set version and build 
 
 ```bash
 # change release in poms and README.md 
-mvn clean package install javadoc:jar verify
+mvn clean verify javadoc:jar 
+mvn clean install javadoc:jar 
 mvn -Psign clean package javadoc:jar deploy
 git add -A
 git commit -S -m 'Release <1.1.14>'

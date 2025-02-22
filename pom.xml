@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.albfernandez.test-jsf</groupId>
 	<artifactId>parent</artifactId>
-	<version>10.0.1-SNAPSHOT</version>
+	<version>10.0.0</version>
 	<name>JSF Test Framework</name>
 	<packaging>pom</packaging>
 
@@ -72,7 +72,6 @@
 						<release>${maven.compiler.target}</release>
 					</configuration>
 				</plugin>
-				
 			</plugins>
 		</pluginManagement>
 		<plugins>
@@ -81,22 +80,22 @@
 				<artifactId>maven-source-plugin</artifactId>
 				<version>3.3.1</version>
 				<executions>
-					<execution>
-						<id>attach-source</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
+		          <execution>
+		            <id>attach-sources</id>
+		            <goals>
+		              <goal>jar-no-fork</goal>
+		            </goals>
+		          </execution>
+		        </executions>				
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>3.10.0</version>
 				<configuration>
-					<source>21</source>
+					<source>8</source>
 					<quiet>true</quiet>
-					<additionalparam>-Xdoclint:none</additionalparam>
+					<additionalJOption>-Xdoclint:none</additionalJOption>
 				</configuration>
 			</plugin>			
 		</plugins>
